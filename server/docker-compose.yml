@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    container_name: 'TCC-postgres'
+    restart: on-failure
+    volumes:
+      - postgresTCC:/var/lib/postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_ROOT_PASSWORD: admin
+      POSTGRES_DB: tcc
+
+volumes:
+  postgresTCC:
+    name: postgresTCC
