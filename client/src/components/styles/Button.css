@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;1,300;1,400&display=swap");
+
+.default-button {
+    /* Estilos para o botão padrão */
+    background-color: #7e55d7;
+    color: #fff;
+    border: none;
+}
+
+.default-button:hover {
+    background-color: #6831df;
+}
+
+.outlined-button {
+    /* Estilos para o botão outlined */
+    background-color: transparent;
+    border: 1px solid #7e55d7;
+    color: #7e55d7;
+}
+
+.outlined-button:hover {
+    border: 1px solid #6831df;
+    color: #6831df;
+}
+
+.text-button {
+    /* Estilos para o botão de texto */
+    background-color: transparent;
+    border: none;
+    color: #7e55d7;
+}
+
+.text-button:hover {
+    color: #6831df;
+}
+
+.small-button {
+    width: 100%;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+}
+
+.medium-button {
+    width: 100%;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+}
+
+.large-button {
+    width: 100%;
+    padding: 16px 32px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Outros estilos comuns para todos os botões */
+.button {
+    white-space: nowrap;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 24px;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: 0.3s;
+}
