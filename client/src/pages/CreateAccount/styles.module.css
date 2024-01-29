@@ -1,0 +1,20 @@
+.container {
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.createAccount {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	gap: 3rem;
+	padding: 5rem 0;
+}
+
+.banner {
+	min-height: 100%;
+	background-color: var(--color01);
+}
