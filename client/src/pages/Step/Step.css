@@ -1,0 +1,48 @@
+.step {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	position: relative;
+}
+
+.circle {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 2px solid #ccc;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	color: #333;
+	background-color: #fff;
+}
+
+.circle.purple {
+	border-color: purple;
+	color: purple;
+}
+
+.circle.completed {
+	border-color: #ccc;
+	color: #ccc;
+}
+
+.line {
+	height: 50px; /* Ajuste conforme necessário */
+	width: 2px;
+	background-color: #ccc;
+	position: absolute;
+	top: 40px; /* Posição vertical da linha em relação ao círculo */
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.line.purple {
+	background-color: purple;
+}
+
+.line.completed {
+	background-color: #ccc;
+}
