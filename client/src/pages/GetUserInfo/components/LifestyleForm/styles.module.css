@@ -1,0 +1,65 @@
+.container {
+	width: 100vw;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	overflow-x: auto;
+}
+
+.stepProgessContainer {
+	width: 29.9375rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2.5rem;
+
+	margin: 10rem 9rem 0 16rem;
+	margin-bottom: 5rem;
+}
+
+.title {
+	width: 25.75rem;
+}
+
+.description {
+	width: 25.75rem;
+	color: var(--Gray-3);
+	font-family: Merriweather;
+	font-size: 1.2rem;
+	line-height: 1.5rem;
+}
+
+.stepProgress {
+	width: 25.75rem;
+}
+
+.separator {
+	width: 0.0625rem;
+	display: flex;
+	align-items: center;
+}
+
+.separator > div {
+	width: 100%;
+	height: 40rem;
+	background-color: #e0e0e0;
+}
+
+.stepFormContainer {
+	width: 70rem;
+	margin: 10rem 15rem 0 9rem;
+	margin-bottom: 2rem;
+	overflow: auto;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
+.stepFormContainer::-webkit-scrollbar {
+	display: none;
+}
+
+.stepForm {
+	width: 43.93rem;
+	display: flex;
+	flex-direction: column;
+}
