@@ -1,46 +1,132 @@
-import React, { useState } from 'react';
-
-import BaseForm from '../../components/BaseForm';
-import BaseInput from '../../components/BaseInput';
-import styles from './styles.module.css';
-
-import calendar from '../../assets/calendar.svg';
-import activeEye from '../../assets/activeEye.svg';
+import React, { useState } from "react";
+import { Button, Form, Input } from "antd";
+import styles from "./styles.module.css";
+import MaskedInput from "../../components/MaskedInput";
+import DatePicker from "../../components/DatePicker";
 
 export default function CreateAccount() {
-	const [passwordInput, setPasswordInput] = useState('password');
-	const [passwordInputIcon, setPasswordInputIcon] = useState(activeEye);
+    const [userProfile, setUserProfile] = useState({
+        nomeCompleto: "",
+        email: "",
+        numeroCelular: "",
+        dataNascimento: "",
+        senha: "",
+    });
 
-	const [datePicker, setDatePicker] = useState(false);
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setUserProfile((prevProfile) => ({
+            ...prevProfile,
+            [name]: value,
+        }));
+    };
 
-	const togglePasswordInput = () => {
-		setPasswordInput((prev) => (prev === 'password' ? 'text' : 'password'));
-		// setPasswordInputIcon((prev) => (prev === activeEye ? inactiveEye : activeEye)); // importar inactiveEye e remover comentário desta linha
-	};
+    const handleSubmit = () => {
+        console.log({ ...userProfile });
+    };
 
-	return (
-		<div className={styles.container}>
-			<section className={styles.createAccount}>
-				<h2 className={styles.title}>Criar conta</h2>
-				<BaseForm>
-					<BaseInput label={'Nome completo'} />
-					<BaseInput label={'E-mail'} />
-					<BaseInput
-						type={'date'}
-						label={'Data de nascimento'}
-						icon={calendar}
-					/>
-					<BaseInput label={'Número de celular'} />
-					<BaseInput
-						type={passwordInput}
-						label={'Senha'}
-						icon={passwordInputIcon}
-						onIconClick={togglePasswordInput}
-					/>
-					<button>Submit</button>
-				</BaseForm>
-			</section>
-			<section className={styles.banner}></section>
-		</div>
-	);
+    const [passwordVisible, setPasswordVisible] = React.useState(false);
+
+    return (
+        <div className={styles.container}>
+            <section className={styles.createAccount}>
+                <h2 className={styles.title}>Criar conta</h2>
+                <Form
+                    layout="vertical"
+                    style={{ width: "70%" }}
+                    initialValues={userProfile}
+                    onFinish={handleSubmit}
+                >
+                    <Form.Item
+                        label="Nome completo:"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Insira seu nome completo.",
+                            },
+                        ]}
+                    >
+                        <Input
+                            name={"nomeCompleto"}
+                            size="large"
+                            placeholder="Nome completo"
+                            value={userProfile.nomeCompleto}
+                            onChange={handleChange}
+                        ></Input>
+                    </Form.Item>
+                    <Form.Item
+                        label="Email:"
+                        rules={[
+                            {
+                                type: "email",
+                                message:
+                                    "O email inserido não possui um formato válido.",
+                            },
+                            {
+                                required: true,
+                                message: "Insira um endereço de email",
+                            },
+                        ]}
+                    >
+                        <Input
+                            name={"email"}
+                            size="large"
+                            placeholder="Email"
+                            value={userProfile.email}
+                            onChange={handleChange}
+                        ></Input>
+                    </Form.Item>
+                    <Form.Item label="Número de celular:">
+                        <MaskedInput
+                            name={"numeroCelular"}
+                            value={userProfile.numeroCelular}
+                            onChange={handleChange}
+                            type="text"
+                            mask="(99) 99999-9999"
+                            placeholder="(00) 00000-0000"
+                        ></MaskedInput>
+                    </Form.Item>
+                    <Form.Item label="Data de nascimento:">
+                        <DatePicker
+                            name="dataNascimento"
+                            selected={userProfile.dataNascimento}
+                            handleChange={handleChange}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        label="Senha:"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Insira uma senha.",
+                            },
+                        ]}
+                    >
+                        <Input.Password
+                            size="large"
+                            placeholder="Senha"
+                            visibilityToggle={{
+                                visible: passwordVisible,
+                                onVisibleChange: setPasswordVisible,
+                            }}
+                            name={"senha"}
+                            value={userProfile.senha}
+                            onChange={handleChange}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Button
+                            block
+                            size="large"
+                            type="primary"
+                            htmlType="submit"
+                        >
+                            Criar conta
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </section>
+            <section className={styles.banner}></section>
+        </div>
+    );
 }
