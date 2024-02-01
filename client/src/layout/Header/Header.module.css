@@ -10,6 +10,7 @@
 
 	padding: 0.5rem 6.25rem;
 	color: var(--color01);
+	position: relative;
 }
 
 .menuLogo {

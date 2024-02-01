@@ -51,6 +51,10 @@
 	color: var(--color01);
 }
 
+.checkedCircle > img {
+	width: 0.875rem;
+}
+
 .baseLine {
 	height: 3.5rem;
 	width: 0.125rem;
