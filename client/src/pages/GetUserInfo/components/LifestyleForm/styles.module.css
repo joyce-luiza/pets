@@ -7,7 +7,7 @@
 }
 
 .stepProgessContainer {
-	width: 29.9375rem;
+	width: 30%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -30,7 +30,7 @@
 }
 
 .stepProgress {
-	width: 25.75rem;
+	width: 90%;
 }
 
 .separator {
@@ -41,12 +41,12 @@
 
 .separator > div {
 	width: 100%;
-	height: 40rem;
+	height: 70%;
 	background-color: #e0e0e0;
 }
 
 .stepFormContainer {
-	width: 70rem;
+	width: 70%;
 	margin: 10rem 15rem 0 9rem;
 	margin-bottom: 2rem;
 	overflow: auto;
@@ -62,4 +62,42 @@
 	width: 43.93rem;
 	display: flex;
 	flex-direction: column;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1366px) {
+	.stepProgessContainer {
+		width: 35%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 2rem;
+
+		margin: 3rem 2rem 0 6rem;
+		margin-bottom: 5rem;
+	}
+
+	.stepProgress {
+		width: 90%;
+	}
+
+	.separator {
+		width: 0.0625%;
+		display: flex;
+		align-items: center;
+	}
+
+	.separator > div {
+		width: 100%;
+		height: 80%;
+		background-color: #e0e0e0;
+	}
+
+	.stepFormContainer {
+		width: 50%;
+		margin: 3rem 6rem 0 2rem;
+		margin-bottom: 2rem;
+		overflow: auto;
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
 }
