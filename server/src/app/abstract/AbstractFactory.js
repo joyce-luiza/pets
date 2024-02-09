@@ -13,9 +13,9 @@ export default class AbstractFactory {
 				throw result;
 			}
 			result = await strategy.execute(data, dto, loggedUserInfo);
-			dto = result;
+			dto = result ? result : dto;
 		}
 
-		return result;
+		return dto;
 	}
 }

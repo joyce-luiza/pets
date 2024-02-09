@@ -5,4 +5,8 @@ module.exports = Object.freeze({
 		SUSPENDED: 'SUS',
 	},
 	MINIMUM_AGE: 18,
+	USER_TYPE: {
+		ADOPTER: 'ADOPTER',
+		ORGANIZATION: 'ORGANIZATION',
+	},
 });
