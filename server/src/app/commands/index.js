@@ -3,6 +3,7 @@ import DeleteByIdCommand from './DeleteByIdCommand';
 import DeleteLogicallyByIdCommand from './DeleteLogicallyByIdCommand';
 import GetByIdCommand from './GetByIdCommand';
 import UpdateByIdCommand from './UpdateByIdCommand';
+import DoLoginCommand from './DoLoginCommand';
 
 export {
 	CreateCommand,
@@ -10,4 +11,5 @@ export {
 	DeleteLogicallyByIdCommand,
 	GetByIdCommand,
 	UpdateByIdCommand,
+	DoLoginCommand,
 };

@@ -37,6 +37,10 @@ export default class AbstractRepository {
 		return await this.model.findOne({ where: { id } });
 	}
 
+	async findByProp(prop, value) {
+		return await this.model.findOne({ where: { [`${prop}`]: value } });
+	}
+
 	// async findByUserId(userId) {
 	//     const activeStatus = await this.getActiveStatusId();
 	//     return await this.model.findOne({

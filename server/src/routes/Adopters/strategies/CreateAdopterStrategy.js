@@ -1,5 +1,5 @@
-import AbstractRepository from '../../../app/abstract/AbstractRepository';
 import AbstractStrategy from '../../../app/abstract/AbstractStrategy';
+import { AdopterRepository } from '../../../app/repositories';
 import { Adopter } from '../../../app/domains';
 
 /**
@@ -9,18 +9,18 @@ import { Adopter } from '../../../app/domains';
  */
 export default class CreateAdopterStrategy extends AbstractStrategy {
 	/**
-	 * @param {AbstractRepository} repository - An instance of AbstractRepository
+	 * @param {AdopterRepository} adopterRepository - An instance of AbstractRepository
 	 */
-	constructor(repository) {
+	constructor(adopterRepository) {
 		super();
-		this.repository = repository;
+		this.adopterRepository = adopterRepository;
 	}
 
 	/**
 	 * @param {Adopter} data - Adopter domain object
 	 */
 	async execute(data) {
-		const adopter = await this.repository.createAdopter(data);
+		const adopter = await this.adopterRepository.createAdopter(data);
 
 		if (!adopter) {
 			this.throwError('Erro ao criar a conta');

@@ -13,6 +13,7 @@ export default class AbstractFacade {
 	 */
 	constructor(controller) {
 		this.controller = controller;
+		this.handleError = this.handleError.bind(this);
 
 		this.create = this.create.bind(this);
 		this.getById = this.getById.bind(this);
