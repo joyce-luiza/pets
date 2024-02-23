@@ -22,11 +22,9 @@ const MaskedInput = forwardRef(({ name, label, rules, ...props }, ref) => {
 });
 
 MaskedInput.propTypes = {
-    mask: PropTypes.string,
-    maskChar: PropTypes.string,
-    formatChars: PropTypes.object,
-    alwaysShowMask: PropTypes.bool,
-    inputRef: PropTypes.func,
+    name: PropTypes.string,
+    label: PropTypes.string,
+    rules: PropTypes.object,
 };
 
 export default MaskedInput;

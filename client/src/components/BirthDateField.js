@@ -49,9 +49,6 @@ const BirthDateField = ({ name, label }) => {
 BirthDateField.propTypes = {
     name: PropTypes.string,
     label: PropTypes.string,
-    rules: PropTypes.array,
-    selected: PropTypes.any,
-    handleChange: PropTypes.func,
 };
 
 export default BirthDateField;

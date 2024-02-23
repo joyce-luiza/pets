@@ -1,6 +1,7 @@
 import { Form, Input } from "antd";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { STATE_COLORS } from "../constants";
 
 const defaultPasswordCriteria = [
     {
@@ -34,6 +35,22 @@ const PasswordField = ({ name }) => {
         });
     };
 
+    const validatePasswordField = (_, value) => {
+        if (!value) {
+            return Promise.resolve();
+        }
+        updateCriteriaValidity(value);
+        const isValid = defaultPasswordCriteria.every((criteria) =>
+            criteria.regex.test(value)
+        );
+        if (!isValid) {
+            return Promise.reject(
+                "A senha não atende aos critérios necessários."
+            );
+        }
+        return Promise.resolve();
+    };
+
     return (
         <div>
             <Form.Item
@@ -47,21 +64,7 @@ const PasswordField = ({ name }) => {
                         message: "Insira uma senha",
                     },
                     {
-                        validator: (_, value) => {
-                            if (!value) {
-                                return Promise.resolve();
-                            }
-                            updateCriteriaValidity(value);
-                            const isValid = defaultPasswordCriteria.every(
-                                (criteria) => criteria.regex.test(value)
-                            );
-                            if (!isValid) {
-                                return Promise.reject(
-                                    "A senha não atende aos critérios necessários."
-                                );
-                            }
-                            return Promise.resolve();
-                        },
+                        validator: validatePasswordField,
                     },
                 ]}
             >
@@ -80,7 +83,9 @@ const PasswordField = ({ name }) => {
                     <div
                         key={criteria.label}
                         style={{
-                            color: criteria.isValid ? "#27ae60" : "#828282",
+                            color: criteria.isValid
+                                ? STATE_COLORS.SUCCESS
+                                : STATE_COLORS.DEFAULT,
                             display: "flex",
                             gap: "8px",
                         }}
