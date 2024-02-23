@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { Button, Form, Input, Carousel, Radio, message } from "antd";
 import styles from "./styles.module.css";
+import { USER_TYPE } from "../../constants";
 import MaskedInput from "../../components/MaskedInput";
 import testimonialImage1 from "./images/image-1.jpg";
+import testimonialImage2 from "./images/image-2.jpg";
+import testimonialImage3 from "./images/image-3.jpg";
+
 import PasswordField from "../../components/PasswordField";
 import { axiosRequest } from "../../utils/axiosRequest";
 import BirthDateField from "../../components/BirthDateField";
 
 export default function CreateAccount() {
-    const [accountType, setAccountType] = useState("adopter");
+    const [accountType, setAccountType] = useState(USER_TYPE.ADOPTER);
     const [messageApi, contextHolder] = message.useMessage();
     const [loading, setLoading] = useState(false);
 
@@ -73,145 +77,126 @@ export default function CreateAccount() {
                 <section className={styles.createAccount}>
                     <h2 className={styles.title}>Criar conta</h2>
 
-                    {accountType === "adopter" && (
-                        <Form
-                            layout="vertical"
-                            style={{ width: "70%" }}
-                            initialValues={{
-                                fullName: "",
-                                email: "",
-                                phoneNumber: "",
-                                birthDate: "",
-                                password: "",
-                            }}
-                            onFinish={handleSubmit}
-                        >
-                            <Form.Item>
-                                <div className={styles.accountType}>
-                                    <h3>Tipo de conta</h3>
-                                    <Radio.Group
-                                        onChange={changeAccountType}
-                                        value={accountType}
-                                    >
-                                        <Radio value={"adopter"}>
-                                            Sou adotante
-                                        </Radio>
-                                        <Radio value={"organization"}>
-                                            Sou uma organização
-                                        </Radio>
-                                    </Radio.Group>
-                                </div>
-                            </Form.Item>
-                            <Form.Item
-                                name={"fullName"}
-                                label="Nome completo:"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Insira o seu nome completo",
-                                    },
-                                ]}
-                            >
-                                <Input
-                                    size="large"
-                                    placeholder="Nome completo"
-                                ></Input>
-                            </Form.Item>
-                            <Form.Item
-                                name={"email"}
-                                label="Email:"
-                                rules={[
-                                    {
-                                        type: "email",
-                                        message:
-                                            "O email inserido não possui um formato válido.",
-                                    },
-                                    {
-                                        required: true,
-                                        message: "Insira um endereço de email",
-                                    },
-                                ]}
-                                validateTrigger="onBlur"
-                            >
-                                <Input size="large" placeholder="Email"></Input>
-                            </Form.Item>
-                            <MaskedInput
-                                name={"phoneNumber"}
-                                label="Número de celular:"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Insira um número de celular",
-                                    },
-                                ]}
-                                type="text"
-                                mask="(99) 99999-9999"
-                                placeholder="(00) 00000-0000"
-                            ></MaskedInput>
-                            {/* <DatePicker
-                                name={"birthDate"}
-                                label="Data de nascimento:"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message:
-                                            "Insira a sua data de nascimento",
-                                    },
-                                ]}
-                            /> */}
-                            <BirthDateField
-                                name={"birthDate"}
-                                label={"Data de nascimento"}
-                            ></BirthDateField>
-                            <PasswordField name={"password"}></PasswordField>
-                            <Form.Item>
-                                <Button
-                                    block
-                                    size="large"
-                                    type="primary"
-                                    htmlType="submit"
-                                    loading={loading}
+                    <Form
+                        layout="vertical"
+                        style={{ width: "70%" }}
+                        initialValues={{
+                            fullName: "",
+                            email: "",
+                            phoneNumber: "",
+                            birthDate: "",
+                            password: "",
+                        }}
+                        onFinish={handleSubmit}
+                    >
+                        <Form.Item>
+                            <div className={styles.accountType}>
+                                <h3>Tipo de conta</h3>
+                                <Radio.Group
+                                    onChange={changeAccountType}
+                                    value={accountType}
                                 >
-                                    Criar conta
-                                </Button>
-                            </Form.Item>
-                            <Form.Item>
-                                <Button type="link" style={{ width: "100%" }}>
-                                    Já possui conta? Faça login
-                                </Button>
-                            </Form.Item>
-                        </Form>
-                    )}
-                    {accountType === "organization" && (
-                        <Form
-                            layout="vertical"
-                            style={{ width: "70%" }}
-                            initialValues={""}
-                        >
-                            <Form.Item>
-                                <div className={styles.accountType}>
-                                    <h3>Tipo de conta</h3>
-                                    <Radio.Group
-                                        onChange={changeAccountType}
-                                        value={accountType}
+                                    <Radio value={USER_TYPE.ADOPTER}>
+                                        Sou adotante
+                                    </Radio>
+                                    <Radio value={USER_TYPE.ORGANIZATION}>
+                                        Sou uma organização
+                                    </Radio>
+                                </Radio.Group>
+                            </div>
+                        </Form.Item>
+                        {accountType === USER_TYPE.ADOPTER && (
+                            <>
+                                <Form.Item
+                                    name={"fullName"}
+                                    label="Nome completo:"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message:
+                                                "Insira o seu nome completo",
+                                        },
+                                    ]}
+                                >
+                                    <Input
+                                        size="large"
+                                        placeholder="Nome completo"
+                                    ></Input>
+                                </Form.Item>
+                                <Form.Item
+                                    name={"email"}
+                                    label="Email:"
+                                    rules={[
+                                        {
+                                            type: "email",
+                                            message:
+                                                "O email inserido não possui um formato válido.",
+                                        },
+                                        {
+                                            required: true,
+                                            message:
+                                                "Insira um endereço de email",
+                                        },
+                                    ]}
+                                    validateTrigger="onBlur"
+                                >
+                                    <Input
+                                        size="large"
+                                        placeholder="Email"
+                                    ></Input>
+                                </Form.Item>
+                                <MaskedInput
+                                    name={"phoneNumber"}
+                                    label="Número de celular:"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message:
+                                                "Insira um número de celular",
+                                        },
+                                    ]}
+                                    type="text"
+                                    mask="(99) 99999-9999"
+                                    placeholder="(00) 00000-0000"
+                                ></MaskedInput>
+                                <BirthDateField
+                                    name={"birthDate"}
+                                    label={"Data de nascimento"}
+                                ></BirthDateField>
+                                <PasswordField
+                                    name={"password"}
+                                ></PasswordField>
+                                <Form.Item>
+                                    <Button
+                                        block
+                                        size="large"
+                                        type="primary"
+                                        htmlType="submit"
+                                        loading={loading}
                                     >
-                                        <Radio value={"adopter"}>
-                                            Sou adotante
-                                        </Radio>
-                                        <Radio value={"organization"}>
-                                            Sou uma organização
-                                        </Radio>
-                                    </Radio.Group>
-                                </div>
-                            </Form.Item>
-                            <h3>Confia que aqui vai ter um formulário</h3>
-                        </Form>
+                                        Criar conta
+                                    </Button>
+                                </Form.Item>
+                                <Form.Item>
+                                    <Button
+                                        type="link"
+                                        style={{ width: "100%" }}
+                                    >
+                                        Já possui conta? Faça login
+                                    </Button>
+                                </Form.Item>
+                            </>
+                        )}
+                    </Form>
+                    {accountType === USER_TYPE.ORGANIZATION && (
+                        <h3>Confia que aqui vai ter um formulário</h3>
                     )}
                 </section>
                 <div style={{ position: "fixed", right: "0" }}>
                     <Carousel
                         className={styles.carousel}
-                        // autoplay
+                        autoplay
+                        autoplaySpeed={8000}
                     >
                         <div className={styles.banner}>
                             <div
@@ -223,7 +208,7 @@ export default function CreateAccount() {
                             <p className={styles.testimonialText}>
                                 "Encontrei Teodoro, meu fiel amigo de quatro
                                 patas, no site! Ele trouxe alegria e amor para
-                                nossa casa. Obrigado, [nome do site]!"
+                                nossa casa."
                             </p>
                             <div className={styles.testimonialAuthor}>
                                 <div></div>
@@ -231,13 +216,41 @@ export default function CreateAccount() {
                             </div>
                         </div>
                         <div className={styles.banner}>
-                            <h3>2</h3>
+                            <div
+                                style={{
+                                    backgroundImage: `url(${testimonialImage2})`,
+                                }}
+                                className={styles.backgroundPhoto}
+                            ></div>
+                            <p className={styles.testimonialText}>
+                                "O site foi o elo que nos uniu a Nina, nossa
+                                adorável cachorrinha. Desde que ela chegou,
+                                nossas vidas se encheram de risadas e carinho.
+                                Não poderíamos estar mais gratos por essa
+                                conexão especial."
+                            </p>
+                            <div className={styles.testimonialAuthor}>
+                                <div></div>
+                                <p>Giovanna, tutora da Nina</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3>3</h3>
-                        </div>
-                        <div>
-                            <h3>4</h3>
+                        <div className={styles.banner}>
+                            <div
+                                style={{
+                                    backgroundImage: `url(${testimonialImage3})`,
+                                }}
+                                className={styles.backgroundPhoto}
+                            ></div>
+                            <p className={styles.testimonialText}>
+                                "Jamais esquecerei o dia em que me deparei com a
+                                foto de Otto neste site. Ele se tornou mais do
+                                que um simples animal de estimação: é um membro
+                                querido da família."
+                            </p>
+                            <div className={styles.testimonialAuthor}>
+                                <div></div>
+                                <p>Lucas, tutor do Otto</p>
+                            </div>
                         </div>
                     </Carousel>
                 </div>
