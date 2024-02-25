@@ -59,7 +59,7 @@
 }
 
 .stepForm {
-	width: 43.93rem;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 }

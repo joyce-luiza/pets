@@ -2,23 +2,61 @@ import React, { useState } from 'react';
 import styles from './styles.module.css';
 
 import VerticalStep from '../VerticalStep';
+import LifestyleStep1 from './components/LifestyleStep1';
 
 export default function LifestyleForm() {
+	const [stepForm, setStepForm] = useState({
+		step1: {},
+	});
+
+	const handleStepForm = (step, value) => {
+		setStepForm((prev) => ({
+			...prev,
+			[step]: {
+				...prev[step],
+				...value,
+			},
+		}));
+		nextStep();
+		console.log(stepForm);
+	};
+
 	const steps = [
 		{
+			id: 'step1',
 			title: 'Endereço',
 			description: 'Vamos encontrar um pet compatível com o seu local',
-			component: () => <div>Test1</div>,
+			component: () =>
+				LifestyleStep1({
+					title: 'Endereço',
+					description:
+						'Seu endereço será usado para garantir verificações de compatibilidade do seu futuro pet e o seu local de residência.',
+					handler: handleStepForm,
+				}),
 		},
 		{
+			id: 'step2',
 			title: 'Preferências',
 			description: 'Vamos definir quais características o pet deve ter',
-			component: () => <div>Test2</div>,
+			component: () =>
+				LifestyleStep1({
+					title: 'Endereço',
+					description:
+						'Para o match perfeito, pedimos para que você defina quais são as suas preferências sobre o seu futuro pet.',
+					handler: handleStepForm,
+				}),
 		},
 		{
+			id: 'step3',
 			title: 'Estilo de vida',
 			description: 'Iremos descobrir quais pets combinam com a sua rotina',
-			component: () => <div>Test3</div>,
+			component: () =>
+				LifestyleStep1({
+					title: 'Endereço',
+					description:
+						'Nos ajude a entender o seu estilo de vida para que possamos encontrar um bichinho que tenha uma personalidade compatível.',
+					handler: handleStepForm,
+				}),
 		},
 	];
 
@@ -66,9 +104,6 @@ export default function LifestyleForm() {
 						<h2>Nice</h2>
 					)}
 				</div>
-
-				{/* Inserir botão de nextStep com a condicional na ultima etapa para salvar */}
-				<button onClick={nextStep}>Uopa</button>
 			</div>
 		</div>
 	);
