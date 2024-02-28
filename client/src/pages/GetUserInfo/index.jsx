@@ -4,19 +4,19 @@ import AnswerLifestyleQuestions from './components/AnswerLifestyleQuestions';
 import LifestyleForm from './components/LifestyleForm';
 
 export default function GetUserInfo() {
-	const [answerQuestions, setAnswerQuestions] = useState(true);
+    const [answerQuestions, setAnswerQuestions] = useState(false);
 
-	const handleAnswerQuestions = () => {
-		setAnswerQuestions(() => true);
-	};
+    const handleAnswerQuestions = () => {
+        setAnswerQuestions(() => true);
+    };
 
-	return (
-		<div className={styles.container}>
-			{!answerQuestions ? (
-				<AnswerLifestyleQuestions answerQuestionsFn={handleAnswerQuestions} />
-			) : (
-				<LifestyleForm />
-			)}
-		</div>
-	);
+    return (
+        <div className={styles.container}>
+            {!answerQuestions ? (
+                <AnswerLifestyleQuestions answerQuestionsFn={handleAnswerQuestions} />
+            ) : (
+                <LifestyleForm />
+            )}
+        </div>
+    );
 }

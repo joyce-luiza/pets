@@ -1,0 +1,1 @@
+export default function LifestyleStep1({ title, description, handler }) {}
