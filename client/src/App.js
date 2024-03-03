@@ -21,7 +21,8 @@ export default function AppRoutes() {
                         labelColor: '#4435ab',
                     },
                 },
-            }}>
+            }}
+        >
             <div className="App">
                 <BrowserRouter>
                     <Routes>

@@ -7,7 +7,7 @@ import { LifestyleStep1, FinishLifestyleForm } from './components';
 export default function LifestyleForm() {
     const [, setStepForm] = useState({
         step1: {},
-        // step2: {},
+        step2: {},
         // step3: {},
     });
 
@@ -26,7 +26,6 @@ export default function LifestyleForm() {
 
     const nextStep = () => {
         if (currentStep < steps.length) {
-            // Adjusted the condition to prevent accessing out-of-bound index
             setCurrentStep(currentStep + 1);
         }
     };

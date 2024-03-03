@@ -3,5 +3,7 @@
     "tabWidth": 4,
     "singleQuote": true,
     "trailingComma": "all",
-    "arrowParens": "always"
+    "arrowParens": "always",
+    "endOfLine": "crlf",
+    "jsxSingleQuote": false
 }
