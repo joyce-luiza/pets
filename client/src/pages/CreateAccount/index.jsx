@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Carousel, Radio } from "antd";
+import { Button, Form, Input, Carousel, Radio, message } from "antd";
 import styles from "./styles.module.css";
 import { USER_TYPE } from "../../constants";
 import MaskedInput from "../../components/MaskedInput";
@@ -13,11 +13,20 @@ import { useAuth } from "../../contexts/AuthContext";
 
 export default function CreateAccount() {
     const { login } = useAuth();
+    const [messageApi, contextHolder] = message.useMessage();
     const [accountType, setAccountType] = useState(USER_TYPE.ADOPTER);
     const [loading, setLoading] = useState(false);
 
     const changeAccountType = (event) => {
         setAccountType(event.target.value);
+    };
+
+    const errorMessage = () => {
+        messageApi.open({
+            type: 'error',
+            content: 'Erro ao criar conta.',
+            duration: 5,
+        });
     };
 
     const handleSubmit = async ({
@@ -47,14 +56,16 @@ export default function CreateAccount() {
 
         if (result) {
             setLoading(false);
-            login(body.email, body.password, accountType);
+            login(body.email, body.password, accountType, true);
         } else {
             setLoading(false);
+            errorMessage();
         }
     };
 
     return (
         <>
+        {contextHolder}
             <div className={styles.container}>
                 <section className={styles.createAccount}>
                     <h2 className={styles.title}>Criar conta</h2>
