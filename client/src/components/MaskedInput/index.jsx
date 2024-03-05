@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { Form } from 'antd';
 import InputMask from 'react-input-mask';
 import PropTypes from 'prop-types';
-import '../styles/Input.css';
+import styles from "./styles.module.css";
 
 const MaskedInput = forwardRef(function MaskedInput({ name, label, rules, ...props }, ref) {
     return (
@@ -12,7 +12,7 @@ const MaskedInput = forwardRef(function MaskedInput({ name, label, rules, ...pro
                     <input
                         {...inputProps}
                         ref={ref}
-                        className="input"
+                        className={styles.input}
                         disabled={props.disabled ? props.disabled : null}
                     />
                 )}
