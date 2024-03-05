@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 /**
  * @typedef {'get' | 'post' | 'put' | 'delete'} HttpMethod
@@ -10,6 +10,7 @@ import axios from "axios";
  * @property {string} [path=""]
  * @property {Object} [body={}]
  * @property {string} [params=""]
+ * @property {boolean} [basePath=true]
  */
 
 /**
@@ -18,21 +19,22 @@ import axios from "axios";
  * @returns {Promise<Object> | Promise<boolean>}
  */
 export async function axiosRequest({
-    method = "get",
-    path = "",
+    method = 'get',
+    path = '',
     body = {},
     params = {},
+    basePath = true,
 }) {
     try {
         const { data } = await axios({
             method,
-            url: path ? `${process.env.REACT_APP_API_PATH}${path}` : "",
+            url: path && basePath ? `${process.env.REACT_APP_API_PATH}${path}` : `${path}`,
             data: body,
             params: params,
         });
         return data;
     } catch (error) {
-        console.error("Erro na requisição:", error.message);
+        console.error('Erro na requisição:', error.message);
         return false;
     }
 }

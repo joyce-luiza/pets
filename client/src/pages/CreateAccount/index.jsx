@@ -28,7 +28,7 @@ export default function CreateAccount() {
         email,
     }) => {
         setLoading(true);
-        const firstName = fullName.split(" ")[0];
+        const firstName = fullName.split(' ')[0];
         const lastName = fullName.slice(firstName.length).trim();
         const body = {
             firstName: firstName,
@@ -40,8 +40,8 @@ export default function CreateAccount() {
         };
 
         const result = await axiosRequest({
-            method: "post",
-            path: "/adopter",
+            method: 'post',
+            path: '/adopter',
             body,
         });
 
@@ -61,26 +61,21 @@ export default function CreateAccount() {
 
                     <Form
                         layout="vertical"
-                        style={{ width: "70%" }}
+                        style={{ width: '70%' }}
                         initialValues={{
-                            fullName: "",
-                            email: "",
-                            phoneNumber: "",
-                            birthDate: "",
-                            password: "",
+                            fullName: '',
+                            email: '',
+                            phoneNumber: '',
+                            birthDate: '',
+                            password: '',
                         }}
                         onFinish={handleSubmit}
                     >
                         <Form.Item>
                             <div className={styles.accountType}>
                                 <h3>Tipo de conta</h3>
-                                <Radio.Group
-                                    onChange={changeAccountType}
-                                    value={accountType}
-                                >
-                                    <Radio value={USER_TYPE.ADOPTER}>
-                                        Sou adotante
-                                    </Radio>
+                                <Radio.Group onChange={changeAccountType} value={accountType}>
+                                    <Radio value={USER_TYPE.ADOPTER}>Sou adotante</Radio>
                                     <Radio value={USER_TYPE.ORGANIZATION}>
                                         Sou uma organização
                                     </Radio>
@@ -90,51 +85,42 @@ export default function CreateAccount() {
                         {accountType === USER_TYPE.ADOPTER && (
                             <>
                                 <Form.Item
-                                    name={"fullName"}
+                                    name={'fullName'}
                                     label="Nome completo:"
                                     rules={[
                                         {
                                             required: true,
-                                            message:
-                                                "Insira o seu nome completo",
+                                            message: 'Insira o seu nome completo',
                                         },
                                     ]}
                                 >
-                                    <Input
-                                        size="large"
-                                        placeholder="Nome completo"
-                                    ></Input>
+                                    <Input size="large" placeholder="Nome completo"></Input>
                                 </Form.Item>
                                 <Form.Item
-                                    name={"email"}
+                                    name={'email'}
                                     label="Email:"
                                     rules={[
                                         {
-                                            type: "email",
+                                            type: 'email',
                                             message:
-                                                "O email inserido não possui um formato válido.",
+                                                'O email inserido não possui um formato válido.',
                                         },
                                         {
                                             required: true,
-                                            message:
-                                                "Insira um endereço de email",
+                                            message: 'Insira um endereço de email',
                                         },
                                     ]}
                                     validateTrigger="onBlur"
                                 >
-                                    <Input
-                                        size="large"
-                                        placeholder="Email"
-                                    ></Input>
+                                    <Input size="large" placeholder="Email"></Input>
                                 </Form.Item>
                                 <MaskedInput
-                                    name={"phoneNumber"}
+                                    name={'phoneNumber'}
                                     label="Número de celular:"
                                     rules={[
                                         {
                                             required: true,
-                                            message:
-                                                "Insira um número de celular",
+                                            message: 'Insira um número de celular',
                                         },
                                     ]}
                                     type="text"
@@ -142,12 +128,10 @@ export default function CreateAccount() {
                                     placeholder="(00) 00000-0000"
                                 ></MaskedInput>
                                 <BirthDateField
-                                    name={"birthDate"}
-                                    label={"Data de nascimento"}
+                                    name={'birthDate'}
+                                    label={'Data de nascimento'}
                                 ></BirthDateField>
-                                <PasswordField
-                                    name={"password"}
-                                ></PasswordField>
+                                <PasswordField name={'password'}></PasswordField>
                                 <Form.Item>
                                     <Button
                                         block
@@ -160,10 +144,7 @@ export default function CreateAccount() {
                                     </Button>
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button
-                                        type="link"
-                                        style={{ width: "100%" }}
-                                    >
+                                    <Button type="link" style={{ width: '100%' }}>
                                         Já possui conta? Faça login
                                     </Button>
                                 </Form.Item>
@@ -174,12 +155,8 @@ export default function CreateAccount() {
                         <h3>Confia que aqui vai ter um formulário</h3>
                     )}
                 </section>
-                <div style={{ position: "fixed", right: "0" }}>
-                    <Carousel
-                        className={styles.carousel}
-                        autoplay
-                        autoplaySpeed={8000}
-                    >
+                <div style={{ position: 'fixed', right: '0' }}>
+                    <Carousel className={styles.carousel} autoplay autoplaySpeed={8000}>
                         <div className={styles.banner}>
                             <div
                                 style={{
@@ -188,9 +165,8 @@ export default function CreateAccount() {
                                 className={styles.backgroundPhoto}
                             ></div>
                             <p className={styles.testimonialText}>
-                                "Encontrei Teodoro, meu fiel amigo de quatro
-                                patas, no site! Ele trouxe alegria e amor para
-                                nossa casa."
+                                "Encontrei Teodoro, meu fiel amigo de quatro patas, no site! Ele
+                                trouxe alegria e amor para nossa casa."
                             </p>
                             <div className={styles.testimonialAuthor}>
                                 <div></div>
@@ -205,11 +181,9 @@ export default function CreateAccount() {
                                 className={styles.backgroundPhoto}
                             ></div>
                             <p className={styles.testimonialText}>
-                                "O site foi o elo que nos uniu a Nina, nossa
-                                adorável cachorrinha. Desde que ela chegou,
-                                nossas vidas se encheram de risadas e carinho.
-                                Não poderíamos estar mais gratos por essa
-                                conexão especial."
+                                "O site foi o elo que nos uniu a Nina, nossa adorável cachorrinha.
+                                Desde que ela chegou, nossas vidas se encheram de risadas e carinho.
+                                Não poderíamos estar mais gratos por essa conexão especial."
                             </p>
                             <div className={styles.testimonialAuthor}>
                                 <div></div>
@@ -224,10 +198,9 @@ export default function CreateAccount() {
                                 className={styles.backgroundPhoto}
                             ></div>
                             <p className={styles.testimonialText}>
-                                "Jamais esquecerei o dia em que me deparei com a
-                                foto de Otto neste site. Ele se tornou mais do
-                                que um simples animal de estimação: é um membro
-                                querido da família."
+                                "Jamais esquecerei o dia em que me deparei com a foto de Otto neste
+                                site. Ele se tornou mais do que um simples animal de estimação: é um
+                                membro querido da família."
                             </p>
                             <div className={styles.testimonialAuthor}>
                                 <div></div>

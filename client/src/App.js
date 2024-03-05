@@ -13,19 +13,19 @@ export default function AppRoutes() {
         <ConfigProvider
             theme={{
                 token: {
-                    colorPrimary: "#4435ab",
-                    colorInfo: "#4435ab",
-                    colorBgBase: "#fff",
+                    colorPrimary: '#4435ab',
+                    colorInfo: '#4435ab',
+                    colorBgBase: '#fff',
                     fontSize: 16,
                     borderRadius: 4,
                 },
                 components: {
                     Form: {
-                        labelColor: "#4435ab",
+                        labelColor: '#4435ab',
                     },
                 },
             }}
-        >
+        > 
             <div className="App">
                 <BrowserRouter>
                     <AuthProvider>

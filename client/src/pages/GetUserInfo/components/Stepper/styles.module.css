@@ -1,0 +1,94 @@
+.step {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: baseline;
+	gap: 0.75rem;
+}
+
+.stepProgress {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.stepDescription {
+	display: flex;
+	flex-direction: column;
+
+	position: relative;
+	width: 25rem;
+	justify-content: center;
+}
+
+.baseCircle {
+	width: 2.5rem;
+	height: 2.5rem;
+	font-size: 0.875rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border-radius: 50%;
+	border: 2px solid #ccc;
+	background-color: #fff;
+	color: var(--inactive);
+	padding: 0.75rem;
+}
+
+.currentCircle {
+	composes: baseCircle;
+	border-color: var(--color01);
+	color: var(--color01);
+}
+
+.checkedCircle {
+	composes: baseCircle;
+	border-color: var(--color01);
+	background-color: var(--color01);
+	color: var(--color01);
+}
+
+.checkedCircle > img {
+	width: 0.875rem;
+}
+
+.baseLine {
+	height: 3.5rem;
+	width: 0.125rem;
+	background-color: #ccc;
+}
+
+.checkedLine {
+	composes: baseLine;
+	background-color: var(--color01);
+}
+
+.title {
+	font-family: Poppins;
+	font-size: 1.125rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 1.5rem;
+	color: var(--inactive);
+}
+
+.currentStepTitle {
+	composes: title;
+	color: var(--color01);
+}
+
+.description {
+	font-size: 0.75rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1rem;
+	color: var(--inactive);
+}
+
+.currentStepDescription {
+	composes: description;
+	color: #828282;
+}
