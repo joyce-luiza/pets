@@ -5,12 +5,12 @@ import Header from '../Header';
 import styles from './styles.module.css';
 
 export default function BasePage() {
-	return (
-		<main className={styles.container}>
-			<Header />
-			<section className={styles.content}>
-				<Outlet />
-			</section>
-		</main>
-	);
+    return (
+        <main className={styles.container}>
+            <Header />
+            <section className={styles.content}>
+                <Outlet />
+            </section>
+        </main>
+    );
 }

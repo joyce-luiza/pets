@@ -1,6 +1,6 @@
-import React from "react";
-import "./styles/Form.css";
-import Button from "./Button";
+import React from 'react';
+import './styles/Form.css';
+import Button from './Button';
 
 const Form = ({ title, children, callToAction, onClick }) => {
     return (
@@ -9,8 +9,8 @@ const Form = ({ title, children, callToAction, onClick }) => {
             {children}
             <Button
                 text={callToAction}
-                styleType={"default"}
-                size={"medium"}
+                styleType={'default'}
+                size={'medium'}
                 onClick={onClick}
             ></Button>
         </div>

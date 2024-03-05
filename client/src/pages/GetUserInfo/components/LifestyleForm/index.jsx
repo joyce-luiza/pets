@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import styles from './styles.module.css';
 
 import Stepper from '../Stepper';
-import { LifestyleStep1, FinishLifestyleForm } from './components';
+import { LifestyleStep1, LifestyleStep2, FinishLifestyleForm } from './components';
 
 export default function LifestyleForm() {
-    const [, setStepForm] = useState({
+    const [stepForm, setStepForm] = useState({
         step1: {},
         step2: {},
-        // step3: {},
+        step3: {},
     });
 
-    const [currentStep, setCurrentStep] = useState(0);
+    const [currentStep, setCurrentStep] = useState(1);
 
     const handleStepForm = (step, value) => {
         setStepForm((prev) => ({
@@ -30,6 +30,12 @@ export default function LifestyleForm() {
         }
     };
 
+    const previousStep = () => {
+        if (currentStep < steps.length) {
+            setCurrentStep(currentStep - 1);
+        }
+    };
+
     const steps = [
         {
             id: 'step1',
@@ -40,33 +46,38 @@ export default function LifestyleForm() {
                     title="Endereço"
                     description="Seu endereço será usado para garantir verificações de compatibilidade do seu futuro pet e o seu local de residência."
                     handler={handleStepForm}
+                    answers={stepForm.step1}
                 />
             ),
         },
-        // {
-        //     id: 'step2',
-        //     title: 'Preferências',
-        //     description: 'Vamos definir quais características o pet deve ter',
-        //     component: () => (
-        //         <LifestyleStep1
-        //             title="Preferências"
-        //             description="Para o match perfeito, pedimos para que você defina quais são as suas preferências sobre o seu futuro pet."
-        //             handler={handleStepForm}
-        //         />
-        //     ),
-        // },
-        // {
-        //     id: 'step3',
-        //     title: 'Estilo de vida',
-        //     description: 'Iremos descobrir quais pets combinam com a sua rotina',
-        //     component: () => (
-        //         <LifestyleStep1
-        //             title="Estilo de vida"
-        //             description="Nos ajude a entender o seu estilo de vida para que possamos encontrar um bichinho que tenha uma personalidade compatível."
-        //             handler={handleStepForm}
-        //         />
-        //     ),
-        // },
+        {
+            id: 'step2',
+            title: 'Preferências',
+            description: 'Vamos definir quais características o pet deve ter',
+            component: () => (
+                <LifestyleStep2
+                    title="Preferências"
+                    description="Para o match perfeito, pedimos para que você defina quais são as suas preferências sobre o seu futuro pet."
+                    handler={handleStepForm}
+                    previousStep={previousStep}
+                    answers={stepForm.step2}
+                />
+            ),
+        },
+        {
+            id: 'step3',
+            title: 'Estilo de vida',
+            description: 'Iremos descobrir quais pets combinam com a sua rotina',
+            component: () => (
+                <LifestyleStep1
+                    title="Estilo de vida"
+                    description="Nos ajude a entender o seu estilo de vida para que possamos encontrar um bichinho que tenha uma personalidade compatível."
+                    handler={handleStepForm}
+                    previousStep={previousStep}
+                    answers={stepForm.step3}
+                />
+            ),
+        },
     ];
 
     return (
@@ -107,6 +118,8 @@ export default function LifestyleForm() {
                             )}
                         </div>
                     </div>
+
+                    <button onClick={() => console.log(stepForm)}> TESTE </button>
                 </>
             ) : (
                 <FinishLifestyleForm />

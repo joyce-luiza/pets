@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 import { Button, Form, Input, Select } from 'antd';
-import home from '../../../../../../assets/home.svg';
+import stepIcon from '../../../../../../assets/home.svg';
 import MaskedInput from '../../../../../../components/MaskedInput';
 import { BRAZILIAN_STATES, RESIDENCE_TYPE } from '../../../../../../constants';
 import { axiosRequest } from '../../../../../../utils/axiosRequest';
 
-export default function LifestyleStep1({ title, description, handler }) {
+export default function LifestyleStep1({ title, description, handler, answers }) {
     const [form] = Form.useForm();
     const [cities, setCities] = useState([]);
     const [userAddress, setUserAddress] = useState({
@@ -87,7 +87,7 @@ export default function LifestyleStep1({ title, description, handler }) {
         <div className={styles.container}>
             <div className={styles.stepHeader}>
                 <div className={styles.stepTitle}>
-                    <img src={home} alt="Endereço" />
+                    <img src={stepIcon} alt="Endereço" />
                     <span>{title}</span>
                 </div>
                 <span>{description}</span>
@@ -138,7 +138,7 @@ export default function LifestyleStep1({ title, description, handler }) {
                             mask="99999-999"
                             placeholder="_____-___"
                             size="large"
-                            value={userAddress.cep}
+                            value={answers ? answers.cep : userAddress.cep}
                             onChange={(e) => handleUserAddress({ cep: e.target.value })}
                         />
                     </Form.Item>
@@ -153,7 +153,6 @@ export default function LifestyleStep1({ title, description, handler }) {
                             },
                         ]}
                         labelCol={{ span: 24 }}
-                        initialValue={userAddress.street}
                     >
                         <Input size="large" placeholder="Digite o logradouro aqui" />
                     </Form.Item>
