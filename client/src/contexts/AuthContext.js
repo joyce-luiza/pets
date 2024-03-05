@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("user", JSON.stringify(user));
     }, [user]);
 
-    const login = async (email, psw, userType) => {
+    const login = async (email, psw, userType, firstAccess) => {
         try {
             const response = await axiosRequest({
                 method: "post",
@@ -32,10 +32,12 @@ export const AuthProvider = ({ children }) => {
                     type: userType,
                 },
             });
-            const { token } = response;
             setUser(JSON.stringify(response));
-            localStorage.setItem("token", token);
-            navigate("/profile");
+            if(firstAccess){
+                navigate("/user/style");
+            }else{
+                navigate("/profile");
+            }
         } catch (error) {
             console.log("Erro ao fazer login: " + error);
         }
@@ -43,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         setUser(null);
-        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         navigate("/register");
     };
 
