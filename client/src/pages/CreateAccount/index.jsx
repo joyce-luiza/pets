@@ -1,31 +1,24 @@
-import React, { useState } from 'react';
-import { Button, Form, Input, Carousel, Radio, message } from 'antd';
-import styles from './styles.module.css';
-import { USER_TYPE } from '../../constants';
-import MaskedInput from '../../components/MaskedInput';
-import testimonialImage1 from './images/image-1.jpg';
-import testimonialImage2 from './images/image-2.jpg';
-import testimonialImage3 from './images/image-3.jpg';
-
-import PasswordField from '../../components/PasswordField';
-import { axiosRequest } from '../../utils/axiosRequest';
-import BirthDateField from '../../components/BirthDateField';
+import React, { useState } from "react";
+import { Button, Form, Input, Carousel, Radio, message } from "antd";
+import styles from "./styles.module.css";
+import { USER_TYPE } from "../../constants";
+import MaskedInput from "../../components/MaskedInput";
+import testimonialImage1 from "./images/image-1.jpg";
+import testimonialImage2 from "./images/image-2.jpg";
+import testimonialImage3 from "./images/image-3.jpg";
+import PasswordField from "../../components/PasswordField";
+import { axiosRequest } from "../../utils/axiosRequest";
+import BirthDateField from "../../components/BirthDateField";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function CreateAccount() {
-    const [accountType, setAccountType] = useState(USER_TYPE.ADOPTER);
+    const { login } = useAuth();
     const [messageApi, contextHolder] = message.useMessage();
+    const [accountType, setAccountType] = useState(USER_TYPE.ADOPTER);
     const [loading, setLoading] = useState(false);
 
     const changeAccountType = (event) => {
         setAccountType(event.target.value);
-    };
-
-    const successMessage = () => {
-        messageApi.open({
-            type: 'success',
-            content: 'Conta criada com sucesso!',
-            duration: 5,
-        });
     };
 
     const errorMessage = () => {
@@ -36,7 +29,13 @@ export default function CreateAccount() {
         });
     };
 
-    const handleSubmit = async ({ fullName, birthDate, password, phoneNumber, email }) => {
+    const handleSubmit = async ({
+        fullName,
+        birthDate,
+        password,
+        phoneNumber,
+        email,
+    }) => {
         setLoading(true);
         const firstName = fullName.split(' ')[0];
         const lastName = fullName.slice(firstName.length).trim();
@@ -57,16 +56,16 @@ export default function CreateAccount() {
 
         if (result) {
             setLoading(false);
-            return successMessage();
+            login(body.email, body.password, accountType, true);
         } else {
             setLoading(false);
-            return errorMessage();
+            errorMessage();
         }
     };
 
     return (
         <>
-            {contextHolder}
+        {contextHolder}
             <div className={styles.container}>
                 <section className={styles.createAccount}>
                     <h2 className={styles.title}>Criar conta</h2>
