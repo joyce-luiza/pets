@@ -2,9 +2,6 @@ import { React } from "react";
 import { Form, DatePicker } from "antd";
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
-import "react-datepicker/dist/react-datepicker.css";
-import "./styles/Input.css";
-import "./styles/DatePicker.css";
 
 const BirthDateField = ({ name, label }) => {
     const validateDateOfBirth = (_, value) => {

@@ -1,7 +1,7 @@
 import { Form, Input } from "antd";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { STATE_COLORS } from "../constants";
+import { STATE_COLORS } from "../../constants";
 
 const defaultPasswordCriteria = [
     {
