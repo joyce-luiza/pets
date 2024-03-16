@@ -1,4 +1,5 @@
-import VerifyDomainIdParamStrategy from './VerifyDomainIdParamStrategy';
-import GetDomainByIdStrategy from './GetDomainByIdStrategy';
+import VerifyDomainIdParamStrategy from "./VerifyDomainIdParamStrategy";
+import GetDomainByIdStrategy from "./GetDomainByIdStrategy";
+import FindAllStrategy from "./FindAllStrategy";
 
-export { GetDomainByIdStrategy, VerifyDomainIdParamStrategy };
+export { VerifyDomainIdParamStrategy, GetDomainByIdStrategy, FindAllStrategy };
