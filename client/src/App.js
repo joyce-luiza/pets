@@ -37,7 +37,7 @@ export default function AppRoutes() {
               </Route>
               <Route element={<ProtectedRoute />}>
                 <Route path="/user" element={<BasePage />}>
-                  <Route path="style" element={<GetUserInfo />} />
+                  <Route path="complement" element={<GetUserInfo />} />
                 </Route>
                 <Route path="/profile" element={<BasePage />}>
                   <Route index element={<UserProfile />} />
