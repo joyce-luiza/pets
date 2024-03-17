@@ -75,20 +75,21 @@ export default function LifestyleForm() {
         />
       ),
     },
-    // {
-    //   id: "step3",
-    //   title: "Estilo de vida",
-    //   description: "Iremos descobrir quais pets combinam com a sua rotina",
-    //   component: () => (
-    //     <LifestyleStep1
-    //       title="Estilo de vida"
-    //       description="Nos ajude a entender o seu estilo de vida para que possamos encontrar um bichinho que tenha uma personalidade compatível."
-    //       handler={handleStepForm}
-    //       previousStep={previousStep}
-    //       answers={stepForm.step3}
-    //     />
-    //   ),
-    // },
+    {
+      id: "step3",
+      title: "Estilo de vida",
+      description: "Iremos descobrir quais pets combinam com a sua rotina",
+      component: () => (
+        <LifestyleStep2
+          title="Estilo de vida"
+          description="Nos ajude a entender o seu estilo de vida para que possamos encontrar um bichinho que tenha uma personalidade compatível."
+          handler={handleStepForm}
+          previousStep={previousStep}
+          answers={stepForm.step2}
+          setStepLoading={setStepLoading}
+        />
+      ),
+    },
   ];
 
   return (

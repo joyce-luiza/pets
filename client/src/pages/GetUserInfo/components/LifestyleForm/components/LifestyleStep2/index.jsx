@@ -16,6 +16,7 @@ export default function LifestyleStep2({
   description,
   handler,
   previousStep,
+  answers,
   setStepLoading,
 }) {
   const [form] = Form.useForm();
@@ -77,7 +78,7 @@ export default function LifestyleStep2({
 
     if (selectedOptions.includes(null)) {
       setAnySelected((prev) => ({ ...prev, [group]: true }));
-      handleUserPreferences({ [group]: { ANY: true } });
+      handleUserPreferences({ [group]: null });
       return;
     }
 
@@ -116,10 +117,33 @@ export default function LifestyleStep2({
     setFormReady(true);
   };
 
+  const setPreferencesByPreviousAnswers = () => {
+    if (answers) {
+      setUserPreferences(() => answers);
+      const formFieldValues = {};
+
+      Object.keys(answers).forEach((key) => {
+        const value = answers[key];
+        if (typeof value === "object" && value !== null) {
+          formFieldValues[key] = Object.keys(value).filter(
+            (subKey) => value[subKey]
+          );
+        } else {
+          setAnySelected((prev) => ({ ...prev, [key]: true }));
+          formFieldValues[key] = [null];
+        }
+      });
+
+      form.setFieldsValue(formFieldValues);
+    }
+  };
+
   useEffect(() => {
     getFormInfo();
+    setPreferencesByPreviousAnswers();
     setStepLoading(false);
-  }, [setStepLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answers, setStepLoading]);
 
   return (
     <div className={styles.container}>
@@ -146,6 +170,7 @@ export default function LifestyleStep2({
               labelCol={{ span: 24 }}
             >
               <Checkbox.Group
+                name="animalTypes"
                 style={{ width: "100%" }}
                 onChange={(value) => handleCheckBoxAnswer("animalTypes", value)}
               >
@@ -153,6 +178,7 @@ export default function LifestyleStep2({
                   {formOptions.animalTypes.map((type) => (
                     <Col span={8} key={type.title}>
                       <Checkbox
+                        name="animalTypes"
                         value={type.title}
                         disabled={
                           anySelected.animalTypes && type.title !== "ANY"
@@ -163,7 +189,9 @@ export default function LifestyleStep2({
                     </Col>
                   ))}
                   <Col span={8} key={"ANY"}>
-                    <Checkbox value={null}>Sem preferência</Checkbox>
+                    <Checkbox value={null} name="animalTypes">
+                      Sem preferência
+                    </Checkbox>
                   </Col>
                 </Row>
               </Checkbox.Group>
@@ -181,6 +209,7 @@ export default function LifestyleStep2({
               labelCol={{ span: 24 }}
             >
               <Checkbox.Group
+                name="animalAgeGroups"
                 style={{ width: "100%" }}
                 onChange={(value) =>
                   handleCheckBoxAnswer("animalAgeGroups", value)
@@ -190,6 +219,7 @@ export default function LifestyleStep2({
                   {formOptions.animalAgeGroups.map((age) => (
                     <Col span={8} key={age.title}>
                       <Checkbox
+                        name="animalAgeGroups"
                         value={age.title}
                         disabled={
                           anySelected.animalAgeGroups && age.title !== "ANY"
@@ -200,7 +230,9 @@ export default function LifestyleStep2({
                     </Col>
                   ))}
                   <Col span={8} key={"ANY"}>
-                    <Checkbox value={null}>Sem preferência</Checkbox>
+                    <Checkbox value={null} name="animalAgeGroups">
+                      Sem preferência
+                    </Checkbox>
                   </Col>
                 </Row>
               </Checkbox.Group>
@@ -218,6 +250,7 @@ export default function LifestyleStep2({
               labelCol={{ span: 24 }}
             >
               <Checkbox.Group
+                name="animalSizes"
                 style={{ width: "100%" }}
                 onChange={(value) => handleCheckBoxAnswer("animalSizes", value)}
               >
@@ -225,6 +258,7 @@ export default function LifestyleStep2({
                   {formOptions.animalSizes.map((size) => (
                     <Col span={8} key={size.title}>
                       <Checkbox
+                        name="animalSizes"
                         value={size.title}
                         disabled={
                           anySelected.animalSizes && size.title !== "ANY"
@@ -235,7 +269,9 @@ export default function LifestyleStep2({
                     </Col>
                   ))}
                   <Col span={8} key={"ANY"}>
-                    <Checkbox value={null}>Sem preferência</Checkbox>
+                    <Checkbox value={null} name="animalSizes">
+                      Sem preferência
+                    </Checkbox>
                   </Col>
                 </Row>
               </Checkbox.Group>
@@ -243,7 +279,7 @@ export default function LifestyleStep2({
 
             <Form.Item
               label="De qual sexo o seu pet deve ser?"
-              name="animalSex"
+              name="animalSexes"
               rules={[
                 {
                   required: true,
@@ -253,24 +289,28 @@ export default function LifestyleStep2({
               labelCol={{ span: 24 }}
             >
               <Checkbox.Group
+                name="animalSexes"
                 style={{ width: "100%" }}
                 onChange={(value) => handleCheckBoxAnswer("animalSexes", value)}
               >
                 <Row>
-                  {sexOptions.map((gender) => (
-                    <Col span={8} key={gender.value}>
+                  {sexOptions.map((sex) => (
+                    <Col span={8} key={sex.value}>
                       <Checkbox
-                        value={gender.value}
+                        name="animalSexes"
+                        value={sex.value}
                         disabled={
-                          anySelected.animalSexes && gender.value !== "ANY"
+                          anySelected.animalSexes && sex.value !== "ANY"
                         }
                       >
-                        {gender.label}
+                        {sex.label}
                       </Checkbox>
                     </Col>
                   ))}
                   <Col span={8} key={"ANY"}>
-                    <Checkbox value={null}>Sem preferência</Checkbox>
+                    <Checkbox value={null} name="animalSexes">
+                      Sem preferência
+                    </Checkbox>
                   </Col>
                 </Row>
               </Checkbox.Group>
@@ -288,6 +328,7 @@ export default function LifestyleStep2({
               labelCol={{ span: 24 }}
             >
               <Checkbox.Group
+                name="animalColors"
                 style={{ width: "100%" }}
                 onChange={(value) =>
                   handleCheckBoxAnswer("animalColors", value)
@@ -297,6 +338,7 @@ export default function LifestyleStep2({
                   {formOptions.animalColors.map((color) => (
                     <Col span={8} key={color.title}>
                       <Checkbox
+                        name="animalColors"
                         value={color.title}
                         disabled={
                           anySelected.animalColors && color.title !== "ANY"
@@ -307,7 +349,9 @@ export default function LifestyleStep2({
                     </Col>
                   ))}
                   <Col span={8} key={"ANY"}>
-                    <Checkbox value={null}>Sem preferência</Checkbox>
+                    <Checkbox value={null} name="animalColors">
+                      Sem preferência
+                    </Checkbox>
                   </Col>
                 </Row>
               </Checkbox.Group>

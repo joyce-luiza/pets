@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Button, Form, Input, Select } from "antd";
 import stepIcon from "../../../../../../assets/home.svg";
@@ -24,6 +24,14 @@ export default function LifestyleStep1({
     complement: "",
   });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (answers) {
+      form.setFieldsValue(answers);
+      setUserAddress(answers);
+      handleCities(answers.state);
+    }
+  }, [answers, form]);
 
   const handleUserAddress = async (value) => {
     const cep = value.cep ? value.cep.replace(/[-_]/g, "") : false;
@@ -143,7 +151,7 @@ export default function LifestyleStep1({
               mask="99999-999"
               placeholder="_____-___"
               size="large"
-              value={answers ? answers.cep : userAddress.cep}
+              value={userAddress.cep}
               onChange={(e) => handleUserAddress({ cep: e.target.value })}
             />
           </Form.Item>
@@ -159,7 +167,11 @@ export default function LifestyleStep1({
             ]}
             labelCol={{ span: 24 }}
           >
-            <Input size="large" placeholder="Digite o logradouro aqui" />
+            <Input
+              size="large"
+              placeholder="Digite o logradouro aqui"
+              onChange={(e) => handleUserAddress({ street: e.target.value })}
+            />
           </Form.Item>
         </div>
 
@@ -223,7 +235,13 @@ export default function LifestyleStep1({
             ]}
             labelCol={{ span: 24 }}
           >
-            <Select size="large" placeholder="Selecione a cidade">
+            <Select
+              size="large"
+              placeholder="Selecione a cidade"
+              onChange={(value) => {
+                handleUserAddress({ city: value });
+              }}
+            >
               {cities.length &&
                 cities.map((city) => (
                   <Select.Option key={city} value={city}>
