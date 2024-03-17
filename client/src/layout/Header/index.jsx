@@ -23,9 +23,6 @@ export default function Header() {
           <li className={styles.menuItem}>
             <Link href="/">Contato</Link>
           </li>
-          <li className={styles.menuItem}>
-            <span>{typeof user}</span>
-          </li>
         </ul>
         <div className={styles.divider}></div>
         {treatedUser ? (
