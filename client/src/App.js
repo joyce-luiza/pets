@@ -35,14 +35,14 @@ export default function AppRoutes() {
                 <Route path="login" element={<Home />} />
                 <Route path="register" element={<CreateAccount />} />
               </Route>
-              <Route element={<ProtectedRoute />}>
-                <Route path="/user" element={<BasePage />}>
-                  <Route path="complement" element={<GetUserInfo />} />
-                </Route>
-                <Route path="/profile" element={<BasePage />}>
-                  <Route index element={<UserProfile />} />
-                </Route>
+              {/* <Route element={<ProtectedRoute />}> */}
+              <Route path="/user" element={<BasePage />}>
+                <Route path="complement" element={<GetUserInfo />} />
               </Route>
+              <Route path="/profile" element={<BasePage />}>
+                <Route index element={<UserProfile />} />
+              </Route>
+              {/* </Route> */}
             </Routes>
           </AuthProvider>
         </BrowserRouter>
