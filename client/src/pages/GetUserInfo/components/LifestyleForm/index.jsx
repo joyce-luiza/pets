@@ -133,8 +133,6 @@ export default function LifestyleForm() {
               )}
             </div>
           </div>
-
-          <button onClick={() => console.log(stepForm)}> TESTE </button>
         </>
       ) : (
         <FinishLifestyleForm />
