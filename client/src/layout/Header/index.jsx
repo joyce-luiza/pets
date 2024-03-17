@@ -7,6 +7,8 @@ import { Button } from "antd";
 
 export default function Header() {
   const { user, logout } = useAuth();
+  const treatedUser = typeof user === "string" ? JSON.parse(user) : null;
+
   return (
     <header className={styles.container}>
       <img className={styles.menuLogo} src={Logo} alt="Logo" />
@@ -21,13 +23,14 @@ export default function Header() {
           <li className={styles.menuItem}>
             <Link href="/">Contato</Link>
           </li>
+          <li className={styles.menuItem}>
+            <span>{typeof user}</span>
+          </li>
         </ul>
         <div className={styles.divider}></div>
-        {typeof user === Object &&
-        Object.keys(user).includes("firstName") &&
-        user ? (
+        {treatedUser ? (
           <>
-            <Link>{`Olá, ${JSON.parse(user).firstName} `}</Link>
+            <Link>{`Olá, ${treatedUser.firstName} `}</Link>
             <Button type="text" onClick={logout}>
               Logout
             </Button>
