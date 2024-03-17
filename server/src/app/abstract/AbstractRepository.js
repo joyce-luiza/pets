@@ -1,50 +1,55 @@
-import Status from '../../database/models/status';
-import { STATUS } from '../constants';
+import Status from "../../database/models/status";
+import { STATUS } from "../constants";
 
 export default class AbstractRepository {
-	constructor(model) {
-		this.model = model;
-	}
+  constructor(model) {
+    this.model = model;
+    this.findAll = this.findAll.bind(this);
+  }
 
-	static getInstance() {
-		if (!this.instance) {
-			this.instance = new this();
-		}
-		return this.instance;
-	}
+  static getInstance() {
+    if (!this.instance) {
+      this.instance = new this();
+    }
+    return this.instance;
+  }
 
-	async getActiveStatusId() {
-		return (await Status.findOne({ where: { code: STATUS.ACTIVE } })).id;
-	}
+  async getActiveStatusId() {
+    return (await Status.findOne({ where: { code: STATUS.ACTIVE } })).id;
+  }
 
-	async getInactiveStatusId() {
-		return (await Status.findOne({ where: { code: STATUS.INACTIVE } })).id;
-	}
+  async getInactiveStatusId() {
+    return (await Status.findOne({ where: { code: STATUS.INACTIVE } })).id;
+  }
 
-	async getSuspendedStatusId() {
-		return (await Status.findOne({ where: { code: STATUS.SUSPENDED } })).id;
-	}
+  async getSuspendedStatusId() {
+    return (await Status.findOne({ where: { code: STATUS.SUSPENDED } })).id;
+  }
 
-	async create(data) {
-		return await this.model.create(data);
-	}
+  async create(data) {
+    return await this.model.create(data);
+  }
 
-	async countGeneric(options) {
-		return await this.model.count(options);
-	}
+  async countGeneric(options) {
+    return await this.model.count(options);
+  }
 
-	async findById(id) {
-		return await this.model.findOne({ where: { id } });
-	}
+  async findById(id) {
+    return await this.model.findOne({ where: { id } });
+  }
 
-	async findByProp(prop, value) {
-		return await this.model.findOne({ where: { [`${prop}`]: value } });
-	}
+  async findByProp(prop, value) {
+    return await this.model.findOne({ where: { [`${prop}`]: value } });
+  }
 
-	// async findByUserId(userId) {
-	//     const activeStatus = await this.getActiveStatusId();
-	//     return await this.model.findOne({
-	//         where: { userId, statusId: activeStatus },
-	//     });
-	// }
+  async findAll() {
+    return await this.model.findAll();
+  }
+
+  // async findByUserId(userId) {
+  //     const activeStatus = await this.getActiveStatusId();
+  //     return await this.model.findOne({
+  //         where: { userId, statusId: activeStatus },
+  //     });
+  // }
 }

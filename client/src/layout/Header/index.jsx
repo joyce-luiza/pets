@@ -6,39 +6,41 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Button } from "antd";
 
 export default function Header() {
-    const { user, logout } = useAuth();
-    return (
-        <header className={styles.container}>
-            <img className={styles.menuLogo} src={Logo} alt="Logo" />
-            <div className={styles.menuLinks}>
-                <ul className={styles.menuItems}>
-                    <li className={styles.menuItem}>
-                        <Link>Organizações de contato</Link>
-                    </li>
-                    <li className={styles.menuItem}>
-                        <Link>Adoção</Link>
-                    </li>
-                    <li className={styles.menuItem}>
-                        <Link>Contato</Link>
-                    </li>
-                </ul>
-                <div className={styles.divider}></div>
-                {user ? (
-                    <>
-                        <Link>{`Olá, ${JSON.parse(user).firstName}`}</Link>
-                        <Button type="text" onClick={logout}>
-                            Logout
-                        </Button>
-                    </>
-                ) : (
-                    <div className={styles.menuAccount}>
-                        <Link href="/login">Fazer login</Link>
-                        <button className={styles.registerBtn}>
-                            <Link href="/register">Criar conta</Link>
-                        </button>
-                    </div>
-                )}
-            </div>
-        </header>
-    );
+  const { user, logout } = useAuth();
+  const treatedUser = typeof user === "string" ? JSON.parse(user) : null;
+
+  return (
+    <header className={styles.container}>
+      <img className={styles.menuLogo} src={Logo} alt="Logo" />
+      <div className={styles.menuLinks}>
+        <ul className={styles.menuItems}>
+          <li className={styles.menuItem}>
+            <Link href="/">Organizações de contato</Link>
+          </li>
+          <li className={styles.menuItem}>
+            <Link href="/">Adoção</Link>
+          </li>
+          <li className={styles.menuItem}>
+            <Link href="/">Contato</Link>
+          </li>
+        </ul>
+        <div className={styles.divider}></div>
+        {treatedUser ? (
+          <>
+            <Link>{`Olá, ${treatedUser.firstName} `}</Link>
+            <Button type="text" onClick={logout}>
+              Logout
+            </Button>
+          </>
+        ) : (
+          <div className={styles.menuAccount}>
+            <Link href="/login">Fazer login</Link>
+            <button className={styles.registerBtn}>
+              <Link href="/register">Criar conta</Link>
+            </button>
+          </div>
+        )}
+      </div>
+    </header>
+  );
 }
