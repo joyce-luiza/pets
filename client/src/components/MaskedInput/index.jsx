@@ -1,19 +1,23 @@
-import React, { forwardRef } from 'react';
-import { Form } from 'antd';
-import InputMask from 'react-input-mask';
-import PropTypes from 'prop-types';
+import React, { forwardRef } from "react";
+import { Form, Input } from "antd";
+import InputMask from "react-input-mask";
+import PropTypes from "prop-types";
 import styles from "./styles.module.css";
 
-const MaskedInput = forwardRef(function MaskedInput({ name, label, rules, ...props }, ref) {
+const MaskedInput = forwardRef(function MaskedInput(
+    { name, label, rules, labelCol, ...props },
+    ref
+) {
     return (
-        <Form.Item name={name} label={label} rules={rules}>
+        <Form.Item name={name} label={label} rules={rules} labelCol={labelCol}>
             <InputMask {...props}>
                 {(inputProps) => (
-                    <input
+                    <Input
                         {...inputProps}
                         ref={ref}
                         className={styles.input}
                         disabled={props.disabled ? props.disabled : null}
+                        size="large"
                     />
                 )}
             </InputMask>
@@ -21,7 +25,7 @@ const MaskedInput = forwardRef(function MaskedInput({ name, label, rules, ...pro
     );
 });
 
-MaskedInput.displayName = 'MaskedInput';
+MaskedInput.displayName = "MaskedInput";
 
 MaskedInput.propTypes = {
     name: PropTypes.string,
