@@ -11,7 +11,6 @@ const routes = Router();
 routes.use("/auth", authenticationRoutes);
 routes.use("/adopter", adopterRoutes);
 routes.use("/animalTypes", animalTypesRoutes);
-routes.use("/animalTypes", animalTypesRoutes);
 routes.use("/animalAgeGroups", animalAgeGroupRoutes);
 routes.use("/animalSizes", animalSizesRoutes);
 routes.use("/animalColors", animalColorsRoutes);
