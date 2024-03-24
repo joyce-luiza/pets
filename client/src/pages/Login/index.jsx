@@ -25,7 +25,6 @@ export default function Login() {
 
                 <Form
                     layout="vertical"
-                    style={{ width: "30%" }}
                     initialValues={{
                         email: "",
                         password: "",

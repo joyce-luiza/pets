@@ -1,5 +1,8 @@
 .container {
-    margin-top: 12em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .login {

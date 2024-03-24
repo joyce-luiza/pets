@@ -1,5 +1,6 @@
 .container {
     width: 100vw;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,6 +12,10 @@
     flex-direction: column;
     width: 35%;
     gap: 2.5rem;
+}
+
+.toAnswerForm > h2 {
+    text-align: left;
 }
 
 .lifestyleDog {
@@ -29,19 +34,24 @@
 }
 
 .description {
-    color: var(--Gray-3);
+    color: #828282;
     font-family: Merriweather;
     font-size: 1.2rem;
-    line-height: 1.5rem;
+    line-height: 1.6rem;
+}
+
+.callToAction {
+    display: flex;
+    gap: 2em;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1366px) {
-    .toAnswerForm {
+    /* .toAnswerForm {
         width: 30%;
         gap: 2rem;
     }
 
     .lifestyleDog {
         width: 27%;
-    }
+    } */
 }

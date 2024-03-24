@@ -392,6 +392,7 @@ export default function LifestyleStep2({
 
                     <div className={styles.formActions}>
                         <Button
+                            size="large"
                             className={styles.nextBtn}
                             type="primary"
                             htmlType="submit"
@@ -401,6 +402,7 @@ export default function LifestyleStep2({
                             Continuar
                         </Button>
                         <Button
+                            size="large"
                             className={styles.backBtn}
                             type="link"
                             htmlType="submit"
