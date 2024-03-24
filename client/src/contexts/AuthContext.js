@@ -45,15 +45,27 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const checkTokenExpiration = () => {
-        const token = user.token;
-        if (token) {
-            const decodedToken = jwtDecode(token);
-            const tokenExpirationDate = new Date(decodedToken.exp * 1000);
-            if (tokenExpirationDate < new Date()) {
-                logout();
-            }
+    const checkTokenExpiration = async () => {
+        const { token, type } = user;
+        const response = await axiosRequest({
+            method: "post",
+            path: "/auth/login",
+            body: {
+                token: token,
+                type: type,
+            },
+        });
+        console.log("Validação do token: " + JSON.stringify(response));
+        if (!response) {
+            logout();
         }
+        // if (token) {
+        //     const decodedToken = jwtDecode(token);
+        //     const tokenExpirationDate = new Date(decodedToken.exp * 1000);
+        //     if (tokenExpirationDate < new Date()) {
+        //         logout();
+        //     }
+        // }
     };
 
     const logout = () => {
