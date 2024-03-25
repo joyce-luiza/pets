@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { axiosRequest } from "../utils/axiosRequest";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 
 const initUser = {};
 
@@ -41,7 +40,7 @@ export const AuthProvider = ({ children }) => {
                 navigate("/profile");
             }
         } catch (error) {
-            console.log("Erro ao fazer login: " + error);
+            throw error;
         }
     };
 

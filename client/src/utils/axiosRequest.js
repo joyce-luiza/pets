@@ -19,25 +19,24 @@ import axios from "axios";
  * @returns {Promise<Object> | Promise<boolean>}
  */
 export async function axiosRequest({
-  method = "get",
-  path = "",
-  body = {},
-  params = {},
-  basePath = true,
+    method = "get",
+    path = "",
+    body = {},
+    params = {},
+    basePath = true,
 }) {
-  try {
-    const { data } = await axios({
-      method,
-      url:
-        path && basePath
-          ? `${process.env.REACT_APP_API_PATH}${path}`
-          : `${path}`,
-      data: body,
-      params: params,
-    });
-    return data;
-  } catch (error) {
-    console.error("Erro na requisição:", error.message);
-    return false;
-  }
+    try {
+        const { data } = await axios({
+            method,
+            url:
+                path && basePath
+                    ? `${process.env.REACT_APP_API_PATH}${path}`
+                    : `${path}`,
+            data: body,
+            params: params,
+        });
+        return data;
+    } catch (error) {
+        throw error.response.data;
+    }
 }
