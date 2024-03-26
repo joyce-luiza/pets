@@ -13,11 +13,11 @@ export default function FinishLifestyleForm() {
                     Você pode alterar as suas informações a qualquer momento
                     acessando o seu perfil.
                 </span>
-                <div>
-                    <Button type="primary">
+                <div className={styles.callToAction}>
+                    <Button size="large" type="primary">
                         <Link to={"/"}>Ir para home</Link>
                     </Button>
-                    <Button type="secondary">
+                    <Button size="large" type="secondary">
                         <Link to={"/profile"}>Ir para perfil</Link>
                     </Button>
                 </div>
