@@ -1,19 +1,17 @@
 .container {
-	width: auto;
-	height: 100vh;
+    width: auto;
+    height: 100vh;
 
-	display: grid;
-	grid-template-rows: 5rem 1fr;
+    display: grid;
+    grid-template-rows: 5rem 1fr;
 
-	grid-template-areas:
-		'header'
-		'content';
+    grid-template-areas:
+        "header"
+        "content";
 }
 
 .content {
-	min-height: 100%;
-
-	grid-area: 'content';
-
-	/* overflow-y: auto; */
+    min-height: 100%;
+    grid-area: content;
+    /* overflow-y: auto; */
 }

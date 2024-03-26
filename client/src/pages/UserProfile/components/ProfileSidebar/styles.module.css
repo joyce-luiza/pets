@@ -1,0 +1,50 @@
+.sidebar {
+    background-color: #fff;
+    box-shadow: 0px 0px 16px 0px rgba(79, 79, 79, 0.1);
+    padding: 2em;
+    width: 15vw;
+}
+
+.sidebar > button {
+    all: unset;
+}
+
+.ant-upload-select {
+    width: 200px;
+}
+
+.sidebar ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebarItem {
+    width: 100%;
+    padding: 0.5em;
+    color: #4f4f4f;
+    border-radius: 4px;
+    margin-bottom: 1em;
+}
+
+.sidebarItem:hover {
+    background-color: #f4f4f4;
+    cursor: pointer;
+}
+
+.sidebarItem i {
+    margin-right: 1em;
+}
+
+.photo {
+    width: 10em;
+    height: 10em;
+    background-color: #f4f4f4;
+    border-radius: 100%;
+    margin-bottom: 2em;
+}
+
+.active {
+    color: #4435ab;
+    background-color: #f2f1f6;
+}

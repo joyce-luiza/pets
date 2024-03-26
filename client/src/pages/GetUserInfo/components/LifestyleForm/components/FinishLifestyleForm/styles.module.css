@@ -22,6 +22,11 @@
     object-fit: cover;
 }
 
+.callToAction {
+    display: flex;
+    gap: 2em;
+}
+
 .stepProgressContainer {
     width: 100vw;
     height: 100vh;
@@ -31,19 +36,30 @@
 }
 
 .description {
-    color: var(--Gray-3);
+    color: #828282;
     font-family: Merriweather;
     font-size: 1.2rem;
     line-height: 1.5rem;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1366px) {
-    .toAnswerForm {
-        width: 30%;
-        gap: 2rem;
+    .container {
+        width: 100vw;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5rem;
     }
 
     .lifestyleCat {
-        width: 27%;
+        width: 40%;
+    }
+
+    .toAnswerForm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 40%;
     }
 }
