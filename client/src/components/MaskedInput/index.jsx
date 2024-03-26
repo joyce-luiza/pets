@@ -9,7 +9,13 @@ const MaskedInput = forwardRef(function MaskedInput(
     ref
 ) {
     return (
-        <Form.Item name={name} label={label} rules={rules} labelCol={labelCol}>
+        <Form.Item
+            name={name}
+            label={label}
+            rules={rules}
+            labelCol={labelCol}
+            validateTrigger="onBlur"
+        >
             <InputMask {...props}>
                 {(inputProps) => (
                     <Input

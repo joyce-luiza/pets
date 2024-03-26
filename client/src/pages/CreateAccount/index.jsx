@@ -21,6 +21,14 @@ export default function CreateAccount() {
         setAccountType(event.target.value);
     };
 
+    const validatePhone = (_, value) => {
+        const numericValue = value.replace(/[^\d]/g, "");
+        if (numericValue && numericValue.length < 11) {
+            return Promise.reject("Por favor, insira um número válido");
+        }
+        return Promise.resolve();
+    };
+
     const errorMessage = (error) => {
         messageApi.open({
             type: "error",
@@ -145,6 +153,9 @@ export default function CreateAccount() {
                                             required: true,
                                             message:
                                                 "Insira um número de celular",
+                                        },
+                                        {
+                                            validator: validatePhone,
                                         },
                                     ]}
                                     type="text"

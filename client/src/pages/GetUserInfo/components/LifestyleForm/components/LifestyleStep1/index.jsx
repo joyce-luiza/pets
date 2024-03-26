@@ -22,6 +22,15 @@ export default function LifestyleStep1({
         state: "",
         complement: "",
     });
+
+    const validateCep = (_, value) => {
+        const numericValue = value.replace(/[^\d]/g, "");
+        if (numericValue && numericValue.length < 8) {
+            return Promise.reject("Por favor, insira um CEP válido");
+        }
+        return Promise.resolve();
+    };
+
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -143,8 +152,7 @@ export default function LifestyleStep1({
                                 message: "Por favor, insira um CEP",
                             },
                             {
-                                minLength: 8,
-                                message: "Por favor, insira um CEP válido",
+                                validator: validateCep,
                             },
                         ]}
                         labelCol={{ span: 24 }}
