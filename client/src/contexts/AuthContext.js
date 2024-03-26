@@ -54,17 +54,9 @@ export const AuthProvider = ({ children }) => {
                 type: type,
             },
         });
-        console.log("Validação do token: " + JSON.stringify(response));
         if (!response) {
             logout();
         }
-        // if (token) {
-        //     const decodedToken = jwtDecode(token);
-        //     const tokenExpirationDate = new Date(decodedToken.exp * 1000);
-        //     if (tokenExpirationDate < new Date()) {
-        //         logout();
-        //     }
-        // }
     };
 
     const logout = () => {
