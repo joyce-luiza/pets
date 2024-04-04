@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Button, Form, Input, Select } from "antd";
-import MaskedInput from "../../../../../../components/MaskedInput";
 import { BRAZILIAN_STATES, RESIDENCE_TYPE } from "../../../../../../constants";
 import { axiosRequest } from "../../../../../../utils/axiosRequest";
+import CepField from "../../../../../../components/CepField";
 
 export default function LifestyleStep1({
     title,
@@ -22,14 +22,6 @@ export default function LifestyleStep1({
         state: "",
         complement: "",
     });
-
-    const validateCep = (_, value) => {
-        const numericValue = value.replace(/[^\d]/g, "");
-        if (numericValue && numericValue.length < 8) {
-            return Promise.reject("Por favor, insira um CEP válido");
-        }
-        return Promise.resolve();
-    };
 
     const [loading, setLoading] = useState(false);
 
@@ -142,29 +134,12 @@ export default function LifestyleStep1({
                     </Select>
                 </Form.Item>
                 <div className={styles.inline}>
-                    <MaskedInput
-                        id="cep"
-                        label="CEP:"
-                        name="cep"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Por favor, insira um CEP",
-                            },
-                            {
-                                validator: validateCep,
-                            },
-                        ]}
-                        labelCol={{ span: 24 }}
-                        mask="99999-999"
-                        placeholder="_____-___"
-                        size="large"
+                    <CepField
                         value={userAddress.cep}
                         onChange={(e) =>
                             handleUserAddress({ cep: e.target.value })
                         }
-                    />
-
+                    ></CepField>
                     <Form.Item
                         label="Logradouro:"
                         name="street"

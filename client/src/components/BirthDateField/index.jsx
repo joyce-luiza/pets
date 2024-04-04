@@ -1,9 +1,8 @@
 import { React } from "react";
 import { Form, DatePicker } from "antd";
 import dayjs from "dayjs";
-import PropTypes from "prop-types";
 
-const BirthDateField = ({ name, label }) => {
+const BirthDateField = () => {
     const validateDateOfBirth = (_, value) => {
         if (value) {
             const eighteenYearsAgo = dayjs().subtract(18, "year");
@@ -18,8 +17,8 @@ const BirthDateField = ({ name, label }) => {
 
     return (
         <Form.Item
-            name={name}
-            label={label}
+            name="birthDate"
+            label="Data de nascimento;"
             rules={[
                 {
                     required: true,
@@ -41,11 +40,6 @@ const BirthDateField = ({ name, label }) => {
             />
         </Form.Item>
     );
-};
-
-BirthDateField.propTypes = {
-    name: PropTypes.string,
-    label: PropTypes.string,
 };
 
 export default BirthDateField;
