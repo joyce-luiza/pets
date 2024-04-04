@@ -9,7 +9,9 @@ export default function Header() {
     const { user, logout } = useAuth();
     return (
         <header className={styles.container}>
-            <img className={styles.menuLogo} src={Logo} alt="Logo" />
+            <Link href="/">
+                <img className={styles.menuLogo} src={Logo} alt="Logo" />
+            </Link>
             <div className={styles.menuLinks}>
                 <ul className={styles.menuItems}>
                     <li className={styles.menuItem}>

@@ -1,0 +1,19 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+    padding: 5em;
+    background-color: var(--color01);
+}
+
+.footer a,
+.footer i {
+    color: #fff;
+}
+
+.footer ul {
+    display: flex;
+    flex-direction: row;
+    gap: 4em;
+}
