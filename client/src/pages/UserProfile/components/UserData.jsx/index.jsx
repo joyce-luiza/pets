@@ -4,24 +4,30 @@ import { axiosRequest } from "../../../../utils/axiosRequest";
 import MaskedInput from "../../../../components/MaskedInput";
 import BirthDateField from "../../../../components/BirthDateField";
 import "remixicon/fonts/remixicon.css";
+import showMessage from "../../../../utils/Message";
 import dayjs from "dayjs";
+import PhoneNumberField from "../../../../components/PhoneNumberField";
 
 export default function UserData({ user }) {
     const [userData, setUserData] = useState();
     const [loading, setLoading] = useState(false);
 
     const getUserData = async () => {
-        const result = await axiosRequest({
-            method: "get",
-            path: `/adopter/${user.id}`,
-        });
-        const { birthDate, firstName, lastName } = result;
-        setUserData({
-            ...result,
-            fullName: `${firstName} ${lastName}`,
-            birthDate: dayjs(birthDate),
-        });
         setLoading(true);
+        try {
+            const result = await axiosRequest({
+                method: "get",
+                path: `/adopter/${user.id}`,
+            });
+            const { birthDate, firstName, lastName } = result;
+            setUserData({
+                ...result,
+                fullName: `${firstName} ${lastName}`,
+                birthDate: dayjs(birthDate),
+            });
+        } catch (error) {
+            showMessage("error", error);
+        }
     };
 
     useEffect(() => {
@@ -67,23 +73,8 @@ export default function UserData({ user }) {
                         >
                             <Input size="large" placeholder="Email"></Input>
                         </Form.Item>
-                        <MaskedInput
-                            name={"phoneNumber"}
-                            label="Número de celular:"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Insira um número de celular",
-                                },
-                            ]}
-                            type="text"
-                            mask="(99) 99999-9999"
-                            placeholder="(00) 00000-0000"
-                        ></MaskedInput>
-                        <BirthDateField
-                            name={"birthDate"}
-                            label={"Data de nascimento"}
-                        ></BirthDateField>
+                        <PhoneNumberField></PhoneNumberField>
+                        <BirthDateField></BirthDateField>
                         <Form.Item>
                             <Button
                                 block

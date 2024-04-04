@@ -10,31 +10,16 @@ import PasswordField from "../../components/PasswordField";
 import { axiosRequest } from "../../utils/axiosRequest";
 import BirthDateField from "../../components/BirthDateField";
 import { useAuth } from "../../contexts/AuthContext";
+import showMessage from "../../utils/Message";
+import PhoneNumberField from "../../components/PhoneNumberField";
 
 export default function CreateAccount() {
     const { login } = useAuth();
-    const [messageApi, contextHolder] = message.useMessage();
     const [accountType, setAccountType] = useState(USER_TYPE.ADOPTER);
     const [loading, setLoading] = useState(false);
 
     const changeAccountType = (event) => {
         setAccountType(event.target.value);
-    };
-
-    const validatePhone = (_, value) => {
-        const numericValue = value.replace(/[^\d]/g, "");
-        if (numericValue && numericValue.length < 11) {
-            return Promise.reject("Por favor, insira um número válido");
-        }
-        return Promise.resolve();
-    };
-
-    const errorMessage = (error) => {
-        messageApi.open({
-            type: "error",
-            content: error,
-            duration: 5,
-        });
     };
 
     const handleSubmit = async ({
@@ -66,13 +51,12 @@ export default function CreateAccount() {
             login(body.email, body.password, accountType, true);
         } catch (error) {
             setLoading(false);
-            errorMessage(error);
+            showMessage("error", error);
         }
     };
 
     return (
         <>
-            {contextHolder}
             <div className={styles.container}>
                 <section className={styles.createAccount}>
                     <h2 className={styles.title}>Criar conta</h2>
@@ -145,27 +129,8 @@ export default function CreateAccount() {
                                         placeholder="Email"
                                     ></Input>
                                 </Form.Item>
-                                <MaskedInput
-                                    name={"phoneNumber"}
-                                    label="Número de celular:"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message:
-                                                "Insira um número de celular",
-                                        },
-                                        {
-                                            validator: validatePhone,
-                                        },
-                                    ]}
-                                    type="text"
-                                    mask="(99) 99999-9999"
-                                    placeholder="(00) 00000-0000"
-                                ></MaskedInput>
-                                <BirthDateField
-                                    name={"birthDate"}
-                                    label={"Data de nascimento"}
-                                ></BirthDateField>
+                                <PhoneNumberField></PhoneNumberField>
+                                <BirthDateField></BirthDateField>
                                 <PasswordField
                                     name={"password"}
                                 ></PasswordField>

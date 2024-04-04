@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, App } from "antd";
 import BasePage from "./layout/BasePage";
 import Home from "./pages/Home/index.jsx";
 import CreateAccount from "./pages/CreateAccount/index.jsx";
@@ -27,7 +27,7 @@ export default function AppRoutes() {
                 },
             }}
         >
-            <div className="App">
+            <App>
                 <BrowserRouter>
                     <AuthProvider>
                         <Routes>
@@ -53,7 +53,7 @@ export default function AppRoutes() {
                         </Routes>
                     </AuthProvider>
                 </BrowserRouter>
-            </div>
+            </App>
         </ConfigProvider>
     );
 }

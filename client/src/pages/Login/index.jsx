@@ -1,22 +1,14 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Radio, message } from "antd";
+import { Button, Form, Input, Radio } from "antd";
 import styles from "./styles.module.css";
 import { USER_TYPE } from "../../constants";
 import { useAuth } from "../../contexts/AuthContext";
+import showMessage from "../../utils/Message";
 
 export default function Login() {
     const [accountType, setAccountType] = useState(USER_TYPE.ADOPTER);
-    const [messageApi, contextHolder] = message.useMessage();
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
-
-    const errorMessage = (error) => {
-        messageApi.open({
-            type: "error",
-            content: error,
-            duration: 5,
-        });
-    };
 
     const changeAccountType = (event) => {
         setAccountType(event.target.value);
@@ -29,13 +21,12 @@ export default function Login() {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            errorMessage(error);
+            showMessage("error", error);
         }
     };
 
     return (
         <>
-            {contextHolder}
             <div className={styles.container}>
                 <section className={styles.login}>
                     <h2 className={styles.title}>Fazer login</h2>
