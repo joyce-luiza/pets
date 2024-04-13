@@ -2,46 +2,34 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Adopters", {
+    await queryInterface.createTable("Lifestyles", {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      first_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      last_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      birth_date: {
-        type: Sequelize.DATE,
-        allowNull: false,
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      phone_number: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      status_id: {
+      adopter_id: {
         type: Sequelize.UUID,
-        allowNull: false,
+        allowNull: true,
         references: {
-          model: "Statuses",
+          model: "Adopters",
           key: "id",
           onUpdate: "CASCADE",
-          onDelete: "SET NULL",
+          onDelete: "CASCADE",
         },
+      },
+      total_pets: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      routine: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      travel_frequency: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       created_at: {
         allowNull: false,
@@ -56,6 +44,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Adopters");
+    await queryInterface.dropTable("Lifestyles");
   },
 };

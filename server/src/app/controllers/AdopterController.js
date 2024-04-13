@@ -1,8 +1,9 @@
 import {
   CreateAdopterFactory,
   GetByIdAdopterFactory,
+  CreateAdopterLifestyleAndPreferencesFactory,
 } from "../../routes/Adopters/factories";
-import { Adopter } from "../domains";
+import { Adopter, AdopterComplement } from "../domains";
 
 export default class AdopterController {
   constructor() {
@@ -23,4 +24,18 @@ export default class AdopterController {
     const result = await factory.execute(adopter);
     res.json(result);
   }
+
+  async createComplement(req, res, next) {
+    const { step1, step2, step3 } = req.body;
+
+    const adopter = new AdopterComplement({
+      address: { ...step1 },
+      preferences: { ...step2 },
+      lifestyle: { ...step3 },
+    });
+    const factory = new CreateAdopterLifestyleAndPreferencesFactory();
+    const result = await factory.execute(adopter, {}, req.loggedUserInfo);
+    res.json(result);
+  }
 }
+6;

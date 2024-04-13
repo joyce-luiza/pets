@@ -1,4 +1,9 @@
-import CreateAdopterFactory from './CreateAdopterFactory';
-import GetByIdAdopterFactory from './GetByIdAdopterFactory';
+import CreateAdopterFactory from "./CreateAdopterFactory";
+import GetByIdAdopterFactory from "./GetByIdAdopterFactory";
+import CreateAdopterLifestyleAndPreferencesFactory from "./CreateAdopterLifestyleAndPreferencesFactory";
 
-export { CreateAdopterFactory, GetByIdAdopterFactory };
+export {
+  CreateAdopterFactory,
+  GetByIdAdopterFactory,
+  CreateAdopterLifestyleAndPreferencesFactory,
+};

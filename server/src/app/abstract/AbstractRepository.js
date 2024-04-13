@@ -4,6 +4,8 @@ import { STATUS } from "../constants";
 export default class AbstractRepository {
   constructor(model) {
     this.model = model;
+    this.create = this.create.bind(this);
+    this.bulkCreate = this.bulkCreate.bind(this);
     this.findAll = this.findAll.bind(this);
   }
 
@@ -27,6 +29,7 @@ export default class AbstractRepository {
   }
 
   async create(data) {
+    delete data.id;
     return await this.model.create(data);
   }
 
@@ -44,6 +47,14 @@ export default class AbstractRepository {
 
   async findAll() {
     return await this.model.findAll();
+  }
+
+  async findOne(options) {
+    return await this.model.findOne(options);
+  }
+
+  async bulkCreate(dataArray) {
+    return await this.model.bulkCreate(dataArray);
   }
 
   // async findByUserId(userId) {
