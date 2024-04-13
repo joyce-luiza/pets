@@ -11,6 +11,7 @@ export default function LifestyleStep3({
   previousStep,
   answers,
   setStepLoading,
+  nextStep,
 }) {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -20,7 +21,7 @@ export default function LifestyleStep3({
     try {
       setLoading(true);
       await form.validateFields();
-      handler("step3", userPreferences, true);
+      nextStep();
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -32,6 +33,7 @@ export default function LifestyleStep3({
       ...prev,
       ...value,
     }));
+    handler("lifestyle", value);
   };
 
   const setPreferencesByPreviousAnswers = () => {
@@ -41,10 +43,8 @@ export default function LifestyleStep3({
 
       Object.keys(answers).forEach((key) => {
         const value = answers[key];
-        if (typeof value === "object" && value !== null) {
-          formFieldValues[key] = Object.keys(value).filter(
-            (subKey) => value[subKey]
-          );
+        if (value) {
+          formFieldValues[key] = answers[key];
         }
       });
 
@@ -55,12 +55,12 @@ export default function LifestyleStep3({
     setPreferencesByPreviousAnswers();
     setStepLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [answers, setStepLoading]);
+  }, [setStepLoading]);
   return (
     <div className={styles.container}>
       <div className={styles.stepHeader}>
         <div className={styles.stepTitle}>
-          <i class="ri-open-arm-line ri-2x"></i> <span>{title}</span>
+          <i className="ri-open-arm-line ri-2x"></i> <span>{title}</span>
         </div>
         <span>{description}</span>
       </div>

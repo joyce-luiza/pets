@@ -13,14 +13,14 @@ import { axiosRequest } from "../../../../utils/axiosRequest";
 export default function LifestyleForm() {
   const [loading, setStepLoading] = useState(false);
   const [stepForm, setStepForm] = useState({
-    step1: {},
-    step2: {},
-    step3: {},
+    address: {},
+    preferences: {},
+    lifestyle: {},
   });
 
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(0);
 
-  const handleStepForm = async (step, value, lastStep) => {
+  const handleStepForm = async (step, value, lastStep = false) => {
     setStepForm((prev) => ({
       ...prev,
       [step]: {
@@ -28,19 +28,15 @@ export default function LifestyleForm() {
         ...value,
       },
     }));
-
-    if (lastStep) {
-      await handleFinishSteps();
-      return;
-    }
-    nextStep();
   };
 
   const nextStep = async () => {
     setStepLoading(true);
-    if (currentStep < steps.length) {
+    if (currentStep + 1 < steps.length) {
       setCurrentStep(currentStep + 1);
       setStepLoading(false);
+    } else {
+      await handleFinishSteps();
     }
   };
 
@@ -79,8 +75,9 @@ export default function LifestyleForm() {
           title="Endereço"
           description="Seu endereço será usado para garantir verificações de compatibilidade do seu futuro pet e o seu local de residência."
           handler={handleStepForm}
-          answers={stepForm.step1}
+          answers={stepForm.address}
           setStepLoading={setStepLoading}
+          nextStep={nextStep}
         />
       ),
     },
@@ -94,8 +91,9 @@ export default function LifestyleForm() {
           description="Para o match perfeito, pedimos para que você defina quais são as suas preferências sobre o seu futuro pet."
           handler={handleStepForm}
           previousStep={previousStep}
-          answers={stepForm.step2}
+          answers={stepForm.preferences}
           setStepLoading={setStepLoading}
+          nextStep={nextStep}
         />
       ),
     },
@@ -109,8 +107,9 @@ export default function LifestyleForm() {
           description="Nos ajude a entender o seu estilo de vida para que possamos encontrar um bichinho que tenha uma personalidade compatível."
           handler={handleStepForm}
           previousStep={previousStep}
-          answers={stepForm.step3}
+          answers={stepForm.lifestyle}
           setStepLoading={setStepLoading}
+          nextStep={nextStep}
         />
       ),
     },

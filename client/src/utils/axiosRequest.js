@@ -35,7 +35,7 @@ export async function axiosRequest({
       headers["Authorization"] = `Bearer ${user.token}`;
     }
 
-    const { data } = await axios({
+    const res = await axios({
       method,
       url:
         path && basePath
@@ -45,7 +45,7 @@ export async function axiosRequest({
       params: params,
       headers,
     });
-    return data;
+    return res.data;
   } catch (error) {
     throw error.response.data;
   }

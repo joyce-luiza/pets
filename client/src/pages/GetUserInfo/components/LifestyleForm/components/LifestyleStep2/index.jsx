@@ -17,6 +17,7 @@ export default function LifestyleStep2({
   previousStep,
   answers,
   setStepLoading,
+  nextStep,
 }) {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -41,7 +42,8 @@ export default function LifestyleStep2({
     try {
       setLoading(true);
       await form.validateFields();
-      handler("step2", userPreferences);
+      // handler("step2", userPreferences);
+      nextStep();
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -66,6 +68,7 @@ export default function LifestyleStep2({
       ...prev,
       ...value,
     }));
+    handler("preferences", value);
   };
 
   const handleCheckBoxAnswer = (group, selectedOptions) => {
@@ -142,13 +145,13 @@ export default function LifestyleStep2({
     setPreferencesByPreviousAnswers();
     setStepLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [answers, setStepLoading]);
+  }, [setStepLoading]);
 
   return (
     <div className={styles.container}>
       <div className={styles.stepHeader}>
         <div className={styles.stepTitle}>
-          <i class="ri-emotion-2-line ri-2x"></i> <span>{title}</span>
+          <i className="ri-emotion-2-line ri-2x"></i> <span>{title}</span>
         </div>
         <span>{description}</span>
       </div>

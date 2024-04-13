@@ -26,12 +26,12 @@ export default class AdopterController {
   }
 
   async createComplement(req, res, next) {
-    const { step1, step2, step3 } = req.body;
+    const { address, preferences, lifestyle } = req.body;
 
     const adopter = new AdopterComplement({
-      address: { ...step1 },
-      preferences: { ...step2 },
-      lifestyle: { ...step3 },
+      address,
+      preferences,
+      lifestyle,
     });
     const factory = new CreateAdopterLifestyleAndPreferencesFactory();
     const result = await factory.execute(adopter, {}, req.loggedUserInfo);
