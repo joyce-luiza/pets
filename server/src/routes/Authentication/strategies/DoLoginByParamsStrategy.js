@@ -11,61 +11,55 @@ import { USER_TYPE } from "../../../constants";
  * @extends AbstractStrategy
  */
 export default class DoLoginByParamsStrategy extends AbstractStrategy {
-    /**
-     *
-     * @param {AdopterRepository} adopterRepository
-     */
-    constructor(adopterRepository) {
-        super();
-        this.adopterRepository = adopterRepository;
-    }
+  /**
+   *
+   * @param {AdopterRepository} adopterRepository
+   */
+  constructor(adopterRepository) {
+    super();
+    this.adopterRepository = adopterRepository;
+  }
 
-    /**
-     * @param {Login} data - Login domain object
-     */
-    async execute({ email, password, token, type }) {
-        if (token) return;
+  /**
+   * @param {Login} data - Login domain object
+   */
+  async execute({ email, password, token, type }) {
+    if (token) return;
 
-        let result = {};
+    let result = {};
 
-        switch (type) {
-            case USER_TYPE.ADOPTER:
-                const adopter = await this.adopterRepository.findByProp(
-                    "email",
-                    email
-                );
+    switch (type) {
+      case USER_TYPE.ADOPTER:
+        const adopter = await this.adopterRepository.findByProp("email", email);
 
-                if (!adopter) {
-                    this.throwError(
-                        "Não foi possível recuperar os dados do adotante.",
-                        500
-                    );
-                }
-
-                if (!(await adopter.checkPassword(password))) {
-                    this.throwError(
-                        "O usuário ou senha estão incorretos.",
-                        400
-                    );
-                }
-
-                const { id, firstName } = adopter;
-
-                result = {
-                    id,
-                    firstName,
-                    email,
-                    type,
-                    token: jwt.sign({ id, type }, auth.secret, {
-                        expiresIn: auth.expiresIn,
-                    }),
-                };
-                break;
-
-            default:
-                break;
+        if (!adopter) {
+          this.throwError(
+            "Erro ao realizar login. Email ou senha incorretos.",
+            500
+          );
         }
 
-        return result;
+        if (!(await adopter.checkPassword(password))) {
+          this.throwError("O email ou senha estão incorretos.", 400);
+        }
+
+        const { id, firstName } = adopter;
+
+        result = {
+          id,
+          firstName,
+          email,
+          type,
+          token: jwt.sign({ id, type }, auth.secret, {
+            expiresIn: auth.expiresIn,
+          }),
+        };
+        break;
+
+      default:
+        break;
     }
+
+    return result;
+  }
 }

@@ -65,4 +65,14 @@ module.exports = Object.freeze({
     BROWN: "Marrom",
     MIXED: "Mesclado",
   },
+  ROUTINE_TYPES: {
+    FULL_TIME: "FULL_TIME",
+    FLEXIBLE: "FLEXIBLE",
+    AVAILABLE: "AVAILABLE",
+  },
+  TRAVEL_FREQUENCY: {
+    REGULAR: "REGULAR",
+    OCCASIONALLY: "OCCASIONALLY",
+    RARELLY: "RARELLY",
+  },
 });
