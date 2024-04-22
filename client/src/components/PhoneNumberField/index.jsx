@@ -1,12 +1,15 @@
-import { React } from "react";
+import { React, useState } from "react";
 import { Form, Input } from "antd";
 import InputMask from "react-input-mask";
 
 const PhoneNumberField = () => {
     const validatePhone = (_, value) => {
-        const numericValue = value.replace(/[^\d]/g, "");
-        if (numericValue && numericValue.length < 11) {
-            return Promise.reject("Por favor, insira um número válido");
+        if (value) {
+            const numericValue = value.replace(/[^\d]/g, "");
+            if (numericValue && numericValue.length < 11) {
+                console.log(numericValue);
+                return Promise.reject("Por favor, insira um número válido");
+            }
         }
         return Promise.resolve();
     };
@@ -26,9 +29,11 @@ const PhoneNumberField = () => {
             ]}
             validateTrigger="onBlur"
         >
-            <InputMask type="text" mask="(99) 99999-9999">
-                {() => <Input size="large" placeholder="(00) 00000-0000" />}
-            </InputMask>
+            <InputMask
+                type="text"
+                mask="(99) 99999-9999"
+                placeholder="(00) 00000-0000"
+            ></InputMask>
         </Form.Item>
     );
 };

@@ -8,6 +8,7 @@ import { AuthProvider } from "./contexts/AuthContext.js";
 import UserProfile from "./pages/UserProfile/index.jsx";
 import ProtectedRoute from "./contexts/ProtectedRoute.js";
 import Login from "./pages/Login/index.jsx";
+import GetOrgInfo from "./pages/GetOrgInfo/index.jsx";
 
 export default function AppRoutes() {
     return (
@@ -37,6 +38,10 @@ export default function AppRoutes() {
                                 <Route
                                     path="register"
                                     element={<CreateAccount />}
+                                />
+                                <Route
+                                    path="organization"
+                                    element={<GetOrgInfo />}
                                 />
                             </Route>
                             <Route element={<ProtectedRoute />}>

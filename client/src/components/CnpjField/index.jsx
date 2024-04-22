@@ -2,12 +2,12 @@ import { React } from "react";
 import { Form, Input } from "antd";
 import InputMask from "react-input-mask";
 
-const CepField = ({ value, onChange }) => {
-    const validateCep = (_, value) => {
+const CnpjField = ({ ...props }) => {
+    const validateCnpj = (_, value) => {
         if (value) {
             const numericValue = value.replace(/[^\d]/g, "");
-            if (numericValue && numericValue.length < 8) {
-                return Promise.reject("Por favor, insira um CEP válido");
+            if (numericValue && numericValue.length < 14) {
+                return Promise.reject("Por favor, insira um CNPJ válido");
             }
         }
         return Promise.resolve();
@@ -15,29 +15,27 @@ const CepField = ({ value, onChange }) => {
 
     return (
         <Form.Item
-            label="CEP:"
-            name="cep"
+            label="CNPJ:"
+            name={"cnpj"}
             rules={[
                 {
                     required: true,
-                    message: "Por favor, insira um CEP",
+                    message: "Insira um CNPJ",
                 },
                 {
-                    validator: validateCep,
+                    validator: validateCnpj,
                 },
             ]}
             validateTrigger="onBlur"
             labelCol={{ span: 24 }}
         >
             <InputMask
-                placeholder="_____-___"
-                type="text"
-                mask="99999-999"
-                value={value}
-                onChange={onChange}
+                mask="99.999.999/9999-99"
+                placeholder="00.000.000/0000-00"
+                {...props}
             ></InputMask>
         </Form.Item>
     );
 };
 
-export default CepField;
+export default CnpjField;

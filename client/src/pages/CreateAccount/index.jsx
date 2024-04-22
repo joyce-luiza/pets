@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, Form, Input, Carousel, Radio, message } from "antd";
 import styles from "./styles.module.css";
 import { USER_TYPE } from "../../constants";
-import MaskedInput from "../../components/MaskedInput";
 import testimonialImage1 from "./images/image-1.jpg";
 import testimonialImage2 from "./images/image-2.jpg";
 import testimonialImage3 from "./images/image-3.jpg";
@@ -40,6 +39,7 @@ export default function CreateAccount() {
             password: password,
             phoneNumber: phoneNumber,
         };
+        console.log(body);
 
         try {
             await axiosRequest({
