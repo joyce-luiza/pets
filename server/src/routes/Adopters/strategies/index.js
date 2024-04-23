@@ -19,6 +19,9 @@ import CreateAdopterStrategy from "./CreateAdopterStrategy";
 import FindAdopterByIdStrategy from "./FindAdopterByIdStrategy";
 import FormatToAdopterDomainStrategy from "./FormatToAdopterDomainStrategy";
 import CreateAdopterAddressStrategy from "./CreateAdopterAddressStrategy";
+import VerifyAdopterByLoggedInfoStrategy from "./VerifyAdopterByLoggedInfoStrategy";
+import DeleteLogicallyByAdopterIdStrategy from "./DeleteLogicallyByAdopterIdStrategy";
+import UpdateAdopterStrategy from "./UpdateAdopterStrategy";
 
 export {
   ValidateAdopterRequiredFieldsStrategy,
@@ -37,4 +40,7 @@ export {
   CreateAdopterAnimalColorPreferencesStrategy,
   CreateAdopterAnimalAgeGroupPreferencesStrategy,
   CreateAdopterLifestyleStrategy,
+  VerifyAdopterByLoggedInfoStrategy,
+  DeleteLogicallyByAdopterIdStrategy,
+  UpdateAdopterStrategy,
 };

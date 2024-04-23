@@ -7,6 +7,8 @@ export default class AbstractRepository {
     this.create = this.create.bind(this);
     this.bulkCreate = this.bulkCreate.bind(this);
     this.findAll = this.findAll.bind(this);
+    this.deleteLogicallyById = this.deleteLogicallyById.bind(this);
+    this.update = this.update.bind(this);
   }
 
   static getInstance() {
@@ -57,10 +59,24 @@ export default class AbstractRepository {
     return await this.model.bulkCreate(dataArray);
   }
 
-  // async findByUserId(userId) {
-  //     const activeStatus = await this.getActiveStatusId();
-  //     return await this.model.findOne({
-  //         where: { userId, statusId: activeStatus },
-  //     });
-  // }
+  async deleteLogicallyById(id) {
+    return await this.model.update(
+      {
+        statusId: this.getInactiveStatusId(),
+      },
+      {
+        where: { id },
+      }
+    );
+  }
+
+  async update(value, whereCondition) {
+    if ("id" in value) {
+      delete value.id;
+    }
+
+    return await this.model.update(value, {
+      where: whereCondition,
+    });
+  }
 }

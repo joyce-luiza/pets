@@ -2,6 +2,8 @@ import {
   CreateAdopterFactory,
   GetByIdAdopterFactory,
   CreateAdopterLifestyleAndPreferencesFactory,
+  DeleteLogicallyByAdopterIdFactory,
+  UpdateAdopterFactory,
 } from "../../routes/Adopters/factories";
 import { Adopter, AdopterComplement } from "../domains";
 
@@ -9,12 +11,21 @@ export default class AdopterController {
   constructor() {
     this.create = this.create.bind(this);
     this.getById = this.getById.bind(this);
+    this.createComplement = this.createComplement.bind(this);
+    this.deleteLogicallyById = this.deleteLogicallyById.bind(this);
+    this.update = this.update.bind(this);
   }
 
   async create(req, res, next) {
     const adopter = new Adopter(req.body);
+
+    const domain = {
+      ...adopter,
+      password: req.body.password,
+    };
+
     const factory = new CreateAdopterFactory();
-    const result = await factory.execute(adopter);
+    const result = await factory.execute(domain);
     res.json(result);
   }
 
@@ -34,6 +45,20 @@ export default class AdopterController {
       lifestyle,
     });
     const factory = new CreateAdopterLifestyleAndPreferencesFactory();
+    const result = await factory.execute(adopter, {}, req.loggedUserInfo);
+    res.json(result);
+  }
+
+  async deleteLogicallyById(req, res, next) {
+    const adopter = new Adopter({ id: req.params.id });
+    const factory = new DeleteLogicallyByAdopterIdFactory();
+    const result = await factory.execute(adopter, {}, req.loggedUserInfo);
+    res.json(result);
+  }
+
+  async update(req, res, next) {
+    const adopter = new Adopter(req.body);
+    const factory = new UpdateAdopterFactory();
     const result = await factory.execute(adopter, {}, req.loggedUserInfo);
     res.json(result);
   }
