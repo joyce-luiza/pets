@@ -34,7 +34,7 @@ const uploadFile = async ({ file, folder }) => {
       this.throwError("Arquivo inválido", 400);
     }
 
-    const fileName = `${path}/${moment().valueOf()}-${file.originalname}`;
+    const fileName = `${folder}/${moment().valueOf()}-${file.originalname}`;
     const storageRef = ref(firebaseStorage, fileName);
     const metadata = {
       contentType: file.mimetype,
