@@ -20,6 +20,7 @@ export const AuthProvider = ({ children }) => {
     if (user && user.token) {
       checkTokenExpiration();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const login = async (email, psw, userType, firstAccess) => {

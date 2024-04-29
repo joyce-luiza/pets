@@ -15,7 +15,6 @@ export default function LifestyleStep3({
 }) {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [userPreferences, setUserPreferences] = useState({});
 
   const handleStepInfo = async () => {
     try {
@@ -29,16 +28,11 @@ export default function LifestyleStep3({
   };
 
   const handleUserPreferences = (value) => {
-    setUserPreferences((prev) => ({
-      ...prev,
-      ...value,
-    }));
     handler("lifestyle", value);
   };
 
   const setPreferencesByPreviousAnswers = () => {
     if (answers) {
-      setUserPreferences(() => answers);
       const formFieldValues = {};
 
       Object.keys(answers).forEach((key) => {

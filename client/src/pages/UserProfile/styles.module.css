@@ -1,17 +1,17 @@
 .container {
-    margin-top: 120px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 15vw 40vw;
-    padding: 5em 6.25em 0 6.25em;
-    gap: 5em;
+  margin-top: 120px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 15vw 40vw;
+  padding: 5em 6.25em 0 6.25em;
+  gap: 5em;
 }
 
 .container h2 {
-    margin-bottom: 1em;
-    text-align: left;
+  margin-bottom: 1em;
+  text-align: left;
 }
 
 .container form {
-    width: 100%;
+  width: 100%;
 }

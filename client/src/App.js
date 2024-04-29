@@ -8,6 +8,7 @@ import { AuthProvider } from "./contexts/AuthContext.js";
 import UserProfile from "./pages/UserProfile/index.jsx";
 import ProtectedRoute from "./contexts/ProtectedRoute.js";
 import Login from "./pages/Login/index.jsx";
+import AdminMenuSidebar from "./pages/AdminMenuSidebar/index.jsx";
 
 export default function AppRoutes() {
   return (
@@ -42,6 +43,9 @@ export default function AppRoutes() {
                 </Route>
                 <Route path="/profile" element={<BasePage />}>
                   <Route index element={<UserProfile />} />
+                </Route>
+                <Route path="/admin" element={<BasePage />}>
+                  <Route path="profile" element={<AdminMenuSidebar />} />
                 </Route>
               </Route>
             </Routes>

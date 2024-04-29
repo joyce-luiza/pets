@@ -30,19 +30,10 @@ export default function LifestyleStep2({
     animalColors: [],
   });
 
-  const [userPreferences, setUserPreferences] = useState({
-    animalTypes: {},
-    animalAgeGroups: {},
-    animalSizes: {},
-    animalColors: {},
-    animalSexes: {},
-  });
-
   const handleStepInfo = async () => {
     try {
       setLoading(true);
       await form.validateFields();
-      // handler("step2", userPreferences);
       nextStep();
       setLoading(false);
     } catch (error) {
@@ -64,10 +55,6 @@ export default function LifestyleStep2({
   ];
 
   const handleUserPreferences = (value) => {
-    setUserPreferences((prev) => ({
-      ...prev,
-      ...value,
-    }));
     handler("preferences", value);
   };
 
@@ -121,7 +108,6 @@ export default function LifestyleStep2({
 
   const setPreferencesByPreviousAnswers = () => {
     if (answers) {
-      setUserPreferences(() => answers);
       const formFieldValues = {};
 
       Object.keys(answers).forEach((key) => {

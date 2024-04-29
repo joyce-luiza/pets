@@ -17,6 +17,6 @@ export default class AbstractFactory {
       dto = result ? result : dto;
     }
 
-    return sanitize(dto);
+    return dto;
   }
 }
