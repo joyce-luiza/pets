@@ -1,5 +1,4 @@
 import { CustomError } from "../domains";
-import sanitize from "../utils/sanitize";
 
 export default class AbstractFactory {
   constructor(strategies) {
@@ -7,7 +6,7 @@ export default class AbstractFactory {
     this.error = {};
   }
 
-  async execute(data, dto, loggedUserInfo) {
+  async execute(data, dto, loggedUserInfo = {}) {
     let result;
     for (const strategy of this.strategies) {
       if (result instanceof CustomError) {

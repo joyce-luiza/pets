@@ -10,5 +10,7 @@ const facade = new AdopterFacade(controller);
 adopterRoutes.post("/", facade.create);
 adopterRoutes.get("/:id", facade.getById);
 adopterRoutes.post("/complement", authMiddleware, facade.createComplement);
+adopterRoutes.delete("/:id", authMiddleware, facade.deleteLogicallyById);
+adopterRoutes.put("/", facade.update);
 
 export default adopterRoutes;
