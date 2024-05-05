@@ -1,29 +1,39 @@
-import { Adopter } from '../../database/models';
-import AbstractRepository from '../abstract/AbstractRepository';
+import { Adopter } from "../../database/models";
+import AbstractRepository from "../abstract/AbstractRepository";
 
 class AdopterRepository extends AbstractRepository {
-	constructor() {
-		super(Adopter);
-	}
+  constructor() {
+    super(Adopter);
+    this.findActiveAdopterById = this.findActiveAdopterById.bind(this);
+  }
 
-	async createAdopter({
-		firstName,
-		lastName,
-		birthDate,
-		email,
-		password,
-		phoneNumber,
-	}) {
-		return await this.create({
-			firstName,
-			lastName,
-			birthDate,
-			email,
-			password,
-			phoneNumber,
-			statusId: await this.getActiveStatusId(),
-		});
-	}
+  async createAdopter({
+    firstName,
+    lastName,
+    birthDate,
+    email,
+    password,
+    phoneNumber,
+  }) {
+    return await this.create({
+      firstName,
+      lastName,
+      birthDate,
+      email,
+      password,
+      phoneNumber,
+      statusId: await this.getActiveStatusId(),
+    });
+  }
+
+  async findActiveAdopterById(id) {
+    return await this.findOne({
+      where: {
+        id,
+        statusId: await this.getActiveStatusId(),
+      },
+    });
+  }
 }
 
 export default new AdopterRepository();

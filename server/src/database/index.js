@@ -14,6 +14,13 @@ import {
     AnimalAgeGroup,
     AnimalSize,
     AnimalColor,
+    AdopterPreference,
+    AdopterAnimalTypePreference,
+    AdopterAnimalSizePreference,
+    AdopterAnimalColorPreference,
+    AdopterAnimalAgeGroupPreference,
+    Address,
+    Lifestyle,
     Organization,
 } from "./models";
 
@@ -24,8 +31,16 @@ const models = [
     AnimalAgeGroup,
     AnimalSize,
     AnimalColor,
+    AdopterPreference,
+    AdopterAnimalTypePreference,
+    AdopterAnimalSizePreference,
+    AdopterAnimalColorPreference,
+    AdopterAnimalAgeGroupPreference,
+    Address,
+    Lifestyle,
     Organization,
 ];
+
 class Database {
     constructor() {
         this.init();

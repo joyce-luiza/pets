@@ -10,6 +10,7 @@ export default function LifestyleStep1({
     description,
     handler,
     answers,
+    nextStep,
 }) {
     const [form] = Form.useForm();
     const [cities, setCities] = useState([]);
@@ -22,6 +23,14 @@ export default function LifestyleStep1({
         state: "",
         complement: "",
     });
+
+    const validateCep = (_, value) => {
+        const numericValue = value.replace(/[^\d]/g, "");
+        if (numericValue && numericValue.length < 8) {
+            return Promise.reject("Por favor, insira um CEP válido");
+        }
+        return Promise.resolve();
+    };
 
     const [loading, setLoading] = useState(false);
 
@@ -58,6 +67,12 @@ export default function LifestyleStep1({
                     city: address.localidade,
                     state: address.uf,
                 }));
+                handler("address", {
+                    cep: value.cep.replace("-", ""),
+                    street: address.logradouro,
+                    city: address.localidade,
+                    state: address.uf,
+                });
                 setLoading(false);
                 return;
             }
@@ -67,6 +82,7 @@ export default function LifestyleStep1({
             ...prev,
             ...value,
         }));
+        handler("address", value);
         return;
     };
 
@@ -89,7 +105,8 @@ export default function LifestyleStep1({
         try {
             setLoading(true);
             await form.validateFields();
-            handler("step1", userAddress);
+            //   handler("step1", userAddress);
+            nextStep();
             setLoading(false);
         } catch (error) {
             setLoading(false);
@@ -100,7 +117,7 @@ export default function LifestyleStep1({
         <div className={styles.container}>
             <div className={styles.stepHeader}>
                 <div className={styles.stepTitle}>
-                    <i class="ri-home-4-line ri-2x"></i>
+                    <i className="ri-home-4-line ri-2x"></i>
                     <span>{title}</span>
                 </div>
                 <span>{description}</span>
@@ -134,12 +151,27 @@ export default function LifestyleStep1({
                     </Select>
                 </Form.Item>
                 <div className={styles.inline}>
-                    <CepField
+                    <MaskedInput
+                        id="cep"
+                        label="CEP:"
+                        name="cep"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Por favor, insira um CEP",
+                                validator: validateCep,
+                            },
+                        ]}
+                        labelCol={{ span: 24 }}
+                        mask="99999-999"
+                        placeholder="_____-___"
+                        size="large"
                         value={userAddress.cep}
                         onChange={(e) =>
                             handleUserAddress({ cep: e.target.value })
                         }
-                    ></CepField>
+                    />
+
                     <Form.Item
                         label="Logradouro:"
                         name="street"
@@ -240,7 +272,7 @@ export default function LifestyleStep1({
                 </div>
                 <Form.Item
                     label="Complemento (Opcional):"
-                    name="complemento"
+                    name="complement"
                     labelCol={{ span: 24 }}
                 >
                     <Input

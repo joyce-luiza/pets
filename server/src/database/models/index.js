@@ -5,6 +5,13 @@ import AnimalAgeGroup from "./animalAgeGroup";
 import AnimalSize from "./animalSize";
 import AnimalColor from "./animalColor";
 import Organization from "./organization";
+import AdopterPreference from "./adopterPreference";
+import AdopterAnimalTypePreference from "./adopterAnimalTypePreference";
+import AdopterAnimalSizePreference from "./adopterAnimalSizePreference";
+import AdopterAnimalColorPreference from "./adopterAnimalColorPreference";
+import AdopterAnimalAgeGroupPreference from "./adopterAnimalAgeGroupPreference";
+import Address from "./address";
+import Lifestyle from "./lifestyle";
 
 export {
     Status,
@@ -13,5 +20,11 @@ export {
     AnimalAgeGroup,
     AnimalSize,
     AnimalColor,
-    Organization,
+    AdopterPreference,
+    AdopterAnimalTypePreference,
+    AdopterAnimalSizePreference,
+    AdopterAnimalColorPreference,
+    AdopterAnimalAgeGroupPreference,
+    Address,
+    Lifestyle,
 };

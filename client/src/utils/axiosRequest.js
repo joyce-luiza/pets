@@ -1,7 +1,7 @@
 import axios from "axios";
 
 /**
- * @typedef {'get' | 'post' | 'put' | 'delete'} HttpMethod
+ * @typedef {'GET' | 'POS' | 'PUT' | 'DELETE'} HttpMethod
  */
 
 /**
@@ -11,6 +11,7 @@ import axios from "axios";
  * @property {Object} [body={}]
  * @property {string} [params=""]
  * @property {boolean} [basePath=true]
+ * @property {boolean} [authenticated=true]
  */
 
 /**
@@ -19,24 +20,33 @@ import axios from "axios";
  * @returns {Promise<Object> | Promise<boolean>}
  */
 export async function axiosRequest({
-    method = "get",
-    path = "",
-    body = {},
-    params = {},
-    basePath = true,
+  method = "GET",
+  path = "",
+  body = {},
+  params = {},
+  basePath = true,
+  authenticated = false,
 }) {
-    try {
-        const { data } = await axios({
-            method,
-            url:
-                path && basePath
-                    ? `${process.env.REACT_APP_API_PATH}${path}`
-                    : `${path}`,
-            data: body,
-            params: params,
-        });
-        return data;
-    } catch (error) {
-        throw error.response.data;
+  try {
+    let headers = {};
+
+    if (authenticated && localStorage.getItem("user")) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      headers["Authorization"] = `Bearer ${user.token}`;
     }
+
+    const res = await axios({
+      method,
+      url:
+        path && basePath
+          ? `${process.env.REACT_APP_API_PATH}${path}`
+          : `${path}`,
+      data: body,
+      params: params,
+      headers,
+    });
+    return res.data;
+  } catch (error) {
+    throw error.response.data;
+  }
 }

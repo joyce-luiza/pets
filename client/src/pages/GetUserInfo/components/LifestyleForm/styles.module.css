@@ -1,71 +1,71 @@
 .container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 2fr 1em 4fr;
-    gap: 4em;
-    padding: 5em 15em 0 15em;
-    align-items: start;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1em 4fr;
+  gap: 4em;
+  padding: 5em 15em 0 15em;
+  align-items: flex-start;
 }
 
 .stepProgessContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 2.5rem;
-    position: sticky;
-    top: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.5rem;
+  position: sticky;
+  top: 160px;
 }
 
 .title {
-    text-align: left;
+  text-align: left;
 }
 
 .description {
-    color: #828282;
-    font-family: Merriweather;
-    font-size: 1rem;
-    line-height: 1.6rem;
+  color: #828282;
+  font-family: Merriweather;
+  font-size: 1rem;
+  line-height: 1.6rem;
 }
 
 .stepProgress {
 }
 
 .separator {
-    height: 100vh;
-    width: 0.0625rem;
+  height: 100vh;
+  width: 0.0625rem;
 }
 
 .separator > div {
-    position: sticky;
-    top: 160px;
-    width: 100%;
-    height: 70%;
-    background-color: #e0e0e0;
+  position: sticky;
+  top: 160px;
+  width: 100%;
+  height: 70%;
+  background-color: #e0e0e0;
 }
 .stepFormContainer {
-    margin-bottom: 2rem;
-    overflow: auto;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  margin-bottom: 2rem;
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .stepFormContainer::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .stepForm {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1366px) {
-    .container {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1em 2fr;
-        gap: 2em;
-        padding: 5em 8em 5em 8em;
-        align-items: start;
-    }
+  .container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1em 2fr;
+    gap: 2em;
+    padding: 5em 8em 5em 8em;
+    align-items: flex-flex-start;
+  }
 }
