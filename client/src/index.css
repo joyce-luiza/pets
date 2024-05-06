@@ -73,7 +73,7 @@ h2 {
 }
 
 label {
-    color: #7e55d7;
+    color: var(--color01);
     font-family: Poppins;
     font-size: 1rem;
     font-style: normal;
