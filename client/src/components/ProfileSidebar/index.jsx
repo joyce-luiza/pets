@@ -1,25 +1,8 @@
-import { Children, cloneElement, useState } from "react";
+import { Children, cloneElement, useState, useEffect } from "react";
 import styles from "./styles.module.css";
 import "remixicon/fonts/remixicon.css";
 import { Upload, message } from "antd";
 import { axiosRequest } from "../../utils/axiosRequest";
-
-const getBase64 = (img, callback) => {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
-};
-const beforeUpload = (file) => {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
-  }
-  return isJpgOrPng && isLt2M;
-};
 
 export default function ProfileSidebar({
   children,
@@ -28,19 +11,35 @@ export default function ProfileSidebar({
   isAdopter = true,
   imgUrl = "",
 }) {
+  const getBase64 = (img, callback) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => callback(reader.result));
+    reader.readAsDataURL(img);
+  };
+  const beforeUpload = (file) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      message.error("You can only upload JPG/PNG file!");
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error("Image must smaller than 2MB!");
+    }
+    return isJpgOrPng && isLt2M;
+  };
   const [imageUrl, setImageUrl] = useState(imgUrl);
 
   const customRequest = async ({ file, onSuccess, onError }) => {
     try {
       if (isAdopter) {
         await axiosRequest({
-          method: "POST",
+          method: "PUT",
           authenticated: true,
           body: {
             file,
           },
           type: "multipart",
-          path: "/",
+          path: "/adopter/image",
         });
       }
       onSuccess();
@@ -65,6 +64,27 @@ export default function ProfileSidebar({
       message.error("Erro ao alterar a imagem.");
     }
   };
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const userObject = JSON.parse(localStorage.getItem("user"));
+        if (!userObject) {
+          return;
+        }
+
+        const user = await axiosRequest({
+          path: `/adopter/${userObject.id}`,
+        });
+
+        setImageUrl(user.imageUrl ? user.imageUrl : false);
+      } catch (error) {
+        message.error(`Erro ao buscar usuário: ${error.message}`);
+      }
+    };
+
+    getUser();
+  }, []);
 
   return (
     <div className={styles.container}>

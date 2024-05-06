@@ -1,5 +1,6 @@
 import Status from "../../database/models/status";
 import { STATUS } from "../constants";
+import sanitize from "../utils/sanitize";
 
 export default class AbstractRepository {
   constructor(model) {
@@ -71,12 +72,13 @@ export default class AbstractRepository {
   }
 
   async update(value, whereCondition) {
-    if ("id" in value) {
-      delete value.id;
-    }
+    const { id, ...rest } = value;
 
-    return await this.model.update(value, {
-      where: whereCondition,
-    });
+    return await this.model.update(
+      { ...sanitize({ ...rest }) },
+      {
+        where: whereCondition,
+      }
+    );
   }
 }

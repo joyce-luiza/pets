@@ -3,6 +3,7 @@ import GetByIdAdopterFactory from "./GetByIdAdopterFactory";
 import CreateAdopterLifestyleAndPreferencesFactory from "./CreateAdopterLifestyleAndPreferencesFactory";
 import DeleteLogicallyByAdopterIdFactory from "./DeleteLogicallyByAdopterIdFactory";
 import UpdateAdopterFactory from "./UpdateAdopterFactory";
+import UpdateProfileImageAdopterFactory from "./UpdateProfileImageAdopterFactory";
 
 export {
   CreateAdopterFactory,
@@ -10,4 +11,5 @@ export {
   CreateAdopterLifestyleAndPreferencesFactory,
   DeleteLogicallyByAdopterIdFactory,
   UpdateAdopterFactory,
+  UpdateProfileImageAdopterFactory,
 };

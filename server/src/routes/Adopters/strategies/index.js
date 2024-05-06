@@ -22,6 +22,7 @@ import CreateAdopterAddressStrategy from "./CreateAdopterAddressStrategy";
 import VerifyAdopterByLoggedInfoStrategy from "./VerifyAdopterByLoggedInfoStrategy";
 import DeleteLogicallyByAdopterIdStrategy from "./DeleteLogicallyByAdopterIdStrategy";
 import UpdateAdopterStrategy from "./UpdateAdopterStrategy";
+import FindAdopterAndUpdateProfileImageStrategy from "./FindAdopterAndUpdateProfileImageStrategy";
 
 export {
   ValidateAdopterRequiredFieldsStrategy,
@@ -43,4 +44,5 @@ export {
   VerifyAdopterByLoggedInfoStrategy,
   DeleteLogicallyByAdopterIdStrategy,
   UpdateAdopterStrategy,
+  FindAdopterAndUpdateProfileImageStrategy,
 };

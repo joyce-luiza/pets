@@ -4,6 +4,7 @@ import {
   CreateAdopterLifestyleAndPreferencesFactory,
   DeleteLogicallyByAdopterIdFactory,
   UpdateAdopterFactory,
+  UpdateProfileImageAdopterFactory,
 } from "../../routes/Adopters/factories";
 import { Adopter, AdopterComplement } from "../domains";
 
@@ -57,8 +58,15 @@ export default class AdopterController {
   }
 
   async update(req, res, next) {
-    const adopter = new Adopter(req.body);
+    const adopter = new Adopter({ ...req.body, id: req.loggedUserInfo.userId });
     const factory = new UpdateAdopterFactory();
+    const result = await factory.execute(adopter);
+    res.json(result);
+  }
+
+  async updateProfileImage(req, res, next) {
+    const adopter = new Adopter({ file: req.file });
+    const factory = new UpdateProfileImageAdopterFactory();
     const result = await factory.execute(adopter, {}, req.loggedUserInfo);
     res.json(result);
   }

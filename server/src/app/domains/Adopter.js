@@ -9,16 +9,20 @@ export default class Adopter {
     email = "",
     phoneNumber = "",
     statusId = "",
+    imageUrl = "",
+    file = {},
     createdAt = new Date(),
     updatedAt = new Date(),
   } = {}) {
     this.id = id ? id : null;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.birthDate = new Date(birthDate);
+    this.birthDate = birthDate;
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.statusId = statusId;
+    this.imageUrl = imageUrl;
+    this.file = file;
     this.createdAt = new Date(createdAt);
     this.updatedAt = new Date(updatedAt);
   }

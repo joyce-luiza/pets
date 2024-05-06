@@ -2,6 +2,8 @@ import { Router } from "express";
 import AdopterFacade from "../../app/facades/AdopterFacade";
 import AdopterController from "../../app/controllers/AdopterController";
 import authMiddleware from "../../middlewares/auth";
+import { multerUpload } from "../../config/multer";
+
 const adopterRoutes = Router();
 
 const controller = new AdopterController();
@@ -11,6 +13,12 @@ adopterRoutes.post("/", facade.create);
 adopterRoutes.get("/:id", facade.getById);
 adopterRoutes.post("/complement", authMiddleware, facade.createComplement);
 adopterRoutes.delete("/:id", authMiddleware, facade.deleteLogicallyById);
-adopterRoutes.put("/", facade.update);
+adopterRoutes.put("/", authMiddleware, facade.update);
+adopterRoutes.put(
+  "/image",
+  authMiddleware,
+  multerUpload.single("file"),
+  facade.updateProfileImage
+);
 
 export default adopterRoutes;
