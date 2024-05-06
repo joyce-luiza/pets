@@ -1,25 +1,20 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Carousel, Radio, message } from "antd";
+import { Button, Form, Input, Carousel } from "antd";
 import styles from "./styles.module.css";
-import { USER_TYPE } from "../../constants";
+import { USER_TYPE } from "../../../constants";
 import testimonialImage1 from "./images/image-1.jpg";
 import testimonialImage2 from "./images/image-2.jpg";
 import testimonialImage3 from "./images/image-3.jpg";
-import PasswordField from "../../components/PasswordField";
-import { axiosRequest } from "../../utils/axiosRequest";
-import BirthDateField from "../../components/BirthDateField";
-import { useAuth } from "../../contexts/AuthContext";
-import showMessage from "../../utils/Message";
-import PhoneNumberField from "../../components/PhoneNumberField";
+import PasswordField from "../../../components/PasswordField";
+import { axiosRequest } from "../../../utils/axiosRequest";
+import BirthDateField from "../../../components/BirthDateField";
+import { useAuth } from "../../../contexts/AuthContext";
+import showMessage from "../../../utils/Message";
+import PhoneNumberField from "../../../components/PhoneNumberField";
 
-export default function CreateAccount() {
+export default function AdopterAccount() {
     const { login } = useAuth();
-    const [accountType, setAccountType] = useState(USER_TYPE.ADOPTER);
     const [loading, setLoading] = useState(false);
-
-    const changeAccountType = (event) => {
-        setAccountType(event.target.value);
-    };
 
     const handleSubmit = async ({
         fullName,
@@ -39,7 +34,6 @@ export default function CreateAccount() {
             password: password,
             phoneNumber: phoneNumber,
         };
-        console.log(body);
 
         try {
             await axiosRequest({
@@ -48,7 +42,7 @@ export default function CreateAccount() {
                 body,
             });
             setLoading(false);
-            login(body.email, body.password, accountType, true);
+            login(body.email, body.password, USER_TYPE.ADOPTER, true);
         } catch (error) {
             setLoading(false);
             showMessage("error", error);
@@ -73,92 +67,61 @@ export default function CreateAccount() {
                         }}
                         onFinish={handleSubmit}
                     >
-                        <Form.Item>
-                            <div className={styles.accountType}>
-                                <h3>Tipo de conta</h3>
-                                <Radio.Group
-                                    onChange={changeAccountType}
-                                    value={accountType}
+                        <>
+                            <Form.Item
+                                name={"fullName"}
+                                label="Nome completo:"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Insira o seu nome completo",
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    size="large"
+                                    placeholder="Nome completo"
+                                ></Input>
+                            </Form.Item>
+                            <Form.Item
+                                name={"email"}
+                                label="Email:"
+                                rules={[
+                                    {
+                                        type: "email",
+                                        message:
+                                            "O email inserido não possui um formato válido.",
+                                    },
+                                    {
+                                        required: true,
+                                        message: "Insira um endereço de email",
+                                    },
+                                ]}
+                                validateTrigger="onBlur"
+                            >
+                                <Input size="large" placeholder="Email"></Input>
+                            </Form.Item>
+                            <PhoneNumberField></PhoneNumberField>
+                            <BirthDateField></BirthDateField>
+                            <PasswordField name={"password"}></PasswordField>
+                            <Form.Item>
+                                <Button
+                                    block
+                                    size="large"
+                                    type="primary"
+                                    htmlType="submit"
+                                    loading={loading}
                                 >
-                                    <Radio value={USER_TYPE.ADOPTER}>
-                                        Sou adotante
-                                    </Radio>
-                                    <Radio value={USER_TYPE.ORGANIZATION}>
-                                        Sou uma organização
-                                    </Radio>
-                                </Radio.Group>
-                            </div>
-                        </Form.Item>
-                        {accountType === USER_TYPE.ADOPTER && (
-                            <>
-                                <Form.Item
-                                    name={"fullName"}
-                                    label="Nome completo:"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message:
-                                                "Insira o seu nome completo",
-                                        },
-                                    ]}
-                                >
-                                    <Input
-                                        size="large"
-                                        placeholder="Nome completo"
-                                    ></Input>
-                                </Form.Item>
-                                <Form.Item
-                                    name={"email"}
-                                    label="Email:"
-                                    rules={[
-                                        {
-                                            type: "email",
-                                            message:
-                                                "O email inserido não possui um formato válido.",
-                                        },
-                                        {
-                                            required: true,
-                                            message:
-                                                "Insira um endereço de email",
-                                        },
-                                    ]}
-                                    validateTrigger="onBlur"
-                                >
-                                    <Input
-                                        size="large"
-                                        placeholder="Email"
-                                    ></Input>
-                                </Form.Item>
-                                <PhoneNumberField></PhoneNumberField>
-                                <BirthDateField></BirthDateField>
-                                <PasswordField
-                                    name={"password"}
-                                ></PasswordField>
-                                <Form.Item>
-                                    <Button
-                                        block
-                                        size="large"
-                                        type="primary"
-                                        htmlType="submit"
-                                        loading={loading}
-                                    >
-                                        Criar conta
-                                    </Button>
-                                </Form.Item>
-                                <Form.Item>
-                                    <Button
-                                        type="link"
-                                        style={{ width: "100%" }}
-                                    >
-                                        Já possui conta? Faça login
-                                    </Button>
-                                </Form.Item>
-                            </>
-                        )}
+                                    Criar conta
+                                </Button>
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="link" style={{ width: "100%" }}>
+                                    Já possui conta? Faça login
+                                </Button>
+                            </Form.Item>
+                        </>
                     </Form>
-                    {accountType === USER_TYPE.ORGANIZATION && (
-                        <h3>Confia que aqui vai ter um formulário</h3>
-                    )}
                 </section>
                 <div style={{ position: "fixed", right: "0" }}>
                     <Carousel

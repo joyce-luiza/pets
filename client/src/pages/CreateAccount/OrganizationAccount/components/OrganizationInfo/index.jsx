@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
-import CnpjField from "../../../../components/CnpjField";
-import PhoneNumberField from "../../../../components/PhoneNumberField";
+import CnpjField from "../../../../../components/CnpjField";
+import PhoneNumberField from "../../../../../components/PhoneNumberField";
 import styles from "../../styles.module.css";
+import { axiosRequest } from "../../../../../utils/axiosRequest";
+import showMessage from "../../../../../utils/Message";
 
 export default function OrganizationInfo({
     answers,
@@ -24,10 +26,16 @@ export default function OrganizationInfo({
         try {
             setLoading(true);
             await form.validateFields();
+            const cnpj = encodeURIComponent(answers.cnpj);
+            await axiosRequest({
+                method: "get",
+                path: `/organization/cnpj/${cnpj}`,
+            });
             nextStep();
             setLoading(false);
         } catch (error) {
             setLoading(false);
+            showMessage("error", error);
         }
     };
 

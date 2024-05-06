@@ -1,6 +1,6 @@
 import React from "react";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
-import { Form, Input, Button, Row, Col, Space } from "antd";
+import { Form, Input, Button, Row, Col } from "antd";
 import styles from "../../styles.module.css";
 
 export default function Team({ emails, setEmails, prevStep, finishForm }) {
@@ -23,7 +23,7 @@ export default function Team({ emails, setEmails, prevStep, finishForm }) {
             <div className={styles.stepFormTitle}>
                 <div>
                     <i className="ri-group-line ri-2x"></i>
-                    <h2 className="headline4">Equipe</h2>
+                    <h2 className="headline4">Equipe (Opcional)</h2>
                 </div>
                 <p className="body1">
                     Caso necessário, você pode conceder acesso aos outros
@@ -63,12 +63,6 @@ export default function Team({ emails, setEmails, prevStep, finishForm }) {
                                                         "onBlur",
                                                     ]}
                                                     rules={[
-                                                        {
-                                                            required: true,
-                                                            whitespace: true,
-                                                            message:
-                                                                "Insira um email",
-                                                        },
                                                         {
                                                             type: "email",
                                                             message:

@@ -2,13 +2,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ConfigProvider, App } from "antd";
 import BasePage from "./layout/BasePage";
 import Home from "./pages/Home/index.jsx";
-import CreateAccount from "./pages/CreateAccount/index.jsx";
 import GetUserInfo from "./pages/GetUserInfo/index.jsx";
 import { AuthProvider } from "./contexts/AuthContext.js";
 import UserProfile from "./pages/UserProfile/index.jsx";
 import ProtectedRoute from "./contexts/ProtectedRoute.js";
 import Login from "./pages/Login/index.jsx";
-import GetOrgInfo from "./pages/GetOrgInfo/index.jsx";
+import ChooseAccount from "./pages/ChooseAccount/index.jsx";
+import { AdopterAccount, OrganizationAccount } from "./pages/CreateAccount/";
 
 export default function AppRoutes() {
     return (
@@ -37,11 +37,15 @@ export default function AppRoutes() {
                                 <Route path="login" element={<Login />} />
                                 <Route
                                     path="register"
-                                    element={<CreateAccount />}
+                                    element={<ChooseAccount />}
+                                />
+                                <Route
+                                    path="adopter"
+                                    element={<AdopterAccount />}
                                 />
                                 <Route
                                     path="organization"
-                                    element={<GetOrgInfo />}
+                                    element={<OrganizationAccount />}
                                 />
                             </Route>
                             <Route element={<ProtectedRoute />}>

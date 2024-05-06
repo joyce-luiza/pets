@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
-import PhoneNumberField from "../../../../components/PhoneNumberField";
-import BirthDateField from "../../../../components/BirthDateField";
-import PasswordField from "../../../../components/PasswordField";
+import PhoneNumberField from "../../../../../components/PhoneNumberField";
+import BirthDateField from "../../../../../components/BirthDateField";
+import PasswordField from "../../../../../components/PasswordField";
 import styles from "../../styles.module.css";
+import { axiosRequest } from "../../../../../utils/axiosRequest";
+import showMessage from "../../../../../utils/Message";
 
 export default function AdminUser({ answers, updateAnswers, nextStep }) {
     const [form] = Form.useForm();
@@ -17,12 +19,24 @@ export default function AdminUser({ answers, updateAnswers, nextStep }) {
     };
 
     const handleStepInfo = async () => {
+        const firstName = answers.fullName.split(" ")[0];
+        const lastName = answers.fullName.slice(firstName.length).trim();
+        updateAnswers((prev) => ({
+            ...prev,
+            firstName: firstName,
+            lastName: lastName,
+        }));
+        setLoading(true);
         try {
-            setLoading(true);
             await form.validateFields();
-            nextStep();
+            await axiosRequest({
+                method: "get",
+                path: `/member/email/${answers.email}`,
+            });
             setLoading(false);
+            nextStep();
         } catch (error) {
+            showMessage("error", error);
             setLoading(false);
         }
     };

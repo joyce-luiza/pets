@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Select } from "antd";
-import { axiosRequest } from "../../../../utils/axiosRequest";
-import { BRAZILIAN_STATES, RESIDENCE_TYPE } from "../../../../constants";
-import CepField from "../../../../components/CepField";
+import { axiosRequest } from "../../../../../utils/axiosRequest";
+import { BRAZILIAN_STATES } from "../../../../../constants";
+import CepField from "../../../../../components/CepField";
 import styles from "../../styles.module.css";
 
 export default function Address({
@@ -98,32 +98,6 @@ export default function Address({
                 initialValues={answers}
                 onFinish={handleStepInfo}
             >
-                <Form.Item
-                    label="Tipo de residência:"
-                    name="residenceType"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Selecione o seu tipo de residência",
-                        },
-                    ]}
-                    labelCol={{ span: 24 }}
-                >
-                    <Select
-                        name={"residenceType"}
-                        size="large"
-                        placeholder="Selecione o seu tipo de residência"
-                        onChange={(value) => {
-                            handleUserAddress({ residenceType: value });
-                        }}
-                    >
-                        {Object.keys(RESIDENCE_TYPE).map((key) => (
-                            <Select.Option key={key} value={key}>
-                                {RESIDENCE_TYPE[key]}
-                            </Select.Option>
-                        ))}
-                    </Select>
-                </Form.Item>
                 <div className={styles.inline}>
                     <CepField
                         value={answers.cep}
