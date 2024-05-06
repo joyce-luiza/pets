@@ -7,7 +7,6 @@ const PhoneNumberField = () => {
         if (value) {
             const numericValue = value.replace(/[^\d]/g, "");
             if (numericValue && numericValue.length < 11) {
-                console.log(numericValue);
                 return Promise.reject("Por favor, insira um número válido");
             }
         }

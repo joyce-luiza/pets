@@ -4,6 +4,7 @@ import { Button, Form, Input, Select } from "antd";
 import { BRAZILIAN_STATES, RESIDENCE_TYPE } from "../../../../../../constants";
 import { axiosRequest } from "../../../../../../utils/axiosRequest";
 import CepField from "../../../../../../components/CepField";
+import MaskedInput from "../../../../../../components/MaskedInput";
 
 export default function LifestyleStep1({
     title,
