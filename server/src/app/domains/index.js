@@ -1,5 +1,8 @@
 import CustomError from "./CustomError";
 import Adopter from "./Adopter";
+import Organization from "./Organization";
+import OrganizationMember from "./OrganizationMember";
+import OrganizationComplement from "./OrganizationComplement";
 import Login from "./Login";
 import LoggedUser from "./LoggedUser";
 import AdopterPreference from "./AdopterPreference";
@@ -16,10 +19,7 @@ export {
     AdopterLifestyle,
     AdopterComplement,
     Address,
+    Organization,
+    OrganizationMember,
+    OrganizationComplement,
 };
-import CustomError from "./CustomError";
-import Adopter from "./Adopter";
-import Login from "./Login";
-import Organization from "./Organization";
-
-export { Adopter, CustomError, Login, Organization };

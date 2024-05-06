@@ -23,9 +23,8 @@ export default class CreateOrganizationStrategy extends AbstractStrategy {
         const org = await this.organizationRepository.createOrganization(data);
 
         if (!org) {
-            this.throwError("Erro ao criar a conta");
+            this.throwError("Erro ao criar a organização");
         }
-
         const result = new Organization(org);
         return result;
     }

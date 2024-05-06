@@ -5,6 +5,7 @@ import AnimalAgeGroup from "./animalAgeGroup";
 import AnimalSize from "./animalSize";
 import AnimalColor from "./animalColor";
 import Organization from "./organization";
+import OrganizationMember from "./organizationMember";
 import AdopterPreference from "./adopterPreference";
 import AdopterAnimalTypePreference from "./adopterAnimalTypePreference";
 import AdopterAnimalSizePreference from "./adopterAnimalSizePreference";
@@ -27,4 +28,6 @@ export {
     AdopterAnimalAgeGroupPreference,
     Address,
     Lifestyle,
+    Organization,
+    OrganizationMember,
 };

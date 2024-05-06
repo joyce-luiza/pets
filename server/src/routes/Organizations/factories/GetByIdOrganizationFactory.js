@@ -4,7 +4,7 @@ import {
     GetDomainByIdStrategy,
     VerifyDomainIdParamStrategy,
 } from "../../../app/strategies";
-import FormatToOrganizationDomainStrategy from "../strategies/FormatToAdopterDomainStrategy";
+import FormatToOrganizationDomainStrategy from "../strategies/FormatToOrganizationDomainStrategy";
 
 class GetByIdOrganizationFactory extends AbstractFactory {
     constructor() {

@@ -12,6 +12,7 @@ import AdopterAnimalAgeGroupPreferenceRepository from "./AdopterAnimalAgeGroupPr
 import AddressRepository from "./AddressRepository";
 import LifestyleRepository from "./LifestyleRepository";
 import OrganizationRepository from "./OrganizationRepository";
+import OrganizationMemberRepository from "./OrganizationMemberRepository";
 
 export {
     AdopterRepository,
@@ -28,4 +29,5 @@ export {
     AddressRepository,
     LifestyleRepository,
     OrganizationRepository,
+    OrganizationMemberRepository,
 };

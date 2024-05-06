@@ -4,6 +4,8 @@ import AbstractRepository from "../abstract/AbstractRepository";
 class OrganizationRepository extends AbstractRepository {
     constructor() {
         super(Organization);
+        this.findActiveOrganizationById =
+            this.findActiveOrganizationById.bind(this);
     }
 
     async createOrganization({ name, cnpj, description, email, phoneNumber }) {
@@ -14,6 +16,15 @@ class OrganizationRepository extends AbstractRepository {
             email,
             phoneNumber,
             statusId: await this.getActiveStatusId(),
+        });
+    }
+
+    async findActiveOrganizationById(id) {
+        return await this.findOne({
+            where: {
+                id,
+                statusId: await this.getActiveStatusId(),
+            },
         });
     }
 }

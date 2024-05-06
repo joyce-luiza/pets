@@ -15,12 +15,13 @@ export default class ValidateCNPJExistenceStrategy extends AbstractStrategy {
     }
 
     /**
-     * @param {Organization} data
-     * @param {string} data.cnpj
+     * @param {Organization} organization
+     * @param {string} organization.cnpj
      * @throws {Error}
      */
 
-    async execute({ cnpj }) {
+    async execute(organization) {
+        const cnpj = organization.cnpj;
         const org = await this.organizationRepository.countGeneric({
             where: { cnpj },
         });
