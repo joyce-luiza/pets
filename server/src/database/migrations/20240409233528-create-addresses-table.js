@@ -19,16 +19,6 @@ module.exports = {
                     onDelete: "CASCADE",
                 },
             },
-            organization_id: {
-                type: Sequelize.UUID,
-                allowNull: true,
-                references: {
-                    model: "Organizations",
-                    key: "id",
-                    onUpdate: "CASCADE",
-                    onDelete: "CASCADE",
-                },
-            },
             street: {
                 type: Sequelize.STRING,
                 allowNull: false,
