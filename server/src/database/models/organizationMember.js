@@ -7,9 +7,7 @@ class OrganizationMember extends Model {
             foreignKey: "statusId",
             as: "status",
         });
-    }
 
-    static associate(model) {
         OrganizationMember.belongsTo(model.Organization, {
             foreignKey: "organizationId",
             as: "organization",

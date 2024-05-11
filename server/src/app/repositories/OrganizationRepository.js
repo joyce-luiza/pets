@@ -4,6 +4,7 @@ import AbstractRepository from "../abstract/AbstractRepository";
 class OrganizationRepository extends AbstractRepository {
     constructor() {
         super(Organization);
+        this.createOrganization = this.createOrganization.bind(this);
         this.findActiveOrganizationById =
             this.findActiveOrganizationById.bind(this);
     }

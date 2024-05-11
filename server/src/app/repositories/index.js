@@ -13,6 +13,7 @@ import AddressRepository from "./AddressRepository";
 import LifestyleRepository from "./LifestyleRepository";
 import OrganizationRepository from "./OrganizationRepository";
 import OrganizationMemberRepository from "./OrganizationMemberRepository";
+import OrganizationInviteRepository from "./OrganizationInviteRepository";
 
 export {
     AdopterRepository,
@@ -30,4 +31,5 @@ export {
     LifestyleRepository,
     OrganizationRepository,
     OrganizationMemberRepository,
+    OrganizationInviteRepository,
 };

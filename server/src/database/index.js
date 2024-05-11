@@ -23,6 +23,7 @@ import {
     Lifestyle,
     Organization,
     OrganizationMember,
+    OrganizationInvite,
 } from "./models";
 
 const models = [
@@ -41,6 +42,7 @@ const models = [
     Lifestyle,
     Organization,
     OrganizationMember,
+    OrganizationInvite,
 ];
 
 class Database {

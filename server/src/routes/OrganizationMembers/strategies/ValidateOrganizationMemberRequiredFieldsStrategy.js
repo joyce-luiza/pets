@@ -30,6 +30,12 @@ export default class ValidateOrganizationMemberRequiredFieldsStrategy extends Ab
         if (!data.lastName) {
             generateError("Sobrenome");
         }
+        if (!data.role) {
+            generateError("Role");
+        }
+        if (!data.organizationId) {
+            generateError("Id da organização");
+        }
         if (!data.birthDate) {
             generateError("Data de nascimento");
         }

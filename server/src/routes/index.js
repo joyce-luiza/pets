@@ -7,6 +7,7 @@ import animalSizesRoutes from "./AnimalSizes/routes";
 import animalColorsRoutes from "./AnimalColors/routes";
 import organizationRoutes from "./Organizations/routes";
 import organizationMemberRoutes from "./OrganizationMembers/routes";
+import organizationInviteRoutes from "./OrganizationInvites/routes";
 
 const routes = Router();
 
@@ -18,5 +19,6 @@ routes.use("/animalSizes", animalSizesRoutes);
 routes.use("/animalColors", animalColorsRoutes);
 routes.use("/organization", organizationRoutes);
 routes.use("/member", organizationMemberRoutes);
+routes.use("/invite", organizationInviteRoutes);
 
 export default routes;

@@ -1,5 +1,5 @@
 import AbstractFacade from "../abstract/AbstractFacade";
-import GetByEmailCommand from "../../routes/OrganizationMembers/commands/GetByEmailCommand";
+import { GetByEmailCommand } from "../../routes/OrganizationMembers/commands";
 
 export default class OrganizationMemberFacade extends AbstractFacade {
     constructor(controller) {

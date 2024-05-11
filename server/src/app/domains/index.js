@@ -3,6 +3,7 @@ import Adopter from "./Adopter";
 import Organization from "./Organization";
 import OrganizationMember from "./OrganizationMember";
 import OrganizationComplement from "./OrganizationComplement";
+import OrganizationInvite from "./OrganizationInvite";
 import Login from "./Login";
 import LoggedUser from "./LoggedUser";
 import AdopterPreference from "./AdopterPreference";
@@ -22,4 +23,5 @@ export {
     Organization,
     OrganizationMember,
     OrganizationComplement,
+    OrganizationInvite,
 };

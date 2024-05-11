@@ -14,7 +14,8 @@ export default class OrganizationMember {
         updatedAt = new Date(),
     } = {}) {
         this.id = id ? id : null;
-        (this.role = role), (this.firstName = firstName);
+        this.role = role;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = new Date(birthDate);
         this.email = email;
