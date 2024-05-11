@@ -8,7 +8,11 @@ import UserProfile from "./pages/UserProfile/index.jsx";
 import ProtectedRoute from "./contexts/ProtectedRoute.js";
 import Login from "./pages/Login/index.jsx";
 import ChooseAccount from "./pages/ChooseAccount/index.jsx";
-import { AdopterAccount, OrganizationAccount } from "./pages/CreateAccount/";
+import {
+    AdopterAccount,
+    OrganizationAccount,
+    InvitedAccount,
+} from "./pages/CreateAccount/";
 
 export default function AppRoutes() {
     return (
@@ -47,6 +51,10 @@ export default function AppRoutes() {
                                     path="organization"
                                     element={<OrganizationAccount />}
                                 />
+                                <Route
+                                    path="invited/:token"
+                                    element={<InvitedAccount />}
+                                />
                             </Route>
                             <Route element={<ProtectedRoute />}>
                                 <Route path="/user" element={<BasePage />}>
@@ -54,10 +62,14 @@ export default function AppRoutes() {
                                         path="complement"
                                         element={<GetUserInfo />}
                                     />
+                                    <Route
+                                        path="profile"
+                                        element={<UserProfile />}
+                                    />
                                 </Route>
-                                <Route path="/profile" element={<BasePage />}>
+                                {/* <Route path="/profile" element={<BasePage />}>
                                     <Route index element={<UserProfile />} />
-                                </Route>
+                                </Route> */}
                             </Route>
                         </Routes>
                     </AuthProvider>

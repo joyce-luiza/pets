@@ -40,12 +40,11 @@ export const AuthProvider = ({ children }) => {
                     if (firstAccess) {
                         navigate("/user/complement");
                     } else {
-                        navigate("/profile");
+                        navigate("user/profile");
                     }
                     break;
                 case USER_TYPE.ORGANIZATION:
-                    navigate("/profile");
-
+                    navigate("user/profile");
                     break;
                 default:
                     break;
