@@ -27,15 +27,20 @@ export default function OrganizationAccount() {
             organizationMember: { ...organizationMember },
             organization: { ...organization },
             address: { ...address, residenceType: "N/A" },
+            invites: emails,
         };
         try {
-            const result = await axiosRequest({
+            await axiosRequest({
                 method: "post",
                 path: "/organization",
                 body,
             });
-
-            login(result.email, result.password, USER_TYPE.ORGANIZATION, false);
+            login(
+                organizationMember.email,
+                organizationMember.password,
+                USER_TYPE.ORGANIZATION,
+                false
+            );
         } catch (error) {
             showMessage("error", error);
         }
