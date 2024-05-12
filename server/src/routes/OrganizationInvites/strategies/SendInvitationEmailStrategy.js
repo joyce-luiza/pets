@@ -1,7 +1,7 @@
 import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
 import { Organization, OrganizationMember } from "../../../app/domains";
 import { OrganizationInvite } from "../../../database/models";
-import { sendInvite } from "../../../emails";
+import { sendEmail } from "../../../app/utils";
 
 /**
  * Strategy to send invitation email.
@@ -38,12 +38,22 @@ export default class SendInvitationEmailStrategy extends AbstractStrategy {
         const organizationAdminName = new OrganizationMember(organizationAdmin)
             .firstName;
 
-        sendInvite(
-            invite.invitedEmail,
-            organizationAdminName,
-            organizationName,
-            invite.token
-        );
+        const body = `
+            <p> Olá! </p>
+            <p> ${organizationAdminName} te convidou para fazer parte da organização ${organizationName}.</p>
+            <a href="http://localhost:3000/invited/${encodeURIComponent(
+                invite.token
+            )}"> Criar conta</a>
+            `;
+
+        const mailOptions = {
+            from: process.env.FROM_EMAIL,
+            to: invite.invitedEmail,
+            subject: `${organizationAdminName} te convidou para a ${organizationName}`,
+            html: body,
+        };
+
+        sendEmail(mailOptions);
 
         return invite;
     }

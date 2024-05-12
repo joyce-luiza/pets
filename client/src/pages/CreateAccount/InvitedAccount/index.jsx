@@ -63,7 +63,6 @@ export default function InvitedAccount() {
                 path: "/member",
                 body,
             });
-            const { email, password } = result;
             await login(email, password, USER_TYPE.ORGANIZATION, false);
             setLoading(false);
         } catch (error) {
