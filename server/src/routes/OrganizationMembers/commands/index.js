@@ -1,3 +1,3 @@
-import { GetByEmailOrganizationMemberFactory } from "../factories";
+import GetByEmailCommand from "./GetByEmailCommand";
 
-export { GetByEmailOrganizationMemberFactory };
+export { GetByEmailCommand };
