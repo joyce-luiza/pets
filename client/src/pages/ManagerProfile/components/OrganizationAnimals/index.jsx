@@ -1,6 +1,7 @@
 import styles from "./styles.module.css";
 import { Button, Input, Table } from "antd";
 import { Tooltip } from "antd";
+import Column from "antd/es/table/Column";
 import { useState } from "react";
 const { Search } = Input;
 
@@ -14,7 +15,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Fêmea",
       size: "Médio",
-      age: "2 anos (Adulto)",
+      age: "14 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -54,7 +55,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Macho",
       size: "Grande",
-      age: "3 anos (Adulto)",
+      age: "3 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -94,7 +95,7 @@ export default function OrganizationAnimals() {
       type: "Gato",
       sex: "Fêmea",
       size: "Pequeno",
-      age: "1 ano (Filhote)",
+      age: "1 ano",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -134,7 +135,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Fêmea",
       size: "Médio",
-      age: "2 anos (Adulto)",
+      age: "2 anos",
       status: "Adotado",
       actions: (
         <div className={styles.tableRowActions}>
@@ -174,7 +175,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Macho",
       size: "Pequeno",
-      age: "1 ano (Filhote)",
+      age: "1 ano",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -214,7 +215,7 @@ export default function OrganizationAnimals() {
       type: "Gato",
       sex: "Fêmea",
       size: "Pequeno",
-      age: "1 ano (Filhote)",
+      age: "1 ano",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -254,7 +255,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Macho",
       size: "Grande",
-      age: "4 anos (Adulto)",
+      age: "4 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -294,7 +295,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Fêmea",
       size: "Grande",
-      age: "3 anos (Adulto)",
+      age: "3 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -334,7 +335,7 @@ export default function OrganizationAnimals() {
       type: "Gato",
       sex: "Macho",
       size: "Médio",
-      age: "2 anos (Adulto)",
+      age: "2 anos",
       status: "Adotado",
       actions: (
         <div className={styles.tableRowActions}>
@@ -374,7 +375,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Macho",
       size: "Médio",
-      age: "3 anos (Adulto)",
+      age: "3 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -414,7 +415,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Fêmea",
       size: "Pequeno",
-      age: "1 ano (Filhote)",
+      age: "1 ano",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -454,7 +455,7 @@ export default function OrganizationAnimals() {
       type: "Gato",
       sex: "Macho",
       size: "Grande",
-      age: "3 anos (Adulto)",
+      age: "3 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -494,7 +495,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Fêmea",
       size: "Médio",
-      age: "2 anos (Adulto)",
+      age: "2 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -534,7 +535,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Macho",
       size: "Pequeno",
-      age: "1 ano (Filhote)",
+      age: "1 ano",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -574,7 +575,7 @@ export default function OrganizationAnimals() {
       type: "Gato",
       sex: "Fêmea",
       size: "Pequeno",
-      age: "1 ano (Filhote)",
+      age: "1 ano",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -614,7 +615,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Macho",
       size: "Grande",
-      age: "4 anos (Adulto)",
+      age: "4 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -654,7 +655,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Fêmea",
       size: "Grande",
-      age: "3 anos (Adulto)",
+      age: "3 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -694,7 +695,7 @@ export default function OrganizationAnimals() {
       type: "Gato",
       sex: "Macho",
       size: "Médio",
-      age: "2 anos (Adulto)",
+      age: "2 anos",
       status: "Adotado",
       actions: (
         <div className={styles.tableRowActions}>
@@ -734,7 +735,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Macho",
       size: "Médio",
-      age: "3 anos (Adulto)",
+      age: "3 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -774,7 +775,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Fêmea",
       size: "Pequeno",
-      age: "1 ano (Filhote)",
+      age: "1 ano",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -814,7 +815,7 @@ export default function OrganizationAnimals() {
       type: "Gato",
       sex: "Macho",
       size: "Grande",
-      age: "3 anos (Adulto)",
+      age: "3 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -854,7 +855,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Fêmea",
       size: "Médio",
-      age: "2 anos (Adulto)",
+      age: "2 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -894,7 +895,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Macho",
       size: "Pequeno",
-      age: "1 ano (Filhote)",
+      age: "1 ano",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -934,7 +935,7 @@ export default function OrganizationAnimals() {
       type: "Gato",
       sex: "Macho",
       size: "Pequeno",
-      age: "1 ano (Filhote)",
+      age: "1 ano",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -974,7 +975,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Macho",
       size: "Grande",
-      age: "4 anos (Adulto)",
+      age: "4 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -1014,7 +1015,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Fêmea",
       size: "Grande",
-      age: "3 anos (Adulto)",
+      age: "3 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -1054,7 +1055,7 @@ export default function OrganizationAnimals() {
       type: "Gato",
       sex: "Macho",
       size: "Médio",
-      age: "2 anos (Adulto)",
+      age: "2 anos",
       status: "Adotado",
       actions: (
         <div className={styles.tableRowActions}>
@@ -1094,7 +1095,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Macho",
       size: "Médio",
-      age: "3 anos (Adulto)",
+      age: "3 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -1134,7 +1135,7 @@ export default function OrganizationAnimals() {
       type: "Cachorro",
       sex: "Fêmea",
       size: "Pequeno",
-      age: "1 ano (Filhote)",
+      age: "1 ano",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -1174,7 +1175,7 @@ export default function OrganizationAnimals() {
       type: "Gato",
       sex: "Macho",
       size: "Grande",
-      age: "3 anos (Adulto)",
+      age: "3 anos",
       status: "Disponível",
       actions: (
         <div className={styles.tableRowActions}>
@@ -1216,38 +1217,42 @@ export default function OrganizationAnimals() {
       dataIndex: "name",
       key: "name",
       width: 200,
-      className: styles.test,
     },
     {
       title: "Tipo",
       dataIndex: "type",
       key: "type",
+      width: 130,
     },
     {
       title: "Sexo",
       dataIndex: "sex",
       key: "sex",
+      width: 130,
     },
     {
       title: "Porte",
       dataIndex: "size",
       key: "size",
+      width: 130,
     },
     {
       title: "Idade",
       dataIndex: "age",
       key: "age",
+      width: 130,
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      width: 150,
     },
     {
       title: "",
       dataIndex: "actions",
       key: "actions",
-      width: 50,
+      width: 200,
     },
   ];
 
@@ -1271,10 +1276,11 @@ export default function OrganizationAnimals() {
             </Button>
           </section>
 
-          <Tooltip title="Ver detalhes" className={styles.filterButton}>
-            <i className="ri-filter-line ri-xl"></i>
-            <span>Filtros</span>
+          <Tooltip title="Mostrar filtros" className={styles.filterButton}>
+            <i className={`ri-filter-line ri-xl ${styles.buttonColor}`}></i>
+            <span className={styles.buttonColor}>Filtros</span>
           </Tooltip>
+
           <section
             className={styles.tableData}
             style={{ minWidth: "max-content" }}
@@ -1282,8 +1288,8 @@ export default function OrganizationAnimals() {
             <Table
               className={styles.table}
               dataSource={dataSource}
-              columns={columns}
               rowClassName={styles.tableRow}
+              headerClassName={styles.headerRow}
               pagination={{ total: 47 }}
               onRow={(record, rowIndex) => {
                 return {
@@ -1292,7 +1298,19 @@ export default function OrganizationAnimals() {
                   },
                 };
               }}
-            />
+            >
+              {columns.length &&
+                columns.map(({ title, key, dataIndex, width }) => (
+                  <Column
+                    title={
+                      <span className={styles.tableColumnTitle}>{title}</span>
+                    }
+                    dataIndex={dataIndex}
+                    key={key}
+                    width={width}
+                  />
+                ))}
+            </Table>
           </section>
         </div>
       )}
