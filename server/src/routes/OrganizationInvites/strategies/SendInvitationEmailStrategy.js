@@ -1,7 +1,7 @@
 import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
 import { Organization, OrganizationMember } from "../../../app/domains";
 import { OrganizationInvite } from "../../../database/models";
-import sendInvite from "../../../emails";
+import { sendInvite } from "../../../emails";
 
 /**
  * Strategy to send invitation email.
@@ -44,5 +44,7 @@ export default class SendInvitationEmailStrategy extends AbstractStrategy {
             organizationName,
             invite.token
         );
+
+        return invite;
     }
 }

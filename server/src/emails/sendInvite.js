@@ -2,7 +2,12 @@ const dotenv = require("dotenv");
 dotenv.config();
 import transporter from "../config/email";
 
-const sendInvite = (recipientEmail, senderName, organizationName, token) => {
+export default function sendInvite(
+    recipientEmail,
+    senderName,
+    organizationName,
+    token
+) {
     const body = `
      <p> Olá! </p>
      <p> ${senderName} te convidou para fazer parte da organização ${organizationName}.</p>
@@ -20,11 +25,10 @@ const sendInvite = (recipientEmail, senderName, organizationName, token) => {
 
     transporter.sendMail(mailOptions, (err, result) => {
         if (err) {
+            console.log(err);
             return err;
         } else {
             return result;
         }
     });
-};
-
-export default sendInvite;
+}

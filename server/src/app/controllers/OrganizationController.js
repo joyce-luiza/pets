@@ -66,8 +66,10 @@ export default class OrganizationController {
             };
             invites.push(invite);
         });
+
         const factory = new CreateOrganizationInviteFactory();
         const emailSender = new SendInvitationEmailFactory();
+
         await Promise.all(
             invites.map(async (invite) => {
                 const createdInvite = await factory.execute(invite);
