@@ -26,7 +26,10 @@ export default class CreateOrganizationMemberStrategy extends AbstractStrategy {
             this.throwError("Erro ao criar membro da organização");
         }
 
-        const result = new OrganizationMember(orgMember);
+        const { id, email, firstName, lastName, organizationId } =
+            new OrganizationMember(orgMember);
+
+        const result = { id, email, firstName, lastName, organizationId };
 
         return result;
     }
