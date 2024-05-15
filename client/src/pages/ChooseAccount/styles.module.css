@@ -28,6 +28,7 @@
     margin-bottom: 1em;
     transition: 0.3s;
     cursor: pointer;
+    color: var(--color01);
 }
 
 .typeAccountCard:hover {

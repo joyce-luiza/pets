@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Typography } from "antd";
 import PhoneNumberField from "../../../../../components/PhoneNumberField";
 import BirthDateField from "../../../../../components/BirthDateField";
 import PasswordField from "../../../../../components/PasswordField";
 import styles from "../../styles.module.css";
 import { axiosRequest } from "../../../../../utils/axiosRequest";
 import showMessage from "../../../../../utils/Message";
+
+const { Title, Paragraph } = Typography;
 
 export default function AdminUser({ answers, updateAnswers, nextStep }) {
     const [form] = Form.useForm();
@@ -46,12 +48,14 @@ export default function AdminUser({ answers, updateAnswers, nextStep }) {
             <div className={styles.stepFormTitle}>
                 <div>
                     <i className="ri-admin-line ri-2x"></i>
-                    <h2 className="headline4">Administrador</h2>
+                    <Title level={3} style={{ margin: 0 }}>
+                        Administrador
+                    </Title>
                 </div>
-                <p className="body1">
+                <Paragraph style={{ margin: "1em 0 2em 0" }}>
                     É necessário informar um usuário administrador responsável
                     pelo acesso ao perfil da organização.
-                </p>
+                </Paragraph>
             </div>
             <Form
                 layout="vertical"

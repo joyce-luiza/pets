@@ -1,8 +1,11 @@
 import { React, useState, useEffect } from "react";
+import { Typography } from "antd";
 import { axiosRequest } from "../../../../utils/axiosRequest";
 import "remixicon/fonts/remixicon.css";
 import showMessage from "../../../../utils/Message";
 import styles from "./styles.module.css";
+
+const { Title, Paragraph } = Typography;
 
 export default function OrganizationData({ user }) {
     const [orgData, setOrgData] = useState();
@@ -38,69 +41,74 @@ export default function OrganizationData({ user }) {
             {!loading ? (
                 <div className={styles.orgInfo}>
                     <div className={styles.header}>
-                        <h2>{orgData.name}</h2>
+                        <Title level={1}>{orgData.name}</Title>
                         <div className={styles.subtitle}>
                             <div className={styles.cnpj}>
                                 <i className="ri-building-line ri-xl"></i>
-                                <p className="body1">{orgData.cnpj}</p>
+                                <Paragraph style={{ margin: 0 }}>
+                                    {orgData.cnpj}
+                                </Paragraph>
                             </div>
                             <div className={styles.address}>
                                 <i className="ri-map-pin-2-line ri-xl"></i>
-                                <p className="body1">
+                                <Paragraph style={{ margin: 0 }}>
                                     {`${address.street}, ${address.number} - ${address.city}-${address.state}`}
-                                </p>
+                                </Paragraph>
                             </div>
-                            <p></p>
                         </div>
                     </div>
                     <div>
-                        <label>Descrição</label>
-                        <p className="body1">{orgData.description}</p>
+                        <Title level={3}>Descrição</Title>
+                        <Paragraph>{orgData.description}</Paragraph>
                     </div>
                     <div className={styles.contact}>
-                        <h3>Contato</h3>
+                        <Title level={3}>Contato</Title>
                         <div>
                             <div className={styles.contactInfo}>
                                 <label>Email</label>
                                 <div>
                                     <i class="ri-mail-line  ri-xl"></i>
-                                    <p className="body1">{orgData.email}</p>
+                                    <Paragraph style={{ margin: 0 }}>
+                                        {orgData.email}
+                                    </Paragraph>
                                 </div>
                             </div>
                             <div className={styles.contactInfo}>
                                 <label>Telefone</label>
                                 <div>
                                     <i class="ri-phone-line  ri-xl"></i>
-                                    <p className="body1">
+                                    <Paragraph style={{ margin: 0 }}>
                                         {orgData.phoneNumber}
-                                    </p>
+                                    </Paragraph>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className={styles.installations}>
-                        <h3>Instalações</h3>
+                        <Title level={3}>Instalações</Title>
                         <div>
                             <div className={styles.installationsInfo}>
                                 <label>Tipos de animais acolhidos</label>
                                 <div>
-                                    <p className="body1">Cachorro, gato</p>
+                                    <Paragraph style={{ margin: 0 }}>
+                                        Cachorro, gato
+                                    </Paragraph>
                                 </div>
                             </div>
                             <div className={styles.installationsInfo}>
                                 <label>Capacidade de acomodação</label>
                                 <div>
-                                    <p className="body1">
+                                    <Paragraph style={{ margin: 0 }}>
                                         80 cachorros, 100 gatos
-                                    </p>
+                                    </Paragraph>
                                 </div>
                             </div>
                             <div className={styles.installationsInfo}>
                                 <label>Horário de funcionamento</label>
                                 <div>
-                                    <p className="body1">
+                                    <Paragraph style={{ margin: 0 }}>
                                         Seg à Sáb, das 08:00 às 19:00
-                                    </p>
+                                    </Paragraph>
                                 </div>
                             </div>
                         </div>

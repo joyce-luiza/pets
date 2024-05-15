@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Radio } from "antd";
+import { Button, Form, Input, Radio, Typography } from "antd";
 import styles from "./styles.module.css";
 import { USER_TYPE } from "../../constants";
 import { useAuth } from "../../contexts/AuthContext";
 import showMessage from "../../utils/Message";
+
+const { Title } = Typography;
 
 export default function Login() {
     const [accountType, setAccountType] = useState(USER_TYPE.ADOPTER);
@@ -29,8 +31,7 @@ export default function Login() {
         <>
             <div className={styles.container}>
                 <section className={styles.login}>
-                    <h2 className={styles.title}>Fazer login</h2>
-
+                    <Title level={2}>Fazer login</Title>
                     <Form
                         layout="vertical"
                         initialValues={{
@@ -41,7 +42,7 @@ export default function Login() {
                     >
                         <Form.Item>
                             <div className={styles.accountType}>
-                                <h3>Tipo de conta</h3>
+                                <Title level={5}>Tipo de conta</Title>
                                 <Radio.Group
                                     onChange={changeAccountType}
                                     value={accountType}

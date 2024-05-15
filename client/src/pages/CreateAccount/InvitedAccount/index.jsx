@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Typography } from "antd";
 import styles from "./styles.module.css";
 import { USER_TYPE } from "../../../constants";
 import PasswordField from "../../../components/PasswordField";
@@ -9,7 +9,9 @@ import BirthDateField from "../../../components/BirthDateField";
 import { useAuth } from "../../../contexts/AuthContext";
 import showMessage from "../../../utils/Message";
 import PhoneNumberField from "../../../components/PhoneNumberField";
-import ErrorImg from "./undraw_Taken_re_yn20.png";
+import ErrorImg from "../../../assets/undraw_Taken_re_yn20.png";
+
+const { Title, Paragraph } = Typography;
 
 export default function InvitedAccount() {
     useEffect(() => {
@@ -58,7 +60,7 @@ export default function InvitedAccount() {
         };
 
         try {
-            const result = await axiosRequest({
+            await axiosRequest({
                 method: "post",
                 path: "/member",
                 body,
@@ -76,8 +78,9 @@ export default function InvitedAccount() {
             {!error ? (
                 <div className={styles.container}>
                     <section className={styles.createAccount}>
-                        <h2 className={styles.title}>Criar conta</h2>
-
+                        <Title level={2} style={{ margin: 0 }}>
+                            Criar conta
+                        </Title>
                         <Form
                             layout="vertical"
                             style={{ width: "70%" }}
@@ -151,14 +154,20 @@ export default function InvitedAccount() {
                 </div>
             ) : (
                 <div className={styles.errorMessage}>
-                    <h2>{error}</h2>
-                    <p>
+                    <Title level={2} style={{ margin: 0 }}>
+                        {error}
+                    </Title>
+                    <Paragraph>
                         Parece que este convite não é mais válido. Isso pode
                         ocorrer caso você já tenha aceito um convite
                         anteriormente. Por favor, entre em contato com o
                         administrador da sua organização.
-                    </p>
-                    <img style={{ height: "60vh" }} src={ErrorImg} />
+                    </Paragraph>
+                    <img
+                        style={{ height: "60vh" }}
+                        src={ErrorImg}
+                        alt="Imagem de erro"
+                    />
                 </div>
             )}
         </>

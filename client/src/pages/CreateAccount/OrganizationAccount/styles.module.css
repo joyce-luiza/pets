@@ -39,10 +39,6 @@
     gap: 1em;
 }
 
-.stepFormTitle p {
-    margin-bottom: 3em;
-}
-
 .inline {
     display: grid;
     grid-template-columns: 1fr 2fr;

@@ -1,6 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, InputNumber, Checkbox, TimePicker, Alert } from "antd";
+import React, { useState } from "react";
+import {
+    Form,
+    Button,
+    InputNumber,
+    Checkbox,
+    TimePicker,
+    Typography,
+} from "antd";
+import { DAYS_OF_WEEK } from "../../../../../constants";
 import styles from "../../styles.module.css";
+
+const { Title, Paragraph } = Typography;
 
 export default function Installations({
     answers,
@@ -9,19 +19,8 @@ export default function Installations({
     nextStep,
 }) {
     const [form] = Form.useForm();
-    const [days, setDays] = useState(answers ? answers.days : []);
     const [isAnyFieldFilled, setIsAnyFieldFilled] = useState(true);
     const [loading, setLoading] = useState(false);
-
-    const daysOfWeekOptions = [
-        { label: "Domingo", value: "Sunday" },
-        { label: "Segunda-feira", value: "Monday" },
-        { label: "Terça-feira", value: "Tuesday" },
-        { label: "Quarta-feira", value: "Wednesday" },
-        { label: "Quinta-feira", value: "Thursday" },
-        { label: "Sexta-feira", value: "Friday" },
-        { label: "Sábado", value: "Saturday" },
-    ];
 
     const handleChange = (value) => {
         updateAnswers((prev) => ({
@@ -64,13 +63,15 @@ export default function Installations({
             <div className={styles.stepFormTitle}>
                 <div>
                     <i className="ri-tent-line ri-2x"></i>
-                    <h2 className="headline4">Instalações</h2>
+                    <Title level={3} style={{ margin: 0 }}>
+                        Instalações
+                    </Title>
                 </div>
-                <p className="body1">
+                <Paragraph style={{ margin: "1em 0 2em 0" }}>
                     Descreva as instalações da organização. Esta seção é
                     importante para entendermos melhor o ambiente onde os
                     animais são cuidados e abrigados.
-                </p>
+                </Paragraph>
             </div>
             <Form
                 layout="vertical"
@@ -170,7 +171,10 @@ export default function Installations({
                         <Checkbox.Group
                             name={"operatingDays"}
                             value={answers.operatingDays}
-                            options={daysOfWeekOptions}
+                            options={Object.keys(DAYS_OF_WEEK).map((key) => ({
+                                label: DAYS_OF_WEEK[key],
+                                value: key,
+                            }))}
                             onChange={(value) => {
                                 handleChange({ operatingDays: [...value] });
                             }}

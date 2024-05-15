@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Typography } from "antd";
 import CnpjField from "../../../../../components/CnpjField";
 import PhoneNumberField from "../../../../../components/PhoneNumberField";
 import styles from "../../styles.module.css";
 import { axiosRequest } from "../../../../../utils/axiosRequest";
 import showMessage from "../../../../../utils/Message";
+
+const { Title, Paragraph } = Typography;
 
 export default function OrganizationInfo({
     answers,
@@ -44,12 +46,14 @@ export default function OrganizationInfo({
             <div className={styles.stepFormTitle}>
                 <div>
                     <i className="ri-article-line ri-2x"></i>
-                    <h2 className="headline4">Informações gerais</h2>
+                    <Title level={3} style={{ margin: 0 }}>
+                        Informações gerais
+                    </Title>
                 </div>
-                <p className="body1">
+                <Paragraph style={{ margin: "1em 0 2em 0" }}>
                     Por favor, preencha as informações gerais sobre a sua
                     organização abaixo.
-                </p>
+                </Paragraph>
             </div>
             <Form
                 layout="vertical"
@@ -69,15 +73,9 @@ export default function OrganizationInfo({
                         },
                     ]}
                 >
-                    <Input
-                        //onChange={(e) => handleChange({ name: e.target.value })}
-                        size="large"
-                        placeholder="Nome da organização"
-                    />
+                    <Input size="large" placeholder="Nome da organização" />
                 </Form.Item>
-                <CnpjField
-                //onChange={(e) => handleChange({ cnpj: e.target.value })}
-                ></CnpjField>
+                <CnpjField></CnpjField>
                 <Form.Item
                     label="Email:"
                     name="email"
@@ -88,19 +86,9 @@ export default function OrganizationInfo({
                         },
                     ]}
                 >
-                    <Input
-                        // onChange={(e) =>
-                        //     handleChange({ email: e.target.value })
-                        // }
-                        size="large"
-                        placeholder="Email"
-                    />
+                    <Input size="large" placeholder="Email" />
                 </Form.Item>
-                <PhoneNumberField
-                // onChange={(e) =>
-                //     handleChange({ phoneNumber: e.target.value })
-                // }
-                ></PhoneNumberField>
+                <PhoneNumberField></PhoneNumberField>
 
                 <Form.Item
                     label="Descrição:"
@@ -112,12 +100,7 @@ export default function OrganizationInfo({
                         },
                     ]}
                 >
-                    <Input.TextArea
-                        // onChange={(e) =>
-                        //     handleChange({ description: e.target.value })
-                        // }
-                        placeholder="Descrição da organização"
-                    />
+                    <Input.TextArea placeholder="Descrição da organização" />
                 </Form.Item>
                 <div className={styles.callToAction}>
                     <Form.Item>

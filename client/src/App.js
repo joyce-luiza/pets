@@ -13,6 +13,7 @@ import {
     OrganizationAccount,
     InvitedAccount,
 } from "./pages/CreateAccount/";
+import PetDetails from "./pages/PetDetails/index.jsx";
 
 export default function AppRoutes() {
     return (
@@ -29,6 +30,16 @@ export default function AppRoutes() {
                     Form: {
                         labelColor: "#4435ab",
                     },
+                    Typography: {
+                        fontSizeHeading1: 56,
+                        fontSizeHeading2: 48,
+                        fontSizeHeading3: 32,
+                        fontSizeHeading4: 24,
+                        colorTextHeading: "rgb(51, 51, 51)",
+                        colorText: "rgb(130, 130, 130)",
+                        fontFamily: "Inter",
+                        fontWeightStrong: 500,
+                    },
                 },
             }}
         >
@@ -39,6 +50,10 @@ export default function AppRoutes() {
                             <Route path="/" element={<BasePage />}>
                                 <Route index element={<Home />} />
                                 <Route path="login" element={<Login />} />
+                                <Route
+                                    path="pet-details"
+                                    element={<PetDetails />}
+                                />
                                 <Route
                                     path="register"
                                     element={<ChooseAccount />}
@@ -67,9 +82,6 @@ export default function AppRoutes() {
                                         element={<UserProfile />}
                                     />
                                 </Route>
-                                {/* <Route path="/profile" element={<BasePage />}>
-                                    <Route index element={<UserProfile />} />
-                                </Route> */}
                             </Route>
                         </Routes>
                     </AuthProvider>

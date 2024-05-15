@@ -1,29 +1,46 @@
-import { React, useRef, useState } from "react";
-import { Button, Form, Input, Select, Carousel } from "antd";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { React, useState, useEffect } from "react";
+import { Button, Form, Select, Typography } from "antd";
+import { axiosRequest } from "../../utils/axiosRequest";
 import PetCard from "../../components/PetCard";
 import styles from "./styles.module.css";
 import testimonialImage1 from "./images/testimonial1.png";
 import ctaImage from "./images/cta.png";
 import Footer from "../../layout/Footer";
 
+const { Title, Paragraph } = Typography;
+
 export default function Home() {
     const [loading, setLoading] = useState(false);
-    const petsRef = useRef();
-    const testimonialsRef = useRef();
+    const [cities, setCities] = useState(false);
 
-    const contentStyle = {
-        margin: 0,
-        height: "160px",
-        color: "#fff",
-        lineHeight: "160px",
-        textAlign: "center",
-        background: "#364d79",
-    };
+    useEffect(() => {
+        const getCities = async () => {
+            setLoading(true);
+            const result = await axiosRequest({
+                basePath: false,
+                path: `https://servicodados.ibge.gov.br/api/v1/localidades/estados/35/municipios`,
+            });
+            setCities(
+                result.map((city) => {
+                    return {
+                        id: city.id,
+                        value: city.nome,
+                        label: `${city.nome} - SP`,
+                    };
+                })
+            );
+            setLoading(false);
+            console.log(cities);
+        };
+        getCities();
+    }, []);
+
     return (
         <>
             <section className={styles.searchPet}>
-                <h1>Encontre seu novo melhor amigo</h1>
+                <Title level={1} style={{ margin: 0 }}>
+                    Encontre seu novo melhor amigo
+                </Title>
                 <p>
                     Sua nova melhor amizade está apenas a um clique de
                     distância. [Nome do site] está cheio de animais adoráveis
@@ -49,19 +66,19 @@ export default function Home() {
                                     placeholder="Selecione o tipo de pet"
                                     options={[
                                         {
-                                            value: "",
+                                            value: "Cachorro",
                                             label: <span>Cachorro</span>,
                                         },
                                         {
-                                            value: "",
+                                            value: "Gato",
                                             label: <span>Gato</span>,
                                         },
                                         {
-                                            value: "",
+                                            value: "Coelho",
                                             label: <span>Coelho</span>,
                                         },
                                         {
-                                            value: "",
+                                            value: "Pássaro",
                                             label: <span>Pássaro</span>,
                                         },
                                     ]}
@@ -78,7 +95,7 @@ export default function Home() {
                                     placeholder="Selecione a faixa etária do pet"
                                     options={[
                                         {
-                                            value: "",
+                                            value: "Filhote (1 a 12 meses)",
                                             label: (
                                                 <span>
                                                     Filhote (1 a 12 meses)
@@ -86,13 +103,13 @@ export default function Home() {
                                             ),
                                         },
                                         {
-                                            value: "",
+                                            value: "Adulto (1 a 7 anos)",
                                             label: (
                                                 <span>Adulto (1 a 7 anos)</span>
                                             ),
                                         },
                                         {
-                                            value: "",
+                                            value: "Sênior (7 anos ou mais)",
                                             label: (
                                                 <span>
                                                     Sênior (7 anos ou mais)
@@ -100,7 +117,7 @@ export default function Home() {
                                             ),
                                         },
                                         {
-                                            value: "",
+                                            value: "Não tenho preferência",
                                             label: (
                                                 <span>
                                                     Não tenho preferência
@@ -116,26 +133,23 @@ export default function Home() {
                                 validateTrigger="onBlur"
                             >
                                 <Select
+                                    showSearch
                                     size="large"
                                     placeholder="Selecione a localização"
-                                    options={[
-                                        {
-                                            value: "",
-                                            label: (
-                                                <span>
-                                                    Mogi das Cruzes - SP
-                                                </span>
-                                            ),
-                                        },
-                                        {
-                                            value: "",
-                                            label: <span>Suzano - SP</span>,
-                                        },
-                                        {
-                                            value: "",
-                                            label: <span>Poá - SP</span>,
-                                        },
-                                    ]}
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        (option?.label ?? "").includes(input)
+                                    }
+                                    filterSort={(optionA, optionB) =>
+                                        (optionA?.label ?? "")
+                                            .toLowerCase()
+                                            .localeCompare(
+                                                (
+                                                    optionB?.label ?? ""
+                                                ).toLowerCase()
+                                            )
+                                    }
+                                    options={cities}
                                 />
                             </Form.Item>
                             <Form.Item>
@@ -156,9 +170,7 @@ export default function Home() {
             <section id={styles.recomendations}>
                 <div className="sectionTitle">
                     <span>Recomendações</span>
-                    <h2 className="headline2">
-                        Pets que podem combinar com você
-                    </h2>
+                    <Title level={2}>Pets que podem combinar com você</Title>
                 </div>
                 <div className={styles.carouselPets}>
                     <div className={styles.slidePet}>
@@ -175,9 +187,9 @@ export default function Home() {
             <section id={styles.testimonials}>
                 <div className="sectionTitle">
                     <span>Depoimentos</span>
-                    <h2 className="headline2">
+                    <Title level={2}>
                         Histórias de quem encontrou um amigo
-                    </h2>
+                    </Title>
                 </div>
                 <div className={styles.testimonials}>
                     <div className={styles.testimonial}>
@@ -193,7 +205,7 @@ export default function Home() {
                                 para minha vida. Ele é leal, brincalhão e traz
                                 um sorriso ao meu rosto todos os dias.
                             </p>
-                            <h3 className="label">Maiara, tutora do Teodoro</h3>
+                            <Title level={5}>Maiara, tutora do Teodoro</Title>
                         </div>
                         <div
                             className={styles.testimonialImg}
@@ -223,7 +235,7 @@ export default function Home() {
                                 para minha vida. Ele é leal, brincalhão e traz
                                 um sorriso ao meu rosto todos os dias.
                             </p>
-                            <h3 className="label">Maiara, tutora do Teodoro</h3>
+                            <Title level={5}>Maiara, tutora do Teodoro</Title>
                         </div>
                     </div>
                 </div>
@@ -231,45 +243,45 @@ export default function Home() {
             <section id={styles.process}>
                 <div className="sectionTitle">
                     <span>Processo</span>
-                    <h2 className="headline2">Como adotar um pet</h2>
+                    <Title level={2}>Como adotar um pet</Title>
                 </div>
                 <div className={styles.adoptionProcess}>
                     <div className={styles.adoptionStep}>
                         <i class="ri-pass-valid-line ri-2x"></i>
-                        <h3 className="label">Cadastro e pesquisa</h3>
-                        <p>
+                        <Title level={4}>Cadastro e pesquisa</Title>
+                        <Paragraph>
                             Os adotantes criam uma conta na plataforma e usam a
                             função de pesquisa para encontrar animais
                             disponíveis.
-                        </p>
+                        </Paragraph>
                     </div>
                     <div className={styles.adoptionStep}>
-                        <i class="ri-calendar-check-line ri-2x"></i>{" "}
-                        <h3 className="label">Agendamento e Visita</h3>
-                        <p>
+                        <i class="ri-calendar-check-line ri-2x"></i>
+                        <Title level={4}>Agendamento e Visita</Title>
+                        <Paragraph>
                             Depois de encontrar um animal que desejam adotar, os
                             adotantes podem entrar em contato com a organização
                             por meio da plataforma para agendar uma visita ao
                             animal.
-                        </p>
+                        </Paragraph>
                     </div>
                     <div className={styles.adoptionStep}>
-                        <i class="ri-calendar-check-line ri-2x"></i>{" "}
-                        <h3 className="label">Processo de Adoção</h3>
-                        <p>
+                        <i class="ri-calendar-check-line ri-2x"></i>
+                        <Title level={4}>Processo de Adoção</Title>
+                        <Paragraph>
                             Se os adotantes decidem adotar, a organização guia o
                             processo, podendo pedir mais informações a respeito
                             do adotante, além de avaliar se a adoção é viável.
-                        </p>
+                        </Paragraph>
                     </div>
                     <div className={styles.adoptionStep}>
-                        <i class="ri-home-heart-line ri-2x"></i>{" "}
-                        <h3 className="label">Acolhimento do Pet</h3>
-                        <p>
+                        <i class="ri-home-heart-line ri-2x"></i>
+                        <Title level={4}>Acolhimento do Pet</Title>
+                        <Paragraph>
                             Após a conclusão bem-sucedida do processo de adoção,
                             o animal é oficialmente adotado e registrado na
                             plataforma.
-                        </p>
+                        </Paragraph>
                     </div>
                 </div>
             </section>
@@ -277,16 +289,16 @@ export default function Home() {
                 <div>
                     <div id={styles.callToActionTitle} className="sectionTitle">
                         <span>Adote</span>
-                        <h2 className="headline2">
+                        <Title level={2} style={{ margin: 0 }}>
                             Encontre o seu melhor amigo
-                        </h2>
+                        </Title>
                     </div>
-                    <p>
+                    <Paragraph>
                         Sua nova melhor amizade está apenas a um clique de
                         distância. Comece a busca agora e deixe seu coração se
                         derreter diante das opções incríveis de adoção que temos
                         para você!
-                    </p>
+                    </Paragraph>
                     <Button type="primary" size="large">
                         Ver pets disponíveis
                     </Button>

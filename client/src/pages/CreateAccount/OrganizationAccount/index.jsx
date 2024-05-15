@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Steps } from "antd";
+import { Steps, Typography } from "antd";
 import { useAuth } from "../../../contexts/AuthContext";
 import { USER_TYPE } from "../../../constants";
 import styles from "./styles.module.css";
@@ -10,6 +10,8 @@ import AdminUser from "./components/AdminUser";
 import Address from "./components/Address";
 import Installations from "./components/Installations";
 import Team from "./components/Team";
+
+const { Title, Paragraph } = Typography;
 
 export default function OrganizationAccount() {
     const { login } = useAuth();
@@ -120,11 +122,13 @@ export default function OrganizationAccount() {
     return (
         <div className={styles.formContainer}>
             <div className={styles.stepsContainer}>
-                <h2>Criar organização</h2>
-                <p className="body1">
+                <Title level={2} style={{ margin: 0 }}>
+                    Criar organização
+                </Title>
+                <Paragraph>
                     Antes de criar uma conta, gostaríamos de coletar os dados
                     sobre a sua organização.
-                </p>
+                </Paragraph>
                 <Steps current={currentStep} direction="vertical">
                     {steps.map((item) => (
                         <Step

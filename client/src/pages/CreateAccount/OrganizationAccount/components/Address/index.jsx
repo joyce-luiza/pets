@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select, Typography } from "antd";
 import { axiosRequest } from "../../../../../utils/axiosRequest";
 import { BRAZILIAN_STATES } from "../../../../../constants";
 import CepField from "../../../../../components/CepField";
 import styles from "../../styles.module.css";
+
+const { Title, Paragraph } = Typography;
 
 export default function Address({
     answers,
@@ -84,13 +86,15 @@ export default function Address({
             <div className={styles.stepFormTitle}>
                 <div>
                     <i className="ri-home-4-line ri-2x"></i>
-                    <h2 className="headline4">Endereço</h2>
+                    <Title level={3} style={{ margin: 0 }}>
+                        Endereço
+                    </Title>
                 </div>
-                <p className="body1">
+                <Paragraph style={{ margin: "1em 0 2em 0" }}>
                     Agora, vamos coletar informações sobre o endereço da sua
                     organização. Isso nos ajudará a entender a localização e
                     área de atuação.
-                </p>
+                </Paragraph>
             </div>
             <Form
                 className={styles.stepInput}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Input, Carousel } from "antd";
 import styles from "./styles.module.css";
+import { Typography } from "antd";
 import { USER_TYPE } from "../../../constants";
 import testimonialImage1 from "./images/image-1.jpg";
 import testimonialImage2 from "./images/image-2.jpg";
@@ -11,6 +12,8 @@ import BirthDateField from "../../../components/BirthDateField";
 import { useAuth } from "../../../contexts/AuthContext";
 import showMessage from "../../../utils/Message";
 import PhoneNumberField from "../../../components/PhoneNumberField";
+
+const { Title } = Typography;
 
 export default function AdopterAccount() {
     const { login } = useAuth();
@@ -53,7 +56,7 @@ export default function AdopterAccount() {
         <>
             <div className={styles.container}>
                 <section className={styles.createAccount}>
-                    <h2 className={styles.title}>Criar conta</h2>
+                    <Title level={1}>Criar conta</Title>
 
                     <Form
                         layout="vertical"

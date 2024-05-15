@@ -1,7 +1,9 @@
 import React from "react";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
-import { Form, Input, Button, Row, Col } from "antd";
+import { Form, Input, Button, Row, Col, Typography } from "antd";
 import styles from "../../styles.module.css";
+
+const { Title, Paragraph } = Typography;
 
 export default function Team({ emails, setEmails, prevStep, finishForm }) {
     const [form] = Form.useForm();
@@ -23,13 +25,15 @@ export default function Team({ emails, setEmails, prevStep, finishForm }) {
             <div className={styles.stepFormTitle}>
                 <div>
                     <i className="ri-group-line ri-2x"></i>
-                    <h2 className="headline4">Equipe (Opcional)</h2>
+                    <Title level={3} style={{ margin: 0 }}>
+                        Equipe (Opcional)
+                    </Title>
                 </div>
-                <p className="body1">
+                <Paragraph style={{ margin: "1em 0 2em 0" }}>
                     Caso necessário, você pode conceder acesso aos outros
                     integrantes da equipe da organização. Basta inserir o email
                     de cada um, e um convite será enviado.
-                </p>
+                </Paragraph>
             </div>
 
             <Form

@@ -51,27 +51,6 @@ h2 {
     line-height: 4rem;
 }
 
-.headline4 {
-    font-family: "Inter", sans-serif;
-    font-size: 2em;
-    list-style: 2.5em;
-    color: var(--gray4);
-}
-
-.body1 {
-    font-family: "Inter", sans-serif;
-    font-size: 1em;
-    list-style: 1.5em;
-    color: var(--copyText);
-}
-
-.body2 {
-    font-family: "Inter", sans-serif;
-    font-size: 0.875em;
-    list-style: 1.5em;
-    color: var(--copyText);
-}
-
 label {
     color: var(--color01);
     font-family: Poppins;
@@ -100,14 +79,6 @@ li {
 .df-column {
     display: flex;
     flex-direction: column;
-}
-
-.headline2 {
-    font-size: 48px;
-    font-weight: 500;
-    line-height: 64px;
-    text-align: center;
-    color: var(--neutral);
 }
 
 .label {

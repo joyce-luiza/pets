@@ -1,39 +1,55 @@
 import React from "react";
+import { Typography } from "antd";
+import Link from "../../components/Link";
 import styles from "./styles.module.css";
+
+const { Title, Paragraph } = Typography;
 
 export default function ChooseAccount() {
     return (
         <div className={styles.container}>
             <div className={styles.typeAccountCards}>
-                <h2>Criar conta</h2>
-                <p className="body1">
+                <Title level={1} style={{ margin: 0 }}>
+                    Criar conta
+                </Title>
+                <Paragraph>
                     Selecione qual é o seu perfil para a criação de conta.
-                </p>
-                <a href="/adopter">
+                </Paragraph>
+                <Link href="/adopter">
                     <div className={styles.typeAccountCard}>
                         <div>
                             <i className="ri-user-heart-line ri-2x"></i>
-                            <h3>Sou adotante</h3>
+                            <Title
+                                level={4}
+                                style={{ margin: 0, color: "var(--color01)" }}
+                            >
+                                Sou adotante
+                            </Title>
                         </div>
-                        <p className="body1">
+                        <Paragraph>
                             Desejo procurar, interagir e potencialmente adotar
                             animais de estimação disponíveis para adoção.
-                        </p>
+                        </Paragraph>
                     </div>
-                </a>
-                <a href="/organization">
+                </Link>
+                <Link href="/organization">
                     <div className={styles.typeAccountCard}>
                         <div>
                             <i className="ri-home-heart-line ri-2x"></i>
-                            <h3>Sou organização</h3>
+                            <Title
+                                level={4}
+                                style={{ margin: 0, color: "var(--color01)" }}
+                            >
+                                Sou organização
+                            </Title>
                         </div>
-                        <p className="body1">
+                        <Paragraph>
                             Desejo gerenciar animais disponíveis para adoção,
                             coordenar processos de adoção e interagir com
                             potenciais adotantes.
-                        </p>
+                        </Paragraph>
                     </div>
-                </a>
+                </Link>
             </div>
         </div>
     );

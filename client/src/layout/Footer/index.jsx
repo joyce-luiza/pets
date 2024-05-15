@@ -17,12 +17,6 @@ export default function Footer() {
                 <li>
                     <a href="">Contato</a>
                 </li>
-                <li>
-                    <a href="">Fazer login</a>
-                </li>
-                <li>
-                    <a href="">Criar conta</a>
-                </li>
             </ul>
             <ul>
                 <li>

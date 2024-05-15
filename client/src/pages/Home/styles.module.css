@@ -24,8 +24,11 @@
     gap: 2em;
 }
 
+.searchPet > div {
+    width: 60vw;
+}
+
 .searchPet > h1 {
-    font-size: 3.5em;
     color: #fff;
 }
 
@@ -35,7 +38,8 @@
 }
 
 .searchBox {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: end;
     gap: 1em;
     padding: 1.5em;
@@ -119,6 +123,10 @@
     gap: 1em;
     color: var(--copyText);
     text-align: center;
+}
+
+.adoptionStep h4 {
+    color: var(--color01);
 }
 
 .adoptionStep i {

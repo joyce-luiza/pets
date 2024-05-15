@@ -6,20 +6,6 @@
     grid-template-columns: 1fr 1fr;
 }
 
-.accountType {
-    width: 100%;
-}
-
-.accountType > h3 {
-    font-family: Poppins;
-    color: #4435ab;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.5rem;
-    margin-bottom: 12px;
-}
-
 .createAccount {
     display: flex;
     justify-content: center;
