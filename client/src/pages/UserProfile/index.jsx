@@ -1,18 +1,32 @@
 import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import ProfileSidebar from "./components/ProfileSidebar";
+import AdopterProfile from "./AdopterProfile";
+import ProfileSidebar from "./components/ProfileSidebar/index.jsx";
 import styles from "./styles.module.css";
-import UserData from "./components/UserData.jsx";
-import ChangePassword from "./components/ChangePassword";
+import OrganizationProfile from "./OrganizationProfile/index.jsx";
+import { USER_TYPE } from "../../constants.js";
 
 export default function UserProfile() {
     const { user } = useAuth();
     const [content, setContent] = useState("userData");
     return (
         <div className={styles.container}>
-            <ProfileSidebar content={content} setContent={setContent} />
-            {content === "userData" && <UserData user={user} />}
-            {content === "password" && <ChangePassword />}
+            <ProfileSidebar
+                content={content}
+                setContent={setContent}
+                userType={user.type}
+            />
+
+            {user.type === USER_TYPE.ADOPTER ? (
+                <AdopterProfile content={content} user={user} />
+            ) : (
+                ""
+            )}
+            {user.type === USER_TYPE.ORGANIZATION ? (
+                <OrganizationProfile content={content} user={user} />
+            ) : (
+                ""
+            )}
         </div>
     );
 }

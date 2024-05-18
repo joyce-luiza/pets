@@ -1,22 +1,16 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Radio, message } from "antd";
+import { Button, Form, Input, Radio, Typography } from "antd";
 import styles from "./styles.module.css";
 import { USER_TYPE } from "../../constants";
 import { useAuth } from "../../contexts/AuthContext";
+import showMessage from "../../utils/Message";
+
+const { Title } = Typography;
 
 export default function Login() {
     const [accountType, setAccountType] = useState(USER_TYPE.ADOPTER);
-    const [messageApi, contextHolder] = message.useMessage();
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
-
-    const errorMessage = (error) => {
-        messageApi.open({
-            type: "error",
-            content: error,
-            duration: 5,
-        });
-    };
 
     const changeAccountType = (event) => {
         setAccountType(event.target.value);
@@ -29,17 +23,15 @@ export default function Login() {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            errorMessage(error);
+            showMessage("error", error);
         }
     };
 
     return (
         <>
-            {contextHolder}
             <div className={styles.container}>
                 <section className={styles.login}>
-                    <h2 className={styles.title}>Fazer login</h2>
-
+                    <Title level={2}>Fazer login</Title>
                     <Form
                         layout="vertical"
                         initialValues={{
@@ -50,7 +42,7 @@ export default function Login() {
                     >
                         <Form.Item>
                             <div className={styles.accountType}>
-                                <h3>Tipo de conta</h3>
+                                <Title level={5}>Tipo de conta</Title>
                                 <Radio.Group
                                     onChange={changeAccountType}
                                     value={accountType}
@@ -64,72 +56,61 @@ export default function Login() {
                                 </Radio.Group>
                             </div>
                         </Form.Item>
-                        {accountType === USER_TYPE.ADOPTER && (
-                            <>
-                                <Form.Item
-                                    name={"email"}
-                                    label="Email:"
-                                    rules={[
-                                        {
-                                            type: "email",
-                                            message:
-                                                "O email inserido não possui um formato válido.",
-                                        },
-                                        {
-                                            required: true,
-                                            message:
-                                                "Insira um endereço de email",
-                                        },
-                                    ]}
-                                    validateTrigger="onBlur"
-                                >
-                                    <Input
-                                        size="large"
-                                        placeholder="Email"
-                                    ></Input>
-                                </Form.Item>
-                                <Form.Item
-                                    name={"password"}
-                                    label="Senha:"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: "Insira sua senha",
-                                        },
-                                    ]}
-                                    validateTrigger="onBlur"
-                                >
-                                    <Input.Password
-                                        size="large"
-                                        placeholder="Senha"
-                                    ></Input.Password>
-                                </Form.Item>
-                                <Form.Item>
-                                    <Button
-                                        block
-                                        size="large"
-                                        type="primary"
-                                        loading={loading}
-                                        htmlType="submit"
-                                    >
-                                        Fazer login
-                                    </Button>
-                                </Form.Item>
-                                <Form.Item>
-                                    <Button
-                                        type="link"
-                                        href="/register"
-                                        style={{ width: "100%" }}
-                                    >
-                                        Não possui login? Crie uma conta
-                                    </Button>
-                                </Form.Item>
-                            </>
-                        )}
+                        <Form.Item
+                            name={"email"}
+                            label="Email:"
+                            rules={[
+                                {
+                                    type: "email",
+                                    message:
+                                        "O email inserido não possui um formato válido.",
+                                },
+                                {
+                                    required: true,
+                                    message: "Insira um endereço de email",
+                                },
+                            ]}
+                            validateTrigger="onBlur"
+                        >
+                            <Input size="large" placeholder="Email"></Input>
+                        </Form.Item>
+                        <Form.Item
+                            name={"password"}
+                            label="Senha:"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Insira sua senha",
+                                },
+                            ]}
+                            validateTrigger="onBlur"
+                        >
+                            <Input.Password
+                                size="large"
+                                placeholder="Senha"
+                            ></Input.Password>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button
+                                block
+                                size="large"
+                                type="primary"
+                                loading={loading}
+                                htmlType="submit"
+                            >
+                                Fazer login
+                            </Button>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button
+                                type="link"
+                                href="/register"
+                                style={{ width: "100%" }}
+                            >
+                                Não possui login? Crie uma conta
+                            </Button>
+                        </Form.Item>
                     </Form>
-                    {accountType === USER_TYPE.ORGANIZATION && (
-                        <h3>Confia que aqui vai ter um formulário</h3>
-                    )}
                 </section>
             </div>
         </>
