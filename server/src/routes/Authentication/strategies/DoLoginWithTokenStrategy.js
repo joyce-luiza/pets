@@ -74,15 +74,16 @@ export default class DoLoginWithTokenStrategy extends AbstractStrategy {
           );
         }
 
-        ({ id, firstName, email, organizationId, role } = orgMember);
+        const { organizationId, role } = orgMember;
 
         result = {
-          id,
-          firstName,
-          email,
+          id: orgMember.id,
+          firstName: orgMember.firstName,
+          email: orgMember.email,
           type,
           role,
           organizationId,
+          imageUrl: orgMember.imageUrl ? orgMember.imageUrl : "",
           token: jwt.sign({ id, type: verifiedToken.type }, auth.secret, {
             expiresIn: auth.expiresIn,
           }),

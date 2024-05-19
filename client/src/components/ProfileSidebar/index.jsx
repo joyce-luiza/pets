@@ -3,6 +3,7 @@ import styles from "./styles.module.css";
 import "remixicon/fonts/remixicon.css";
 import { Upload, message } from "antd";
 import { axiosRequest } from "../../utils/axiosRequest";
+import { USER_TYPE } from "../../constants";
 
 export default function ProfileSidebar({
   children,
@@ -79,20 +80,17 @@ export default function ProfileSidebar({
     const getUser = async () => {
       try {
         const userObject = JSON.parse(localStorage.getItem("user"));
-
-        if (!userObject.imageUrl) {
-          const user = isAdopter
+        const user = userObject.id
+          ? isAdopter
             ? await axiosRequest({
                 path: `/adopter/${userObject.id}`,
               })
             : await axiosRequest({
                 path: `/member/${userObject.id}`,
-              });
-          setImageUrl(user.imageUrl ? user.imageUrl : false);
-        }
+              })
+          : {};
 
-        console.log(userObject);
-        setImageUrl(() => userObject.imageUrl);
+        setImageUrl(user.imageUrl ? user.imageUrl : false);
       } catch (error) {
         message.error(`Erro ao buscar usuário: ${error.message}`);
       }
