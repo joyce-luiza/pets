@@ -1,7 +1,10 @@
 import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
 import auth from "../../../config/auth";
 import jwt from "jsonwebtoken";
-import { AdopterRepository } from "../../../app/repositories/AdopterRepository";
+import {
+  AdopterRepository,
+  OrganizationMemberRepository,
+} from "../../../app/repositories";
 import { Login } from "../../../app/domains";
 import { USER_TYPE } from "../../../constants";
 
@@ -14,9 +17,11 @@ export default class DoLoginByParamsStrategy extends AbstractStrategy {
   /**
    *
    * @param {AdopterRepository} adopterRepository
+   * @param {OrganizationMemberRepository} organizationMemberRepository
    */
-  constructor(adopterRepository) {
+  constructor(adopterRepository, organizationMemberRepository) {
     super();
+    this.organizationMemberRepository = organizationMemberRepository;
     this.adopterRepository = adopterRepository;
   }
 
@@ -29,7 +34,7 @@ export default class DoLoginByParamsStrategy extends AbstractStrategy {
     let result = {};
 
     switch (type) {
-      case USER_TYPE.ADOPTER:
+      case USER_TYPE.ADOPTER: {
         const adopter = await this.adopterRepository.findByProp("email", email);
 
         if (!adopter) {
@@ -43,18 +48,50 @@ export default class DoLoginByParamsStrategy extends AbstractStrategy {
           this.throwError("O email ou senha estão incorretos.", 400);
         }
 
-        const { id, firstName } = adopter;
-
         result = {
-          id,
-          firstName,
+          id: adopter.id,
+          firstName: adopter.firstName,
           email,
           type,
-          token: jwt.sign({ id, type }, auth.secret, {
+          imageUrl: adopter.imageUrl ? adopter.imageUrl : "",
+          token: jwt.sign({ id: adopter.id, type }, auth.secret, {
             expiresIn: auth.expiresIn,
           }),
         };
         break;
+      }
+      case USER_TYPE.ORGANIZATION: {
+        const orgMember = await this.organizationMemberRepository.findByProp(
+          "email",
+          email
+        );
+
+        if (!orgMember) {
+          this.throwError(
+            "Erro ao realizar login. Email ou senha incorretos.",
+            500
+          );
+        }
+        if (!(await orgMember.checkPassword(password))) {
+          this.throwError("O email ou senha estão incorretos.", 400);
+        }
+
+        const { organizationId, role } = orgMember;
+
+        result = {
+          id: orgMember.id,
+          firstName: orgMember.firstName,
+          email,
+          type,
+          role,
+          imageUrl: orgMember.imageUrl ? orgMember.imageUrl : "",
+          organizationId,
+          token: jwt.sign({ id: orgMember.id, type }, auth.secret, {
+            expiresIn: auth.expiresIn,
+          }),
+        };
+        break;
+      }
 
       default:
         break;

@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap");
+
+.container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.createAccount {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 3rem 0;
+}
+
+.carousel {
+    width: 50vw;
+    height: calc(100vh - 5em);
+    background: linear-gradient(148.44deg, #7e55d7 3.33%, #6831df 89.57%);
+    position: sticky;
+}
+
+.banner {
+    padding: 4em;
+    color: #fff;
+}
+
+.backgroundPhoto {
+    background-size: cover;
+    background-position: center;
+    height: 600px;
+    border-radius: 24px;
+    box-shadow: -8px 0px 16px 0px rgba(51, 51, 51, 0.1);
+}
+
+.testimonialText {
+    font-family: Merriweather;
+    font-weight: 300;
+    color: #fff;
+    font-size: 20px;
+    line-height: 32px;
+    text-align: left;
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+
+.testimonialAuthor {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.testimonialAuthor > div {
+    width: 32px;
+    height: 2px;
+    background-color: #fff;
+}
+
+@media screen and (max-width: 1600px) {
+    .carousel {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+    }
+    .backgroundPhoto {
+        height: 400px;
+    }
+}

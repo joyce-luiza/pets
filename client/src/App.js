@@ -1,14 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, App } from "antd";
 import BasePage from "./layout/BasePage";
 import Home from "./pages/Home/index.jsx";
-import CreateAccount from "./pages/CreateAccount/index.jsx";
 import GetUserInfo from "./pages/GetUserInfo/index.jsx";
 import { AuthProvider } from "./contexts/AuthContext.js";
 import UserProfile from "./pages/UserProfile/index.jsx";
 import ProtectedRoute from "./contexts/ProtectedRoute.js";
 import Login from "./pages/Login/index.jsx";
+import ChooseAccount from "./pages/ChooseAccount/index.jsx";
+import {
+  AdopterAccount,
+  OrganizationAccount,
+  InvitedAccount,
+} from "./pages/CreateAccount/";
 import ManagerProfile from "./pages/ManagerProfile/index.jsx";
+// import PetDetails from "./pages/PetDetails/index.jsx";
 
 export default function AppRoutes() {
   return (
@@ -25,33 +31,48 @@ export default function AppRoutes() {
           Form: {
             labelColor: "#4435ab",
           },
+          Typography: {
+            fontSizeHeading1: 56,
+            fontSizeHeading2: 48,
+            fontSizeHeading3: 32,
+            fontSizeHeading4: 24,
+            colorTextHeading: "rgb(51, 51, 51)",
+            colorText: "rgb(130, 130, 130)",
+            fontFamily: "Inter",
+            fontWeightStrong: 500,
+          },
         },
       }}
     >
-      <div className="App">
+      <App>
         <BrowserRouter>
           <AuthProvider>
             <Routes>
               <Route path="/" element={<BasePage />}>
                 <Route index element={<Home />} />
                 <Route path="login" element={<Login />} />
-                <Route path="register" element={<CreateAccount />} />
+                {/* <Route path="pet-details" element={<PetDetails />} /> */}
+                <Route path="register" element={<ChooseAccount />} />
+                <Route path="adopter" element={<AdopterAccount />} />
+                <Route path="organization" element={<OrganizationAccount />} />
+                <Route path="invited/:token" element={<InvitedAccount />} />
               </Route>
               <Route element={<ProtectedRoute />}>
                 <Route path="/user" element={<BasePage />}>
                   <Route path="complement" element={<GetUserInfo />} />
                 </Route>
-                <Route path="/profile" element={<BasePage />}>
-                  <Route index element={<UserProfile />} />
-                </Route>
-                <Route path="/admin" element={<BasePage />}>
-                  <Route path="profile" element={<ManagerProfile />} />
+              </Route>
+
+              {/* Common routes */}
+              <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<BasePage />}>
+                  <Route path="profile" element={<UserProfile />} />
                 </Route>
               </Route>
             </Routes>
           </AuthProvider>
         </BrowserRouter>
-      </div>
+      </App>
     </ConfigProvider>
   );
 }

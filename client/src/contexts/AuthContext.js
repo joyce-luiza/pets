@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { USER_TYPE } from "../constants";
 import { axiosRequest } from "../utils/axiosRequest";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +21,6 @@ export const AuthProvider = ({ children }) => {
     if (user && user.token) {
       checkTokenExpiration();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const login = async (email, psw, userType, firstAccess) => {
@@ -35,10 +35,19 @@ export const AuthProvider = ({ children }) => {
         },
       });
       setUser(response);
-      if (firstAccess) {
-        navigate("/user/complement");
-      } else {
-        navigate("/profile");
+      switch (userType) {
+        case USER_TYPE.ADOPTER:
+          if (firstAccess) {
+            navigate("/user/complement");
+          } else {
+            navigate("profile");
+          }
+          break;
+        case USER_TYPE.ORGANIZATION:
+          navigate("profile");
+          break;
+        default:
+          break;
       }
     } catch (error) {
       throw error;
@@ -63,7 +72,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(initUser);
     localStorage.removeItem("user");
-    navigate("/register");
+    navigate("/");
   };
 
   return (

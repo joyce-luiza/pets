@@ -3,6 +3,7 @@ import styles from "./styles.module.css";
 import "remixicon/fonts/remixicon.css";
 import { Upload, message } from "antd";
 import { axiosRequest } from "../../utils/axiosRequest";
+import { USER_TYPE } from "../../constants";
 
 export default function ProfileSidebar({
   children,
@@ -41,6 +42,16 @@ export default function ProfileSidebar({
           type: "multipart",
           path: "/adopter/image",
         });
+      } else {
+        await axiosRequest({
+          method: "PUT",
+          authenticated: true,
+          body: {
+            file,
+          },
+          type: "multipart",
+          path: "/member/image",
+        });
       }
       onSuccess();
     } catch (error) {
@@ -69,15 +80,20 @@ export default function ProfileSidebar({
     const getUser = async () => {
       try {
         const userObject = JSON.parse(localStorage.getItem("user"));
-        if (!userObject) {
-          return;
+
+        if (!userObject.imageUrl) {
+          const user = isAdopter
+            ? await axiosRequest({
+                path: `/adopter/${userObject.id}`,
+              })
+            : await axiosRequest({
+                path: `/member/${userObject.id}`,
+              });
+
+          setImageUrl(user.imageUrl ? user.imageUrl : false);
         }
 
-        const user = await axiosRequest({
-          path: `/adopter/${userObject.id}`,
-        });
-
-        setImageUrl(user.imageUrl ? user.imageUrl : false);
+        setImageUrl(() => userObject.imageUrl);
       } catch (error) {
         message.error(`Erro ao buscar usuário: ${error.message}`);
       }

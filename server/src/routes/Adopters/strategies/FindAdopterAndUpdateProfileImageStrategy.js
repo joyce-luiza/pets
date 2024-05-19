@@ -22,7 +22,7 @@ export default class FindAdopterAndUpdateProfileImageStrategy extends AbstractSt
    *
    * @param {Adopter} data - The data object containing id property.
    */
-  async execute({ file }, dto, loggedUserInfo) {
+  async execute(file, dto, loggedUserInfo) {
     const adopter = await this.adopterRepository.findById(
       loggedUserInfo.userId
     );

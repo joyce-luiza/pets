@@ -15,6 +15,7 @@ export default function LifestyleStep3({
 }) {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+  const [userPreferences, setUserPreferences] = useState({});
 
   const handleStepInfo = async () => {
     try {
@@ -28,11 +29,16 @@ export default function LifestyleStep3({
   };
 
   const handleUserPreferences = (value) => {
+    setUserPreferences((prev) => ({
+      ...prev,
+      ...value,
+    }));
     handler("lifestyle", value);
   };
 
   const setPreferencesByPreviousAnswers = () => {
     if (answers) {
+      setUserPreferences(() => answers);
       const formFieldValues = {};
 
       Object.keys(answers).forEach((key) => {
@@ -66,14 +72,19 @@ export default function LifestyleStep3({
             name="petsQuantity"
             initialValue={null}
             rules={[
-              { required: true, message: "Por favor, selecione uma opção." },
+              {
+                required: true,
+                message: "Por favor, selecione uma opção.",
+              },
             ]}
           >
             <Radio.Group
               name="petsQuantity"
               style={{ width: "100%" }}
               onChange={(e) =>
-                handleUserPreferences({ petsQuantity: e.target.value })
+                handleUserPreferences({
+                  petsQuantity: e.target.value,
+                })
               }
             >
               <Radio key="PQ0" value={0}>
@@ -100,14 +111,19 @@ export default function LifestyleStep3({
             name="routine"
             initialValue={null}
             rules={[
-              { required: true, message: "Por favor, selecione uma opção." },
+              {
+                required: true,
+                message: "Por favor, selecione uma opção.",
+              },
             ]}
           >
             <Radio.Group
               name="routine"
               style={{ width: "100%" }}
               onChange={(e) =>
-                handleUserPreferences({ routine: e.target.value })
+                handleUserPreferences({
+                  routine: e.target.value,
+                })
               }
             >
               <Radio
@@ -138,14 +154,19 @@ export default function LifestyleStep3({
             name="travelFrequency"
             initialValue={null}
             rules={[
-              { required: true, message: "Por favor, selecione uma opção." },
+              {
+                required: true,
+                message: "Por favor, selecione uma opção.",
+              },
             ]}
           >
             <Radio.Group
               name="travelFrequency"
               style={{ width: "100%" }}
               onChange={(e) =>
-                handleUserPreferences({ travelFrequency: e.target.value })
+                handleUserPreferences({
+                  travelFrequency: e.target.value,
+                })
               }
             >
               <Radio

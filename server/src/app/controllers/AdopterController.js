@@ -6,7 +6,7 @@ import {
   UpdateAdopterFactory,
   UpdateProfileImageAdopterFactory,
 } from "../../routes/Adopters/factories";
-import { Adopter, AdopterComplement } from "../domains";
+import { Adopter, AdopterComplement, File } from "../domains";
 
 export default class AdopterController {
   constructor() {
@@ -65,10 +65,9 @@ export default class AdopterController {
   }
 
   async updateProfileImage(req, res, next) {
-    const adopter = new Adopter({ file: req.file });
+    const adopter = new File(req.file);
     const factory = new UpdateProfileImageAdopterFactory();
     const result = await factory.execute(adopter, {}, req.loggedUserInfo);
     res.json(result);
   }
 }
-6;
