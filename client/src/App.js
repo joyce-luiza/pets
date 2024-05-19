@@ -56,17 +56,14 @@ export default function AppRoutes() {
                 <Route path="adopter" element={<AdopterAccount />} />
                 <Route path="organization" element={<OrganizationAccount />} />
                 <Route path="invited/:token" element={<InvitedAccount />} />
+
+                <Route element={<ProtectedRoute />}>
+                  <Route path="profile" element={<UserProfile />} />
+                </Route>
               </Route>
               <Route element={<ProtectedRoute />}>
                 <Route path="/user" element={<BasePage />}>
                   <Route path="complement" element={<GetUserInfo />} />
-                </Route>
-              </Route>
-
-              {/* Common routes */}
-              <Route element={<ProtectedRoute />}>
-                <Route path="/" element={<BasePage />}>
-                  <Route path="profile" element={<UserProfile />} />
                 </Route>
               </Route>
             </Routes>
