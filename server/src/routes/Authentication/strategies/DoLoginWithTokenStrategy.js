@@ -36,7 +36,6 @@ export default class DoLoginWithTokenStrategy extends AbstractStrategy {
     }
 
     let result = {};
-    let { id, firstName, email, organizationId, role } = {};
 
     switch (type) {
       case USER_TYPE.ADOPTER:
@@ -49,17 +48,19 @@ export default class DoLoginWithTokenStrategy extends AbstractStrategy {
           );
         }
 
-        ({ id, firstName, email } = adopter);
-
         result = {
-          id,
-          firstName,
-          email,
+          id: adopter.id,
+          firstName: adopter.firstName,
+          email: adopter.email,
           type,
           imageUrl: adopter.imageUrl ? adopter.imageUrl : "",
-          token: jwt.sign({ id, type: verifiedToken.type }, auth.secret, {
-            expiresIn: auth.expiresIn,
-          }),
+          token: jwt.sign(
+            { id: adopter.id, type: verifiedToken.type },
+            auth.secret,
+            {
+              expiresIn: auth.expiresIn,
+            }
+          ),
         };
         break;
       case USER_TYPE.ORGANIZATION:
@@ -84,9 +85,13 @@ export default class DoLoginWithTokenStrategy extends AbstractStrategy {
           role,
           organizationId,
           imageUrl: orgMember.imageUrl ? orgMember.imageUrl : "",
-          token: jwt.sign({ id, type: verifiedToken.type }, auth.secret, {
-            expiresIn: auth.expiresIn,
-          }),
+          token: jwt.sign(
+            { id: orgMember.id, type: verifiedToken.type },
+            auth.secret,
+            {
+              expiresIn: auth.expiresIn,
+            }
+          ),
         };
         break;
       default:

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Radio, Typography } from "antd";
 import styles from "./styles.module.css";
 import { USER_TYPE } from "../../constants";
@@ -10,7 +10,7 @@ const { Title } = Typography;
 export default function Login() {
   const [accountType, setAccountType] = useState(USER_TYPE.ADOPTER);
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { user, login } = useAuth();
 
   const changeAccountType = (event) => {
     setAccountType(event.target.value);
@@ -26,6 +26,16 @@ export default function Login() {
       showMessage("error", error);
     }
   };
+
+  useEffect(() => {
+    if (user.type && user.token) {
+      const doLogin = async () => {
+        await login(null, null, user.type, false, user.token);
+      };
+
+      doLogin();
+    }
+  }, []);
 
   return (
     <>

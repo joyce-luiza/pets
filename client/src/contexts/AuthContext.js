@@ -23,19 +23,20 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user]);
 
-  const login = async (email, psw, userType, firstAccess) => {
+  const login = async (email, password, type, firstAccess, token = null) => {
     try {
       const response = await axiosRequest({
         method: "POST",
         path: "/auth/login",
         body: {
-          email: email,
-          password: psw,
-          type: userType,
+          email,
+          password,
+          type,
+          token,
         },
       });
       setUser(response);
-      switch (userType) {
+      switch (type) {
         case USER_TYPE.ADOPTER:
           if (firstAccess) {
             navigate("/user/complement");
