@@ -1,0 +1,49 @@
+.orgInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+}
+
+.subtitle {
+    display: flex;
+    gap: 2em;
+    color: #828282;
+}
+
+.subtitle > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.contact > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+}
+
+.contact,
+.installations {
+    display: flex;
+    gap: 1.5em;
+    flex-direction: column;
+}
+
+.installations > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+}
+
+.contactInfo {
+    gap: 1em;
+}
+
+.contactInfo > div,
+.installationsInfo > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    color: #828282;
+    margin-top: 0.5em;
+}

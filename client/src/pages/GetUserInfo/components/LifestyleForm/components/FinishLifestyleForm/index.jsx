@@ -18,7 +18,7 @@ export default function FinishLifestyleForm() {
                         <Link to={"/"}>Ir para home</Link>
                     </Button>
                     <Button size="large" type="secondary">
-                        <Link to={"/profile"}>Ir para perfil</Link>
+                        <Link to={"/user/profile"}>Ir para perfil</Link>
                     </Button>
                 </div>
             </div>
