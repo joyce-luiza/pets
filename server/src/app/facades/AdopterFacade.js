@@ -1,8 +1,6 @@
-import {
-  CreateComplementCommand,
-  UpdateProfileImageCommand,
-} from "../../routes/Adopters/commands";
+import { CreateComplementCommand } from "../../routes/Adopters/commands";
 import AbstractFacade from "../abstract/AbstractFacade";
+import { UpdateProfileImageCommand } from "../commands";
 
 export default class AdopterFacade extends AbstractFacade {
   constructor(controller) {

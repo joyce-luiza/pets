@@ -5,6 +5,7 @@ import GetByIdCommand from "./GetByIdCommand";
 import UpdateCommand from "./UpdateCommand";
 import DoLoginCommand from "./DoLoginCommand";
 import FindAllCommand from "./FindAllCommand";
+import UpdateProfileImageCommand from "./UpdateProfileImageCommand";
 
 export {
   CreateCommand,
@@ -14,4 +15,5 @@ export {
   UpdateCommand,
   DoLoginCommand,
   FindAllCommand,
+  UpdateProfileImageCommand,
 };

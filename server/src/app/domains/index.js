@@ -10,18 +10,20 @@ import AdopterPreference from "./AdopterPreference";
 import AdopterLifestyle from "./AdopterLifestyle";
 import AdopterComplement from "./AdopterComplement";
 import Address from "./Address";
+import File from "./File";
 
 export {
-    Adopter,
-    CustomError,
-    Login,
-    LoggedUser,
-    AdopterPreference,
-    AdopterLifestyle,
-    AdopterComplement,
-    Address,
-    Organization,
-    OrganizationMember,
-    OrganizationComplement,
-    OrganizationInvite,
+  Adopter,
+  CustomError,
+  Login,
+  LoggedUser,
+  AdopterPreference,
+  AdopterLifestyle,
+  AdopterComplement,
+  Address,
+  Organization,
+  OrganizationMember,
+  OrganizationComplement,
+  OrganizationInvite,
+  File,
 };

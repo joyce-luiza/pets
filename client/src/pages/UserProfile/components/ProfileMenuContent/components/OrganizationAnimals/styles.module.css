@@ -1,5 +1,5 @@
 .container {
-  grid-column: 3 / span 9;
+  grid-column: 6;
 }
 
 .title {
@@ -39,8 +39,22 @@
   cursor: pointer;
 }
 
+.tableRow > td {
+  font-size: 0.875rem;
+}
+
 .tableRowActions {
   display: flex;
   justify-content: center;
   align-self: center;
+}
+
+/* styles.module.css */
+.tableColumnTitle {
+  font-size: 1rem;
+  color: #4435ab;
+}
+
+.buttonColor {
+  color: #4435ab;
 }

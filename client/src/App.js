@@ -13,8 +13,8 @@ import {
     OrganizationAccount,
     InvitedAccount,
 } from "./pages/CreateAccount/";
-import PetDetails from "./pages/PetDetails/index.jsx";
 import ManagerProfile from "./pages/ManagerProfile/index.jsx";
+// import PetDetails from "./pages/PetDetails/index.jsx";
 
 export default function AppRoutes() {
     return (
@@ -51,10 +51,7 @@ export default function AppRoutes() {
                             <Route path="/" element={<BasePage />}>
                                 <Route index element={<Home />} />
                                 <Route path="login" element={<Login />} />
-                                <Route
-                                    path="pet-details"
-                                    element={<PetDetails />}
-                                />
+                                {/* <Route path="pet-details" element={<PetDetails />} /> */}
                                 <Route
                                     path="register"
                                     element={<ChooseAccount />}
@@ -71,22 +68,19 @@ export default function AppRoutes() {
                                     path="invited/:token"
                                     element={<InvitedAccount />}
                                 />
+
+                                <Route element={<ProtectedRoute />}>
+                                    <Route
+                                        path="profile"
+                                        element={<UserProfile />}
+                                    />
+                                </Route>
                             </Route>
                             <Route element={<ProtectedRoute />}>
                                 <Route path="/user" element={<BasePage />}>
                                     <Route
                                         path="complement"
                                         element={<GetUserInfo />}
-                                    />
-                                    <Route
-                                        path="profile"
-                                        element={<UserProfile />}
-                                    />
-                                </Route>
-                                <Route path="/admin" element={<BasePage />}>
-                                    <Route
-                                        path="profile"
-                                        element={<ManagerProfile />}
                                     />
                                 </Route>
                             </Route>

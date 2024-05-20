@@ -1,64 +1,37 @@
 import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import styles from "./styles.module.css";
-import UserData from "./components/UserData.jsx";
-import ChangePassword from "./components/ChangePassword";
-import ProfileSidebar from "../../components/ProfileSidebar/index.jsx";
+import { USER_TYPE } from "../../constants.js";
+import AdminSidebar from "./components/AdminSidebar/index.jsx";
+import AdopterSidebar from "./components/AdopterSidebar/index.jsx";
+import ProfileMenuContent from "./components/ProfileMenuContent/index.jsx";
 
 export default function UserProfile() {
     const { user } = useAuth();
-    const [content, setContent] = useState("userData");
-
-    const renderContent = () => {
-        switch (content) {
-            case "userData":
-                return <UserData user={user} />;
-            case "adoptions":
-                // Componente de adoções
-                break;
-            case "address":
-                // Componente de endereço
-                break;
-            case "preferences":
-                // Componente de preferências
-                break;
-            case "password":
-                return <ChangePassword />;
-            default:
-                return null;
-        }
-    };
-
+    const [content, setContent] = useState(
+        user.type === USER_TYPE.ORGANIZATION ? "Dashboard" : "MyData"
+    );
     return (
         <div className={styles.container}>
-            <ProfileSidebar content={content} setContent={setContent}>
-                <li key={"userData"}>
-                    <i className="ri-article-line ri-xl"></i>
-                    <p>Meu cadastro</p>
-                </li>
-                <li key={"adoptions"}>
-                    <i className="ri-home-heart-line ri-xl"></i>
-                    <p>Adoções</p>
-                </li>
-                <li key={"address"}>
-                    <i className="ri-home-2-line ri-xl"></i>
-                    <p>Endereço</p>
-                </li>
-                <li key={"preferences"}>
-                    <i className="ri-emotion-2-line ri-xl"></i>
-                    <p>Preferências</p>
-                </li>
-                <li key={"password"}>
-                    <i className="ri-lock-password-line ri-xl"></i>
-                    <p>Alterar senha</p>
-                </li>
-                <li key={"logout"}>
-                    <i className="ri-logout-box-line ri-xl"></i>
-                    <p>Sair</p>
-                </li>
-            </ProfileSidebar>
+            <div className={styles.gridContainer}>
+                {user.type === USER_TYPE.ORGANIZATION ? (
+                    <>
+                        <AdminSidebar
+                            className={styles.sidebar}
+                            content={content}
+                            setContent={setContent}
+                        ></AdminSidebar>
+                    </>
+                ) : (
+                    <AdopterSidebar
+                        className={styles.sidebar}
+                        content={content}
+                        setContent={setContent}
+                    ></AdopterSidebar>
+                )}
 
-            {renderContent()}
+                <ProfileMenuContent content={content} />
+            </div>
         </div>
     );
 }

@@ -1,3 +1,3 @@
 export default function CreateAnimal() {
-  return <>Test</>;
+  return <h2>Criar Animal</h2>;
 }

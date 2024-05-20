@@ -11,97 +11,93 @@ import { promisify } from "util";
  * @extends AbstractStrategy
  */
 export default class DoLoginWithTokenStrategy extends AbstractStrategy {
-    /**
-     *
-     * @param {AdopterRepository} adopterRepository
-     * @param {OrganizationMemberRepository} organizationMemberRepository
-     */
-    constructor(adopterRepository, organizationMemberRepository) {
-        super();
-        this.organizationMemberRepository = organizationMemberRepository;
-        this.adopterRepository = adopterRepository;
+  /**
+   *
+   * @param {AdopterRepository} adopterRepository
+   * @param {OrganizationMemberRepository} organizationMemberRepository
+   */
+  constructor(adopterRepository, organizationMemberRepository) {
+    super();
+    this.organizationMemberRepository = organizationMemberRepository;
+    this.adopterRepository = adopterRepository;
+  }
+
+  /**
+   * @param {Login} data - Login domain object
+   */
+  async execute({ token, type }) {
+    if (!token) return;
+
+    const verifiedToken = await promisify(jwt.verify)(token, auth.secret);
+
+    if (!verifiedToken) {
+      this.throwError("O token informado não é válido.", 400);
+      return;
     }
 
-    /**
-     * @param {Login} data - Login domain object
-     */
-    async execute({ token, type }) {
-        if (!token) return;
+    let result = {};
 
-        const verifiedToken = await promisify(jwt.verify)(token, auth.secret);
+    switch (type) {
+      case USER_TYPE.ADOPTER:
+        const adopter = await this.adopterRepository.findById(verifiedToken.id);
 
-        if (!verifiedToken) {
-            this.throwError("O token informado não é válido.", 400);
-            return;
+        if (!adopter) {
+          this.throwError(
+            "Não foi possível recuperar os dados do adotante.",
+            500
+          );
         }
 
-        let result = {};
-        let { id, firstName, email, organizationId, role } = {};
+        result = {
+          id: adopter.id,
+          firstName: adopter.firstName,
+          email: adopter.email,
+          type,
+          imageUrl: adopter.imageUrl ? adopter.imageUrl : "",
+          token: jwt.sign(
+            { id: adopter.id, type: verifiedToken.type },
+            auth.secret,
+            {
+              expiresIn: auth.expiresIn,
+            }
+          ),
+        };
+        break;
+      case USER_TYPE.ORGANIZATION:
+        const orgMember = await this.organizationMemberRepository.findById(
+          verifiedToken.id
+        );
 
-        switch (type) {
-            case USER_TYPE.ADOPTER:
-                const adopter = await this.adopterRepository.findById(
-                    verifiedToken.id
-                );
-
-                if (!adopter) {
-                    this.throwError(
-                        "Não foi possível recuperar os dados do adotante.",
-                        500
-                    );
-                }
-
-                ({ id, firstName, email } = adopter);
-
-                result = {
-                    id,
-                    firstName,
-                    email,
-                    type,
-                    token: jwt.sign(
-                        { id, type: verifiedToken.type },
-                        auth.secret,
-                        {
-                            expiresIn: auth.expiresIn,
-                        }
-                    ),
-                };
-                break;
-            case USER_TYPE.ORGANIZATION:
-                const orgMember =
-                    await this.organizationMemberRepository.findById(
-                        verifiedToken.id
-                    );
-
-                if (!orgMember) {
-                    this.throwError(
-                        "Não foi possível recuperar os dados do usuário.",
-                        500
-                    );
-                }
-
-                ({ id, firstName, email, organizationId, role } = orgMember);
-
-                result = {
-                    id,
-                    firstName,
-                    email,
-                    type,
-                    role,
-                    organizationId,
-                    token: jwt.sign(
-                        { id, type: verifiedToken.type },
-                        auth.secret,
-                        {
-                            expiresIn: auth.expiresIn,
-                        }
-                    ),
-                };
-                break;
-            default:
-                break;
+        if (!orgMember) {
+          this.throwError(
+            "Não foi possível recuperar os dados do usuário.",
+            500
+          );
         }
 
-        return result;
+        const { organizationId, role } = orgMember;
+
+        result = {
+          id: orgMember.id,
+          firstName: orgMember.firstName,
+          email: orgMember.email,
+          type,
+          role,
+          organizationId,
+          imageUrl: orgMember.imageUrl ? orgMember.imageUrl : "",
+          token: jwt.sign(
+            { id: orgMember.id, type: verifiedToken.type },
+            auth.secret,
+            {
+              expiresIn: auth.expiresIn,
+            }
+          ),
+        };
+        break;
+      default:
+        break;
     }
+
+    return result;
+  }
 }

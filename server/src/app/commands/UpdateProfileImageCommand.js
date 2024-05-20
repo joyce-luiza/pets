@@ -1,4 +1,4 @@
-import AbstractCommand from "../../../app/abstract/AbstractCommand";
+import AbstractCommand from "../abstract/AbstractCommand";
 
 export default class UpdateProfileImageCommand extends AbstractCommand {
   /**

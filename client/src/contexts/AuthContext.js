@@ -21,31 +21,31 @@ export const AuthProvider = ({ children }) => {
         if (user && user.token) {
             checkTokenExpiration();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
-    const login = async (email, psw, userType, firstAccess) => {
+    const login = async (email, password, type, firstAccess, token = null) => {
         try {
             const response = await axiosRequest({
                 method: "POST",
                 path: "/auth/login",
                 body: {
-                    email: email,
-                    password: psw,
-                    type: userType,
+                    email,
+                    password,
+                    type,
+                    token,
                 },
             });
             setUser(response);
-            switch (userType) {
+            switch (type) {
                 case USER_TYPE.ADOPTER:
                     if (firstAccess) {
                         navigate("/user/complement");
                     } else {
-                        navigate("user/profile");
+                        navigate("profile");
                     }
                     break;
                 case USER_TYPE.ORGANIZATION:
-                    navigate("user/profile");
+                    navigate("profile");
                     break;
                 default:
                     break;
