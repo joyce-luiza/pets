@@ -5,6 +5,7 @@ import CreateOrganizationAddressStrategy from "./CreateOrganizationAddressSrateg
 import ValidateAddressRequiredFields from "./ValidateAddressRequiredFields";
 import GetOrganizationAddressStrategy from "./GetOrganizationAddressStrategy";
 import FormatToAddressDomainStrategy from "./FormatToAddressDomainStrategy";
+import UpdateOrganizationStrategy from "./UpdateOrganizationStrategy";
 
 export {
     CreateOrganizationStrategy,
@@ -14,4 +15,5 @@ export {
     ValidateAddressRequiredFields,
     GetOrganizationAddressStrategy,
     FormatToAddressDomainStrategy,
+    UpdateOrganizationStrategy,
 };

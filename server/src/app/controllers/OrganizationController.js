@@ -4,6 +4,7 @@ import {
     GetByCNPJOrganizationFactory,
     CreateOrganizationComplementFactory,
     GetOrganizationComplementFactory,
+    UpdateOrganizationFactory,
 } from "../../routes/Organizations/factories";
 import {
     Organization,
@@ -26,6 +27,7 @@ export default class OrganizationController {
         this.getByCNPJ = this.getByCNPJ.bind(this);
         this.createComplement = this.createComplement.bind(this);
         this.getComplement = this.getComplement.bind(this);
+        this.update = this.update.bind(this);
     }
 
     async create(req, res, next) {
@@ -105,6 +107,16 @@ export default class OrganizationController {
         const organizationId = new Organization({ id: req.params.id });
         const factory = new GetOrganizationComplementFactory();
         const result = await factory.execute(organizationId);
+        res.json(result);
+    }
+
+    async update(req, res, next) {
+        const organization = new Organization({
+            ...req.body,
+            id: req.loggedUserInfo.organizationId,
+        });
+        const factory = new UpdateOrganizationFactory();
+        const result = await factory.execute(organization);
         res.json(result);
     }
 }
