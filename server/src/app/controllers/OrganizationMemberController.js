@@ -37,7 +37,7 @@ export default class OrganizationMemberController {
   async updateProfileImage(req, res, next) {
     const memberFile = new File(req.file);
     const factory = new UpdateProfileImageMemberFactory();
-    const result = await factory.execute(memberFile, {}, req.loggedUserInfo);
+    const result = await factory.execute(memberFile, req.loggedUserInfo);
     res.json(result);
   }
 }

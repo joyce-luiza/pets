@@ -14,22 +14,29 @@ import LifestyleRepository from "./LifestyleRepository";
 import OrganizationRepository from "./OrganizationRepository";
 import OrganizationMemberRepository from "./OrganizationMemberRepository";
 import OrganizationInviteRepository from "./OrganizationInviteRepository";
+import StatusesRepository from "./StatusesRepository";
+import StatusesRepository from "./StatusesRepository";
+import AnimalRepository from "./AnimalRepository";
+import AnimalFileRepository from "./AnimalFileRepository";
 
 export {
-    AdopterRepository,
-    AnimalTypeRepository,
-    AnimalAgeGroupRepository,
-    AnimalSizeRepository,
-    AnimalColorRepository,
-    AdopterPreferenceRepository,
-    AdopterAnimalTypePreferenceRepository,
-    AnimalTypeRepository,
-    AdopterAnimalSizePreferenceRepository,
-    AdopterAnimalColorPreferenceRepository,
-    AdopterAnimalAgeGroupPreferenceRepository,
-    AddressRepository,
-    LifestyleRepository,
-    OrganizationRepository,
-    OrganizationMemberRepository,
-    OrganizationInviteRepository,
+  AdopterRepository,
+  AnimalTypeRepository,
+  AnimalAgeGroupRepository,
+  AnimalSizeRepository,
+  AnimalColorRepository,
+  AdopterPreferenceRepository,
+  AdopterAnimalTypePreferenceRepository,
+  AnimalTypeRepository,
+  AdopterAnimalSizePreferenceRepository,
+  AdopterAnimalColorPreferenceRepository,
+  AdopterAnimalAgeGroupPreferenceRepository,
+  AddressRepository,
+  LifestyleRepository,
+  OrganizationRepository,
+  OrganizationMemberRepository,
+  OrganizationInviteRepository,
+  StatusesRepository,
+  AnimalRepository,
+  AnimalFileRepository,
 };

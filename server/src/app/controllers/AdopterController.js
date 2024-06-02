@@ -15,6 +15,7 @@ export default class AdopterController {
     this.createComplement = this.createComplement.bind(this);
     this.deleteLogicallyById = this.deleteLogicallyById.bind(this);
     this.update = this.update.bind(this);
+    this.dupdateProfileImage = this.updateProfileImage.bind(this);
   }
 
   async create(req, res, next) {
@@ -46,14 +47,14 @@ export default class AdopterController {
       lifestyle,
     });
     const factory = new CreateAdopterLifestyleAndPreferencesFactory();
-    const result = await factory.execute(adopter, {}, req.loggedUserInfo);
+    const result = await factory.execute(adopter, req.loggedUserInfo);
     res.json(result);
   }
 
   async deleteLogicallyById(req, res, next) {
     const adopter = new Adopter({ id: req.params.id });
     const factory = new DeleteLogicallyByAdopterIdFactory();
-    const result = await factory.execute(adopter, {}, req.loggedUserInfo);
+    const result = await factory.execute(adopter, req.loggedUserInfo);
     res.json(result);
   }
 
@@ -67,7 +68,7 @@ export default class AdopterController {
   async updateProfileImage(req, res, next) {
     const adopter = new File(req.file);
     const factory = new UpdateProfileImageAdopterFactory();
-    const result = await factory.execute(adopter, {}, req.loggedUserInfo);
+    const result = await factory.execute(adopter, req.loggedUserInfo);
     res.json(result);
   }
 }

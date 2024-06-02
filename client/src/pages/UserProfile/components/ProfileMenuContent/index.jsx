@@ -2,7 +2,7 @@ import { useAuth } from "../../../../contexts/AuthContext.js";
 import { USER_TYPE } from "../../../../constants.js";
 import OrganizationAnimals from "./components/OrganizationAnimals/index.jsx";
 
-export default function ProfileMenuContent({ content }) {
+export default function ProfileMenuContent({ content, setContent }) {
   const { user } = useAuth();
   return (
     <>
@@ -11,7 +11,9 @@ export default function ProfileMenuContent({ content }) {
           {content === "Dashboard" && <h1>Dashboard</h1>}
           {content === "Organization" && <h1>Organization</h1>}
           {content === "Adoptions" && <h1>Adoptions</h1>}
-          {content === "Animals" && <OrganizationAnimals />}
+          {content === "Animals" && (
+            <OrganizationAnimals setContent={setContent} />
+          )}
           {content === "Visits" && <h1>Visits</h1>}
           {content === "Team" && <h1>Team</h1>}
           {content === "MyData" && <h1>MyData</h1>}

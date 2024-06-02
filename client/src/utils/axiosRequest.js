@@ -40,11 +40,16 @@ export async function axiosRequest({
 
     if (type === "multipart") {
       headers["Content-Type"] = "multipart/form-data";
-      // Se o corpo for um objeto, criamos um FormData e o definimos como corpo da requisição
       if (typeof body === "object" && !(body instanceof FormData)) {
         const formData = new FormData();
         for (const key in body) {
-          formData.append(key, body[key]);
+          if (Array.isArray(body[key])) {
+            body[key].forEach((item) => {
+              formData.append(key, item);
+            });
+          } else {
+            formData.append(key, body[key]);
+          }
         }
         body = formData;
       }

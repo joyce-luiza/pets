@@ -1,5 +1,3 @@
-import { Status } from "../../database/models";
-
 export default class Adopter {
   constructor({
     id = null,

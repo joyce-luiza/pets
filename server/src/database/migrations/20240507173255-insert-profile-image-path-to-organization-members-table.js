@@ -3,13 +3,13 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn("OrganizationMembers", "image_url", {
-      type: Sequelize.STRING,
-      allowNull: true,
-    });
+    // await queryInterface.addColumn("OrganizationMembers", "image_url", {
+    //   type: Sequelize.STRING,
+    //   allowNull: true,
+    // });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn("OrganizationMembers", "image_url");
+    // await queryInterface.removeColumn("OrganizationMembers", "image_url");
   },
 };

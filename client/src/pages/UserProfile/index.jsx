@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import styles from "./styles.module.css";
 import { USER_TYPE } from "../../constants.js";
@@ -11,26 +11,25 @@ export default function UserProfile() {
   const [content, setContent] = useState(
     user.type === USER_TYPE.ORGANIZATION ? "Dashboard" : "MyData"
   );
+
   return (
     <div className={styles.container}>
-      <div className={styles.gridContainer}>
+      <div className={styles.content}>
         {user.type === USER_TYPE.ORGANIZATION ? (
           <>
             <AdminSidebar
-              className={styles.sidebar}
               content={content}
               setContent={setContent}
             ></AdminSidebar>
           </>
         ) : (
           <AdopterSidebar
-            className={styles.sidebar}
             content={content}
             setContent={setContent}
           ></AdopterSidebar>
         )}
 
-        <ProfileMenuContent content={content} />
+        <ProfileMenuContent content={content} setContent={setContent} />
       </div>
     </div>
   );

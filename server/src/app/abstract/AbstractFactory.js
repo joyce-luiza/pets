@@ -7,8 +7,9 @@ export default class AbstractFactory {
     this.error = {};
   }
 
-  async execute(data, dto = {}, loggedUserInfo = false) {
-    let result;
+  async execute(data, loggedUserInfo = false) {
+    let result,
+      dto = {};
     for (const strategy of this.strategies) {
       if (result instanceof CustomError) {
         throw result;
