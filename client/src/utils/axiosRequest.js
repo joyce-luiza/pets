@@ -1,17 +1,19 @@
 import axios from "axios";
 
 /**
- * @typedef {'GET' | 'POS' | 'PUT' | 'DELETE'} HttpMethod
+ * @typedef {'GET' | 'POST' | 'PUT' | 'DELETE'} HttpMethod
+ * @typedef {'default' | 'multipart'} RequestType
  */
 
 /**
  * @typedef {Object} AxiosParams
  * @property {HttpMethod} [method=""]
  * @property {string} [path=""]
- * @property {Object} [body={}]
+ * @property {Object | FormData} [body={}]
  * @property {string} [params=""]
  * @property {boolean} [basePath=true]
- * @property {boolean} [authenticated=true]
+ * @property {boolean} [authenticated=false]
+ * @property {RequestType} [type='default']
  */
 
 /**
@@ -26,6 +28,7 @@ export async function axiosRequest({
   params = {},
   basePath = true,
   authenticated = false,
+  type = "default",
 }) {
   try {
     let headers = {};
@@ -33,6 +36,23 @@ export async function axiosRequest({
     if (authenticated && localStorage.getItem("user")) {
       const user = JSON.parse(localStorage.getItem("user"));
       headers["Authorization"] = `Bearer ${user.token}`;
+    }
+
+    if (type === "multipart") {
+      headers["Content-Type"] = "multipart/form-data";
+      if (typeof body === "object" && !(body instanceof FormData)) {
+        const formData = new FormData();
+        for (const key in body) {
+          if (Array.isArray(body[key])) {
+            body[key].forEach((item) => {
+              formData.append(key, item);
+            });
+          } else {
+            formData.append(key, body[key]);
+          }
+        }
+        body = formData;
+      }
     }
 
     const res = await axios({

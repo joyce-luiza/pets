@@ -10,18 +10,26 @@ import AdopterPreference from "./AdopterPreference";
 import AdopterLifestyle from "./AdopterLifestyle";
 import AdopterComplement from "./AdopterComplement";
 import Address from "./Address";
+import File from "./File";
+import Animal from "./Animal";
+import AnimalFile from "./AnimalFile";
+import Pagination from "./Pagination";
 
 export {
-    Adopter,
-    CustomError,
-    Login,
-    LoggedUser,
-    AdopterPreference,
-    AdopterLifestyle,
-    AdopterComplement,
-    Address,
-    Organization,
-    OrganizationMember,
-    OrganizationComplement,
-    OrganizationInvite,
+  Adopter,
+  CustomError,
+  Login,
+  LoggedUser,
+  AdopterPreference,
+  AdopterLifestyle,
+  AdopterComplement,
+  Address,
+  Organization,
+  OrganizationMember,
+  OrganizationComplement,
+  OrganizationInvite,
+  File,
+  Animal,
+  AnimalFile,
+  Pagination,
 };

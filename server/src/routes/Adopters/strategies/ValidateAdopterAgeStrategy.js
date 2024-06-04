@@ -21,8 +21,8 @@ export default class ValidateAdopterAgeStrategy extends AbstractStrategy {
    */
   async execute({ birthDate }) {
     if (
-      new Date().getFullYear() - new Date(birthDate).getFullYear() <
-      MINIMUM_AGE
+      birthDate &&
+      new Date().getFullYear() - new Date(birthDate).getFullYear() < MINIMUM_AGE
     ) {
       this.throwError(`Idade mínima: ${MINIMUM_AGE} anos`, 400);
       return;
