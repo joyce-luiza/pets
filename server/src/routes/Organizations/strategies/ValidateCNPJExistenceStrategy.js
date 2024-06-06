@@ -1,5 +1,8 @@
 import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
-import { OrganizationRepository } from "../../../app/repositories";
+import {
+    OrganizationRepository,
+    OrganizationMemberRepository,
+} from "../../../app/repositories";
 import { Organization } from "../../../app/domains";
 
 /**
@@ -8,23 +11,31 @@ import { Organization } from "../../../app/domains";
 export default class ValidateCNPJExistenceStrategy extends AbstractStrategy {
     /**
      * @param {OrganizationRepository} organizationRepository
+     * @param {OrganizationMemberRepository} organizationMemberRepository
      */
-    constructor(organizationRepository) {
+    constructor(organizationRepository, organizationMemberRepository) {
         super();
         this.organizationRepository = organizationRepository;
+        this.organizationMemberRepository = organizationMemberRepository;
     }
 
     /**
      * @param {Organization} organization
-     * @param {string} organization.cnpj
      * @throws {Error}
      */
 
-    async execute(organization) {
-        const cnpj = organization.cnpj;
+    async execute({ cnpj }, dto, loggedUserInfo) {
         const org = await this.organizationRepository.countGeneric({
             where: { cnpj },
         });
+        if (loggedUserInfo) {
+            const loggedOrganization =
+                await this.organizationRepository.findById(
+                    loggedUserInfo.organizationId
+                );
+
+            if (cnpj === loggedOrganization.cnpj) return;
+        }
 
         if (org) {
             this.throwError("O CNPJ informado já está cadastrado.");

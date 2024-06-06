@@ -1,7 +1,6 @@
 import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
 import { OrganizationRepository } from "../../../app/repositories";
 import { Organization } from "../../../app/domains";
-import sanitize from "../../../app/utils/sanitize";
 
 /**
  * Strategy to update an Organization
@@ -21,19 +20,30 @@ export default class UpdateOrganizationStrategy extends AbstractStrategy {
      * @param {Organization} data - Organization domain object
      */
     async execute(data) {
+        const organization = await this.organizationRepository.findById(
+            data.id
+        );
+
+        if (!organization) {
+            this.throwError("Não foi possível encontrar o id da organização.");
+            return;
+        }
+
         const updated = await this.organizationRepository.update(data, {
             id: data.id,
         });
+
         if (!updated) {
             this.throwError("Erro ao atualizar as informações da organização");
             return;
         }
 
-        const organization = await this.organizationRepository.findById(
+        const updatedOrganization = await this.organizationRepository.findById(
             data.id
         );
 
-        const result = new Organization(organization);
+        const result = new Organization(updatedOrganization);
+
         return result;
     }
 }

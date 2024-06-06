@@ -4,6 +4,7 @@ import GetByCNPJOrganizationFactory from "./GetByCNPJOrganizationFactory";
 import CreateOrganizationComplementFactory from "./CreateOrganizationComplementFactory";
 import GetOrganizationComplementFactory from "./GetOrganizationComplementFactory";
 import UpdateOrganizationFactory from "./UpdateOrganizationFactory";
+import UpdateOrganizationAddressFactory from "./UpdateOrganizationAddressFactory";
 
 export {
     CreateOrganizationFactory,
@@ -12,4 +13,5 @@ export {
     CreateOrganizationComplementFactory,
     GetOrganizationComplementFactory,
     UpdateOrganizationFactory,
+    UpdateOrganizationAddressFactory,
 };
