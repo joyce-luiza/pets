@@ -1,8 +1,7 @@
 import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
-import { OrganizationInvite } from "../../../database/models";
 
 /**
- * Strategy to validate token.
+ * Strategy to validate token status.
  *
  * @extends AbstractStrategy
  */
@@ -13,7 +12,7 @@ export default class ValidateInvitationTokenFactory extends AbstractStrategy {
     }
 
     /**
-     * Verify token validity on OrganizationInvites table
+     * Checks that the token in the OrganizationInvites table is not deactivated
      *
      * @param {String} token - The token property.
      * @throws {Error} Throws an error if the member's email already existence.
