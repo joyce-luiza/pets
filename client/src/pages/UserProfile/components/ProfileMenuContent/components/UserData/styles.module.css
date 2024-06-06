@@ -1,0 +1,9 @@
+.container {
+    grid-column: 3 / 12;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
