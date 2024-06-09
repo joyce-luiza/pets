@@ -1,4 +1,8 @@
 module.exports = Object.freeze({
+    STATUS: {
+        ACTIVE: "ATIVO",
+        INACTIVE: "INATIVO",
+    },
     STATE_COLORS: {
         SUCCESS: "#27ae60",
         DEFAULT: "#828282",
@@ -68,6 +72,10 @@ module.exports = Object.freeze({
         WHITE: "Branco",
         BROWN: "Marrom",
         MIXED: "Mesclado",
+    },
+    ANIMAL_SEX: {
+        MALE: "Macho",
+        FEMALE: "Fêmea",
     },
     ROUTINE_TYPES: {
         FULL_TIME: "FULL_TIME",

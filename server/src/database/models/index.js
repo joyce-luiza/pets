@@ -14,22 +14,26 @@ import AdopterAnimalColorPreference from "./adopterAnimalColorPreference";
 import AdopterAnimalAgeGroupPreference from "./adopterAnimalAgeGroupPreference";
 import Address from "./address";
 import Lifestyle from "./lifestyle";
+import Animal from "./animal";
+import AnimalFile from "./animalFile";
 
 export {
-    Status,
-    Adopter,
-    AnimalType,
-    AnimalAgeGroup,
-    AnimalSize,
-    AnimalColor,
-    AdopterPreference,
-    AdopterAnimalTypePreference,
-    AdopterAnimalSizePreference,
-    AdopterAnimalColorPreference,
-    AdopterAnimalAgeGroupPreference,
-    Address,
-    Lifestyle,
-    Organization,
-    OrganizationMember,
-    OrganizationInvite,
+  Status,
+  Adopter,
+  AnimalType,
+  AnimalAgeGroup,
+  AnimalSize,
+  AnimalColor,
+  AdopterPreference,
+  AdopterAnimalTypePreference,
+  AdopterAnimalSizePreference,
+  AdopterAnimalColorPreference,
+  AdopterAnimalAgeGroupPreference,
+  Address,
+  Lifestyle,
+  Organization,
+  OrganizationMember,
+  OrganizationInvite,
+  Animal,
+  AnimalFile,
 };

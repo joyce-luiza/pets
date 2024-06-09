@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { promisify } from "util";
 import authConfig from "../config/auth.js";
+import { USER_TYPE } from "../constants.js";
 
 export default async (req, res, next) => {
     const authHeader = req.headers.authorization;
@@ -14,11 +15,20 @@ export default async (req, res, next) => {
     try {
         const decoded = await promisify(jwt.verify)(token, authConfig.secret);
 
-        req.loggedUserInfo = {
-            userId: decoded.id,
-            isAdmin: decoded.isAdmin,
-            organizationId: decoded.organizationId,
-        };
+        const info =
+            decoded.type && decoded.type === USER_TYPE.ORGANIZATION
+                ? {
+                      userId: decoded.id,
+                      organizationId: decoded.organizationId,
+                      type: decoded.type,
+                      role: decoded.role,
+                  }
+                : {
+                      userId: decoded.id,
+                      type: decoded.type,
+                  };
+
+        req.loggedUserInfo = info;
 
         return next();
     } catch (error) {

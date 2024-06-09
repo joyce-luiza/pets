@@ -1,7 +1,5 @@
 import Sequelize, { Model } from "sequelize";
 import bcrypt from "bcryptjs";
-import Sequelize, { Model } from "sequelize";
-import bcrypt from "bcryptjs";
 
 class Adopter extends Model {
     static associate(model) {

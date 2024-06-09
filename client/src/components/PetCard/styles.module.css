@@ -1,38 +1,38 @@
 .petCard {
-    width: 300px;
-    height: 420px;
-    background-color: #fff;
-    border: 1px solid var(--gray5);
-    border-radius: 4px;
-    display: grid;
-    grid-template-rows: 2fr 1fr;
+  width: 300px;
+  height: 420px;
+  background-color: #fff;
+  border: 1px solid var(--gray5);
+  border-radius: 4px;
+  display: grid;
+  grid-template-rows: 2fr 1fr;
 }
 
 .description i {
-    color: var(--color01);
+  color: var(--color01);
 }
 
 .photo {
-    background-image: url(./mel.png);
-    background-size: cover;
+  background-image: url(./mel.png);
+  background-size: cover;
 }
 
 .description {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75em;
-    padding: 0.75em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  padding: 0.75em;
 }
 
 .descriptionLine {
-    display: flex;
-    gap: 1em;
+  display: flex;
+  gap: 1em;
 }
 
 .petAge,
 .petGender,
 .petLocation {
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }

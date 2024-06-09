@@ -1,130 +1,130 @@
 .stepsContent {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .stepsContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
 }
 
 .stepsContainer > h2 {
-    text-align: left;
+  text-align: left;
 }
 
 .formContainer {
-    display: grid;
-    grid-template-columns: 1fr 10px 2fr;
-    margin: 5em 15em 5em 15em;
-    gap: 5em;
+  display: grid;
+  grid-template-columns: 1fr 10px 2fr;
+  margin: 5em 15em 5em 15em;
+  gap: 5em;
 }
 
 .formContainer:first-child {
-    height: 70vh;
+  height: 70vh;
 }
 
 .divider > span {
-    display: block;
-    width: 1px;
-    height: 100%;
-    background-color: var(--gray5);
+  display: block;
+  width: 1px;
+  height: 100%;
+  background-color: var(--gray5);
 }
 
 .stepFormTitle > div {
-    display: flex;
-    align-items: center;
-    gap: 1em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }
 
 .inline {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
 }
 
 .threeInline {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
 }
 
 .callToAction {
-    display: flex;
-    flex-direction: row;
-    gap: 2em;
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
 }
 
 .inputGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0 2em;
-    margin-top: 1em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0 2em;
+  margin-top: 1em;
 }
 
 .checkboxGrid > div {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 1em;
-    margin: 1em 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1em;
+  margin: 1em 0;
 }
 
 .timeGrid {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    gap: 2em;
-    margin-bottom: 3em;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2em;
+  margin-bottom: 3em;
 }
 
 .timeGrid > div {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .timeGrid > p {
-    padding-top: 8px;
+  padding-top: 8px;
 }
 
 :global(
-        .ant-steps
-            .ant-steps-item-process
-            > .ant-steps-item-container
-            > .ant-steps-item-content
-            > .ant-steps-item-description
-    ) {
-    font-family: "Inter", sans-serif;
-    font-size: 0.875em;
-    list-style: 1.5em;
-    color: var(--gray4);
-    padding-bottom: 2em;
+    .ant-steps
+      .ant-steps-item-process
+      > .ant-steps-item-container
+      > .ant-steps-item-content
+      > .ant-steps-item-description
+  ) {
+  font-family: "Inter", sans-serif;
+  font-size: 0.875em;
+  list-style: 1.5em;
+  color: var(--gray4);
+  padding-bottom: 2em;
 }
 
 :global(
-        .ant-steps
-            .ant-steps-item-wait
-            > .ant-steps-item-container
-            > .ant-steps-item-content
-            > .ant-steps-item-description
-    ) {
-    font-family: "Inter", sans-serif;
-    font-size: 0.875em;
-    list-style: 1.5em;
-    color: var(--copyText);
-    padding-bottom: 2em;
+    .ant-steps
+      .ant-steps-item-wait
+      > .ant-steps-item-container
+      > .ant-steps-item-content
+      > .ant-steps-item-description
+  ) {
+  font-family: "Inter", sans-serif;
+  font-size: 0.875em;
+  list-style: 1.5em;
+  color: var(--copyText);
+  padding-bottom: 2em;
 }
 
 :global(
-        .ant-steps
-            .ant-steps-item-finish
-            > .ant-steps-item-container
-            > .ant-steps-item-content
-            > .ant-steps-item-description
-    ) {
-    font-family: "Inter", sans-serif;
-    font-size: 0.875em;
-    list-style: 1.5em;
-    color: var(--copyText);
-    padding-bottom: 2em;
+    .ant-steps
+      .ant-steps-item-finish
+      > .ant-steps-item-container
+      > .ant-steps-item-content
+      > .ant-steps-item-description
+  ) {
+  font-family: "Inter", sans-serif;
+  font-size: 0.875em;
+  list-style: 1.5em;
+  color: var(--copyText);
+  padding-bottom: 2em;
 }

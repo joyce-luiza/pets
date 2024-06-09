@@ -94,11 +94,7 @@ export default class DoLoginByParamsStrategy extends AbstractStrategy {
                     imageUrl: orgMember.imageUrl ? orgMember.imageUrl : "",
                     organizationId,
                     token: jwt.sign(
-                        {
-                            id: orgMember.id,
-                            type,
-                            organizationId: organizationId,
-                        },
+                        { id: orgMember.id, type, organizationId, role },
                         auth.secret,
                         {
                             expiresIn: auth.expiresIn,
@@ -109,6 +105,10 @@ export default class DoLoginByParamsStrategy extends AbstractStrategy {
             }
 
             default:
+                this.throwError(
+                    "Não foi possível prosseguir com a solicitação.",
+                    401
+                );
                 break;
         }
 

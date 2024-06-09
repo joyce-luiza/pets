@@ -2,9 +2,9 @@ import { VerifyOrganizationMemberAdminRoleFactory } from "../routes/Organization
 
 export default async (req, res, next) => {
     try {
-        const id = req.loggedUserInfo.userId;
+        const role = req.loggedUserInfo.role;
         const validateUserRole = new VerifyOrganizationMemberAdminRoleFactory();
-        await validateUserRole.execute(id);
+        await validateUserRole.execute(role);
         next();
     } catch (error) {
         return res.status(403).json(error.message);

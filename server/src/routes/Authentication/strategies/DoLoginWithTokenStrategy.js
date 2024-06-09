@@ -92,7 +92,8 @@ export default class DoLoginWithTokenStrategy extends AbstractStrategy {
                         {
                             id: orgMember.id,
                             type: verifiedToken.type,
-                            organizationId: organizationId,
+                            organizationId,
+                            role,
                         },
                         auth.secret,
                         {

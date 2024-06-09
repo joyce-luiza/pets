@@ -11,6 +11,9 @@ import AdopterLifestyle from "./AdopterLifestyle";
 import AdopterComplement from "./AdopterComplement";
 import Address from "./Address";
 import File from "./File";
+import Animal from "./Animal";
+import AnimalFile from "./AnimalFile";
+import Pagination from "./Pagination";
 
 export {
   Adopter,
@@ -26,4 +29,7 @@ export {
   OrganizationComplement,
   OrganizationInvite,
   File,
+  Animal,
+  AnimalFile,
+  Pagination,
 };
