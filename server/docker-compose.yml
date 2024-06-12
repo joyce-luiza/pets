@@ -5,7 +5,7 @@ services:
     image: postgres:latest
     ports:
       - "5432:5432"
-    container_name: "TCC-postgres"
+    container_name: "pets-dev"
     restart: on-failure
     volumes:
       - petsDev:/var/lib/postgres
@@ -19,7 +19,7 @@ services:
     image: postgres:latest
     ports:
       - "5433:5432"
-    container_name: "TCC-postgres-test"
+    container_name: "pets-test"
     restart: on-failure
     volumes:
       - petsTest:/var/lib/postgresql/data
@@ -28,18 +28,6 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_ROOT_PASSWORD: admin
       POSTGRES_DB: pets_test
-
-  api-pets:
-    container_name: api-pets
-    build: ./
-    restart: always
-    ports:
-      - 3335:3335
-    depends_on:
-      - pets-prod
-    env_file:
-      - ./.env
-    command: sh -c "npm run db && npm start"
 
 volumes:
   petsDev:

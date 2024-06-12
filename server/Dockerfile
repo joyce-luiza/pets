@@ -4,9 +4,8 @@ FROM node:latest
 WORKDIR /server
 
 COPY package*.json ./
-COPY .env.prod ./
+COPY .env.prod ./.env
 
-RUN rm -rf node_modules
 RUN npm install
 
 COPY . .
