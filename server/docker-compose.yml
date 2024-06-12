@@ -1,20 +1,48 @@
-version: '3'
+version: "3"
 
 services:
-  postgres:
+  pets-dev:
     image: postgres:latest
     ports:
-      - '5432:5432'
-    container_name: 'TCC-postgres'
+      - "5432:5432"
+    container_name: "TCC-postgres"
     restart: on-failure
     volumes:
-      - postgresTCC:/var/lib/postgres
+      - petsDev:/var/lib/postgres
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       POSTGRES_ROOT_PASSWORD: admin
-      POSTGRES_DB: tcc
+      POSTGRES_DB: pets_dev
+
+  pets-test:
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    container_name: "TCC-postgres-test"
+    restart: on-failure
+    volumes:
+      - petsTest:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_ROOT_PASSWORD: admin
+      POSTGRES_DB: pets_test
+
+  api-pets:
+    container_name: api-pets
+    build: ./
+    restart: always
+    ports:
+      - 3335:3335
+    depends_on:
+      - pets-prod
+    env_file:
+      - ./.env
+    command: sh -c "npm run db && npm start"
 
 volumes:
-  postgresTCC:
-    name: postgresTCC
+  petsDev:
+    name: petsDev
+  petsTest:
+    name: petsTest
