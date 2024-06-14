@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  react-app:
+    build: .
+    ports:
+      - "80:80"
+    networks:
+      - pets-network
+
+networks:
+  pets-network:
+    driver: bridge

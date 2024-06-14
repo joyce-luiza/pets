@@ -1,14 +1,14 @@
 version: "3"
 
 services:
-  pets-prod:
+  pets-db:
     image: postgres:latest
     ports:
-      - "5434:5432"
+      - "5432:5432"
     container_name: "pets"
     restart: on-failure
     volumes:
-      - pets:/var/lib/postgresql/data
+      - petsdb:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -22,11 +22,11 @@ services:
     ports:
       - 3335:3335
     depends_on:
-      - pets-prod
+      - pets-db
     env_file:
       - ./.env
     command: sh -c "npm run db && npm start"
 
 volumes:
-  pets:
-    name: pets
+  petsdb:
+    name: petsdb

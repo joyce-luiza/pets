@@ -4,7 +4,7 @@ FROM node:latest
 WORKDIR /server
 
 COPY package*.json ./
-COPY .env.prod ./.env
+COPY .env .
 
 RUN npm install
 
