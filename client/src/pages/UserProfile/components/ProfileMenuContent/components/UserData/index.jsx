@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { Form, Input, Button, Typography } from "antd";
+import { Form, Input, Button, Typography, Flex } from "antd";
 import { axiosRequest } from "../../../../../../utils/axiosRequest";
 import BirthDateField from "../../../../../../components/BirthDateField";
 import "remixicon/fonts/remixicon.css";
@@ -8,12 +8,14 @@ import dayjs from "dayjs";
 import PhoneNumberField from "../../../../../../components/PhoneNumberField";
 import styles from "./styles.module.css";
 import { USER_TYPE } from "../../../../../../constants";
+import DeleteAccount from "./components/DeleteAccount";
 
 const { Title } = Typography;
 
 export default function UserData({ user }) {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const updateUserData = async ({
         fullName,
@@ -78,9 +80,20 @@ export default function UserData({ user }) {
     return (
         <div className={styles.container}>
             <div className={styles.content}>
-                <Title level={1} style={{ margin: 0 }}>
-                    Meus dados
-                </Title>
+                <Flex justify="space-between" align="center">
+                    <Title level={2} style={{ margin: 0, textAlign: "left" }}>
+                        Meus dados
+                    </Title>
+
+                    <Button
+                        icon={<i class="ri-delete-bin-line"></i>}
+                        type="default"
+                        onClick={() => setIsDeleteModalOpen(true)}
+                        data-cy="delete-adopter-button"
+                    >
+                        Excluir conta
+                    </Button>
+                </Flex>
                 <Form layout="vertical" form={form} onFinish={updateUserData}>
                     <Form.Item
                         name="fullName"
@@ -92,7 +105,11 @@ export default function UserData({ user }) {
                             },
                         ]}
                     >
-                        <Input size="large" placeholder="Nome completo" />
+                        <Input
+                            size="large"
+                            placeholder="Nome completo"
+                            data-cy="adopter-fullname"
+                        />
                     </Form.Item>
                     <Form.Item
                         name="email"
@@ -110,10 +127,14 @@ export default function UserData({ user }) {
                         ]}
                         validateTrigger="onBlur"
                     >
-                        <Input size="large" placeholder="Email" />
+                        <Input
+                            size="large"
+                            placeholder="Email"
+                            data-cy="adopter-email"
+                        />
                     </Form.Item>
-                    <PhoneNumberField name="phoneNumber" />
-                    <BirthDateField name="birthDate" />
+                    <PhoneNumberField data-cy="adopter-phone-number" />
+                    <BirthDateField data-cy="adopter-birth-date" />
                     <Form.Item>
                         <Button
                             block
@@ -121,12 +142,18 @@ export default function UserData({ user }) {
                             type="primary"
                             htmlType="submit"
                             loading={loading}
+                            data-cy="update-adopter-button"
                         >
                             Editar dados
                         </Button>
                     </Form.Item>
                 </Form>
             </div>
+            <DeleteAccount
+                user={user}
+                open={isDeleteModalOpen}
+                setIsModalOpen={setIsDeleteModalOpen}
+            ></DeleteAccount>
         </div>
     );
 }

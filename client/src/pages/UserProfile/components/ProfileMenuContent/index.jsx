@@ -27,7 +27,7 @@ export default function ProfileMenuContent({ content, setContent }) {
                 </>
             ) : (
                 <>
-                    {content === "MyData" && <h1>MyData</h1>}
+                    {content === "MyData" && <UserData user={user} />}
                     {content === "Adoptions" && <h1>Adoptions</h1>}
                     {content === "Address" && <h1>Address</h1>}
                     {content === "Preferences" && <h1>Preferences</h1>}
