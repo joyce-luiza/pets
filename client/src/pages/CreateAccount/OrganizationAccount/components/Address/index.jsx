@@ -108,6 +108,7 @@ export default function Address({
                         onChange={(e) =>
                             handleUserAddress({ cep: e.target.value })
                         }
+                        data-cy="organization-cep"
                     ></CepField>
                     <Form.Item
                         label="Logradouro:"
@@ -119,6 +120,7 @@ export default function Address({
                             },
                         ]}
                         labelCol={{ span: 24 }}
+                        data-cy="organization-street"
                     >
                         <Input
                             size="large"
@@ -141,6 +143,7 @@ export default function Address({
                             },
                         ]}
                         labelCol={{ span: 24 }}
+                        data-cy="organization-state"
                     >
                         <Select
                             size="large"
@@ -150,6 +153,7 @@ export default function Address({
                                 handleUserAddress({ state: value });
                                 handleCities(value);
                             }}
+                            data-cy="organization-state"
                         >
                             {Object.keys(BRAZILIAN_STATES).map((key) => (
                                 <Select.Option key={key} value={key}>
@@ -169,6 +173,7 @@ export default function Address({
                             },
                         ]}
                         labelCol={{ span: 24 }}
+                        data-cy="organization-city"
                     >
                         <Select
                             size="large"
@@ -197,6 +202,7 @@ export default function Address({
                             },
                         ]}
                         labelCol={{ span: 24 }}
+                        data-cy="organization-number"
                     >
                         <Input
                             size="large"
@@ -211,6 +217,7 @@ export default function Address({
                     label="Complemento (Opcional):"
                     name="complemento"
                     labelCol={{ span: 24 }}
+                    data-cy="organization-complement"
                 >
                     <Input
                         size="large"
@@ -239,6 +246,7 @@ export default function Address({
                             htmlType="submit"
                             loading={loading}
                             style={{ width: "100%" }}
+                            data-cy="next-step-button"
                         >
                             Continuar
                         </Button>

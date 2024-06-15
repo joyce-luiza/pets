@@ -48,7 +48,10 @@ export default function OrganizationData({ user }) {
                 !loading ? (
                     <div className={styles.orgInfo}>
                         <Flex justify="space-between" align="center">
-                            <Title level={1} style={{ margin: 0 }}>
+                            <Title
+                                level={2}
+                                style={{ margin: 0, textAlign: "left" }}
+                            >
                                 {orgData.name}
                             </Title>
                             <Flex gap={32}>
@@ -59,6 +62,7 @@ export default function OrganizationData({ user }) {
                                         onClick={() =>
                                             setEditOrganization(true)
                                         }
+                                        data-cy="update-organization-button"
                                     >
                                         Editar
                                     </Button>
@@ -70,6 +74,7 @@ export default function OrganizationData({ user }) {
                                         onClick={() =>
                                             setIsDeleteModalOpen(true)
                                         }
+                                        data-cy="delete-organization-button"
                                     >
                                         Deletar
                                     </Button>
@@ -94,13 +99,13 @@ export default function OrganizationData({ user }) {
                         </Space>
                         <Space size={48} direction="vertical">
                             <Flex vertical>
-                                <Title level={3}>Descrição</Title>
+                                <Title level={4}>Descrição</Title>
                                 <Paragraph style={{ margin: 0 }}>
                                     {orgData.description}
                                 </Paragraph>
                             </Flex>
                             <Flex vertical>
-                                <Title level={3}>Contato</Title>
+                                <Title level={4}>Contato</Title>
                                 <Flex gap={48}>
                                     <Flex gap={12} vertical>
                                         <label>Email</label>
@@ -123,7 +128,7 @@ export default function OrganizationData({ user }) {
                                 </Flex>
                             </Flex>
                             <Flex vertical>
-                                <Title level={3} style={{ marginBottom: 24 }}>
+                                <Title level={4} style={{ marginBottom: 24 }}>
                                     Instalações
                                 </Title>
                                 <Flex gap={48}>

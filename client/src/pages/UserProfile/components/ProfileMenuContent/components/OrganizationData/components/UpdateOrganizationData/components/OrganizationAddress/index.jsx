@@ -93,6 +93,7 @@ export default function OrganizationAddress({ address, setAddress }) {
                 <CepField
                     value={address.cep}
                     onChange={(e) => handleUserAddress({ cep: e.target.value })}
+                    data-cy="organization-cep"
                 ></CepField>
                 <Form.Item
                     label="Logradouro:"
@@ -111,6 +112,7 @@ export default function OrganizationAddress({ address, setAddress }) {
                         onChange={(e) =>
                             handleUserAddress({ street: e.target.value })
                         }
+                        data-cy="organization-street"
                     />
                 </Form.Item>
 
@@ -133,6 +135,7 @@ export default function OrganizationAddress({ address, setAddress }) {
                             handleUserAddress({ state: value });
                             handleCities(value);
                         }}
+                        data-cy="organization-state"
                     >
                         {Object.keys(BRAZILIAN_STATES).map((key) => (
                             <Select.Option key={key} value={key}>
@@ -159,6 +162,7 @@ export default function OrganizationAddress({ address, setAddress }) {
                         onChange={(value) => {
                             handleUserAddress({ city: value });
                         }}
+                        data-cy="organization-city"
                     >
                         {cities.length &&
                             cities.map((city) => (
@@ -187,6 +191,7 @@ export default function OrganizationAddress({ address, setAddress }) {
                         onChange={(e) => {
                             handleUserAddress({ number: e.target.value });
                         }}
+                        data-cy="organization-number"
                     />
                 </Form.Item>
                 <Form.Item
@@ -200,6 +205,7 @@ export default function OrganizationAddress({ address, setAddress }) {
                         onChange={(e) => {
                             handleUserAddress({ complement: e.target.value });
                         }}
+                        data-cy="organization-complement"
                     />
                 </Form.Item>
 
@@ -210,6 +216,7 @@ export default function OrganizationAddress({ address, setAddress }) {
                         htmlType="submit"
                         loading={loading}
                         style={{ width: "100%" }}
+                        data-cy="submit-update-organization-address-button"
                     >
                         Editar endereço
                     </Button>

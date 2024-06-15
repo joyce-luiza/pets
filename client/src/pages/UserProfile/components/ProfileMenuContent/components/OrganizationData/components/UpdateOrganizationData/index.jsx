@@ -14,7 +14,9 @@ export default function UpdateOrganizationData({
     const items = [
         {
             key: "1",
-            label: "Informações gerais",
+            label: (
+                <span data-cy="tab-organization-info">Informações gerais</span>
+            ),
             children: (
                 <OrganizationInfo
                     orgData={orgData}
@@ -24,7 +26,7 @@ export default function UpdateOrganizationData({
         },
         {
             key: "2",
-            label: "Endereço",
+            label: <span data-cy="tab-organization-address">Endereço</span>,
             children: (
                 <OrganizationAddress
                     address={address}
@@ -41,7 +43,7 @@ export default function UpdateOrganizationData({
                 align="center"
                 style={{ marginBottom: 48 }}
             >
-                <Title level={1} style={{ margin: 0 }}>
+                <Title level={2} style={{ margin: 0, textAlign: "left" }}>
                     Editar organização
                 </Title>
                 <Button

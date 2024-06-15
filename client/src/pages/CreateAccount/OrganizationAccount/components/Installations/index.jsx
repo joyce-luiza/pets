@@ -95,7 +95,11 @@ export default function Installations({
                     required
                 >
                     <div className={styles.inputGrid}>
-                        <Form.Item label="Número de cachorros:" name="dogQty">
+                        <Form.Item
+                            label="Número de cachorros:"
+                            name="dogQty"
+                            data-cy="organization-dog-qty"
+                        >
                             <InputNumber
                                 style={{ width: "100%" }}
                                 size="large"
@@ -178,6 +182,7 @@ export default function Installations({
                             onChange={(value) => {
                                 handleChange({ operatingDays: [...value] });
                             }}
+                            data-cy="organization-operating-days"
                         />
                     </div>
                 </Form.Item>
@@ -191,6 +196,7 @@ export default function Installations({
                                     message: "Insira o horário de abertura",
                                 },
                             ]}
+                            data-cy="organization-opening-time"
                         >
                             <TimePicker
                                 format={{
@@ -210,6 +216,7 @@ export default function Installations({
                                     message: "Insira o horário de fechamento",
                                 },
                             ]}
+                            data-cy="organization-closing-time"
                         >
                             <TimePicker
                                 format={{
@@ -242,6 +249,7 @@ export default function Installations({
                             size="large"
                             htmlType="submit"
                             loading={loading}
+                            data-cy="next-step-button"
                         >
                             Continuar
                         </Button>

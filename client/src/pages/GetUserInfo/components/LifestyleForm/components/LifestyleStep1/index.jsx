@@ -138,6 +138,7 @@ export default function LifestyleStep1({
                 >
                     <Select
                         name={"residenceType"}
+                        data-cy="adopter-residence-type"
                         size="large"
                         placeholder="Selecione o seu tipo de residência"
                         onChange={(value) => {
@@ -145,7 +146,11 @@ export default function LifestyleStep1({
                         }}
                     >
                         {Object.keys(RESIDENCE_TYPE).map((key) => (
-                            <Select.Option key={key} value={key}>
+                            <Select.Option
+                                key={key}
+                                value={key}
+                                data-cy={`adopter-residence-type-${key}`}
+                            >
                                 {RESIDENCE_TYPE[key]}
                             </Select.Option>
                         ))}
@@ -171,6 +176,7 @@ export default function LifestyleStep1({
                         onChange={(e) =>
                             handleUserAddress({ cep: e.target.value })
                         }
+                        data-cy="adopter-cep"
                     />
 
                     <Form.Item
@@ -183,6 +189,7 @@ export default function LifestyleStep1({
                             },
                         ]}
                         labelCol={{ span: 24 }}
+                        data-cy="adopter-street"
                     >
                         <Input
                             size="large"
@@ -261,6 +268,7 @@ export default function LifestyleStep1({
                             },
                         ]}
                         labelCol={{ span: 24 }}
+                        data-cy="adopter-number"
                     >
                         <Input
                             size="large"
@@ -292,6 +300,7 @@ export default function LifestyleStep1({
                 loading={loading}
                 onClick={handleStepInfo}
                 size="large"
+                data-cy="next-step-button"
             >
                 Continuar
             </Button>

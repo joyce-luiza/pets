@@ -1,6 +1,6 @@
 import { React } from "react";
 import { useAuth } from "../../../../../../../../contexts/AuthContext";
-import { Form, Modal, Typography, Input } from "antd";
+import { Form, Modal, Typography, Input, Button } from "antd";
 import { axiosRequest } from "../../../../../../../../utils/axiosRequest";
 import showMessage from "../../../../../../../../utils/Message";
 
@@ -44,10 +44,25 @@ export default function DeleteOrganization({
         <Modal
             title="Deletar organização?"
             open={open}
-            onOk={handleOk}
-            onCancel={handleCancel}
             cancelText={"Cancelar"}
             okText={"Deletar"}
+            footer={[
+                <Button
+                    key="cancel"
+                    onClick={handleCancel}
+                    data-cy="modal-cancel-button"
+                >
+                    Cancelar
+                </Button>,
+                <Button
+                    key="submit"
+                    type="primary"
+                    data-cy="modal-submit-button"
+                    onClick={handleOk}
+                >
+                    Deletar
+                </Button>,
+            ]}
         >
             <div style={{ margin: "24px 0" }}>
                 {open && (
@@ -91,6 +106,7 @@ export default function DeleteOrganization({
                                 <Input
                                     size="large"
                                     placeholder="Nome da organização"
+                                    data-cy="confirm-organization-name"
                                 />
                             </Form.Item>
                         </Form>

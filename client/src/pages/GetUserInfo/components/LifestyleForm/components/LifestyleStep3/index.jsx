@@ -78,6 +78,7 @@ export default function LifestyleStep3({
                                 message: "Por favor, selecione uma opção.",
                             },
                         ]}
+                        data-cy="adopter-others-pets"
                     >
                         <Radio.Group
                             name="petsQuantity"
@@ -117,6 +118,7 @@ export default function LifestyleStep3({
                                 message: "Por favor, selecione uma opção.",
                             },
                         ]}
+                        data-cy="adopter-routine"
                     >
                         <Radio.Group
                             name="routine"
@@ -161,6 +163,7 @@ export default function LifestyleStep3({
                                 message: "Por favor, selecione uma opção.",
                             },
                         ]}
+                        data-cy="adopter-travel-frequency"
                     >
                         <Radio.Group
                             name="travelFrequency"
@@ -201,6 +204,7 @@ export default function LifestyleStep3({
                         htmlType="submit"
                         loading={loading}
                         onClick={handleStepInfo}
+                        data-cy="finish-button"
                     >
                         Finalizar
                     </Button>

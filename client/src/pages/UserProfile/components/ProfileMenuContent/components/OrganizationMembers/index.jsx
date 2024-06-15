@@ -44,7 +44,11 @@ export default function OrganizationMembers({ user }) {
                 authenticated: true,
             });
 
-            const orgMembers = result.map((item) => ({
+            const filteredMembers = result.filter(
+                (item) => item.id !== user.id
+            );
+
+            const orgMembers = filteredMembers.map((item) => ({
                 ...item,
                 actions: (
                     <AdminProtection>
@@ -121,7 +125,7 @@ export default function OrganizationMembers({ user }) {
     return !loading ? (
         <div className={styles.container}>
             <div className={styles.content}>
-                <Title level={1} style={{ margin: 0 }}>
+                <Title level={2} style={{ margin: 0, textAlign: "left" }}>
                     Equipe
                 </Title>
                 <Flex justify="space-between">
