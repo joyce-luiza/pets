@@ -18,10 +18,10 @@ export default class VerifyOrganizationInviteEmailStrategy extends AbstractStrat
      * @param {String} inviteToken - The token associated with the invite.
      * @throws {Error} Throws an error if the email does not match the invite.
      */
-    async execute(invitedEmail, inviteToken) {
+    async execute({ invitedEmail, token }) {
         // Retrieve the invite using the token
         const invite = await this.organizationInviteRepository.findOne({
-            where: { token: inviteToken },
+            where: { token: token },
         });
 
         if (!invite) {

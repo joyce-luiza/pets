@@ -35,10 +35,13 @@ export default class DoLoginByParamsStrategy extends AbstractStrategy {
 
         switch (type) {
             case USER_TYPE.ADOPTER: {
-                const adopter = await this.adopterRepository.findByProp(
-                    "email",
-                    email
-                );
+                const adopter = await this.adopterRepository.findOne({
+                    where: {
+                        email,
+                        statusId:
+                            await this.adopterRepository.getActiveStatusId(),
+                    },
+                });
 
                 if (!adopter) {
                     this.throwError(
