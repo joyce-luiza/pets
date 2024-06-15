@@ -25,9 +25,13 @@ export default class ValidateCNPJExistenceStrategy extends AbstractStrategy {
      */
 
     async execute({ cnpj }, dto, loggedUserInfo) {
-        const org = await this.organizationRepository.countGeneric({
-            where: { cnpj },
+        const org = await this.organizationRepository.findOne({
+            where: {
+                cnpj,
+                statusId: await this.organizationRepository.getActiveStatusId(),
+            },
         });
+
         if (loggedUserInfo) {
             const loggedOrganization =
                 await this.organizationRepository.findById(

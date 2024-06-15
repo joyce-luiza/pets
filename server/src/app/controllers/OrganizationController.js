@@ -139,11 +139,7 @@ export default class OrganizationController {
             id: req.loggedUserInfo.organizationId,
         });
         const factory = new UpdateOrganizationFactory();
-        const result = await factory.execute(
-            organization,
-            {},
-            req.loggedUserInfo
-        );
+        const result = await factory.execute(organization);
         res.json(result);
     }
 
@@ -156,7 +152,7 @@ export default class OrganizationController {
 
         // Deactivates organization
         const factory = new DeleteLogicallyByOrganizationIdFactory();
-        const result = await factory.execute(org, {}, req.loggedUserInfo);
+        const result = await factory.execute(org, req.loggedUserInfo);
         res.json(result);
     }
 }
