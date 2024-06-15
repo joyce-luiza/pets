@@ -11,6 +11,7 @@ import DeleteLogicallyByOrganizationMemberIdStrategy from "./DeleteLogicallyByOr
 import VerifyOrganizationMemberAdminRoleStrategy from "./VerifyOrganizationMemberAdminRoleStrategy";
 import VerifyOrganizationMemberOrganizationIdStrategy from "./VerifyOrganizationMemberOrganizationIdStrategy";
 import DeactivateAllOrganizationMembersStrategy from "./DeactivateAllOrganizationMembersStrategy";
+import ValidateSingleActiveOrganizationMemberAdminStrategy from "./ValidateSingleActiveOrganizationMemberAdminStrategy";
 export {
     ValidateOrganizationMemberRequiredFieldsStrategy,
     ValidateEmailExistenceStrategy,
@@ -25,4 +26,5 @@ export {
     VerifyOrganizationMemberAdminRoleStrategy,
     VerifyOrganizationMemberOrganizationIdStrategy,
     DeactivateAllOrganizationMembersStrategy,
+    ValidateSingleActiveOrganizationMemberAdminStrategy,
 };

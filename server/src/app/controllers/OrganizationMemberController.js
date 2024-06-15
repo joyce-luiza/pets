@@ -40,7 +40,7 @@ export default class OrganizationMemberController {
 
         // Verify if email is equal to the invited email
         const verifyEmail = new VerifyOrganizationInviteEmailFactory();
-        await verifyEmail.execute(member.email, token);
+        await verifyEmail.execute({ invitedEmail: member.email, token: token });
 
         // Create organization member
         const factory = new CreateOrganizationMemberFactory();
@@ -102,14 +102,14 @@ export default class OrganizationMemberController {
     async updateMemberRole(req, res, next) {
         const member = new OrganizationMember(req.body);
         const factory = new UpdateMemberRoleFactory();
-        const result = await factory.execute(member, {}, req.loggedUserInfo);
+        const result = await factory.execute(member, req.loggedUserInfo);
         res.json(result);
     }
 
     async deleteLogicallyById(req, res, next) {
         const member = new OrganizationMember({ id: req.params.id });
         const factory = new DeleteLogicallyByOrganizationMemberIdFactory();
-        const result = await factory.execute(member, {}, req.loggedUserInfo);
+        const result = await factory.execute(member);
         res.json(result);
     }
 }

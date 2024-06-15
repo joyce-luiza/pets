@@ -4,13 +4,19 @@ import {
     GetDomainByIdStrategy,
     VerifyDomainIdParamStrategy,
 } from "../../../app/strategies";
-import { DeleteLogicallyByOrganizationMemberIdStrategy } from "../strategies";
+import {
+    DeleteLogicallyByOrganizationMemberIdStrategy,
+    ValidateSingleActiveOrganizationMemberAdminStrategy,
+} from "../strategies";
 
 class DeleteLogicallyByOrganizationMemberIdFactory extends AbstractFactory {
     constructor() {
         super([
             new VerifyDomainIdParamStrategy(),
             new GetDomainByIdStrategy(OrganizationMemberRepository),
+            new ValidateSingleActiveOrganizationMemberAdminStrategy(
+                OrganizationMemberRepository
+            ),
             new DeleteLogicallyByOrganizationMemberIdStrategy(
                 OrganizationMemberRepository
             ),

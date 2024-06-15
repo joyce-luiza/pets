@@ -22,7 +22,7 @@ export default class UpdateMemberRoleStrategy extends AbstractStrategy {
      * @param {Object} loggedUserInfo - Information about the logged-in user (not used)
      */
 
-    async execute(data, dto, loggedUserInfo) {
+    async execute(data) {
         // Attempt to update the organization member in the repository
         const updated = await this.organizationMemberRepository.update(data, {
             id: data.id,
