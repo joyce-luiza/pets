@@ -1,0 +1,30 @@
+{
+    "adopter": {
+        "firstName": "Matheus",
+        "lastName": "Seiji",
+        "birthDate": "01-11-2001",
+        "email": "matheus.seiji@email.com",
+        "password": "Senha!1234",
+        "phoneNumber": "(21) 32165-4987"
+    },
+    "address": {
+        "street": "Rua Antônio Luiz",
+        "city": "Poá",
+        "state": "SP",
+        "cep": "08550200",
+        "residenceType": "APARTMENT",
+        "number": "142"
+    },
+    "preferences": {
+        "animalTypes": ["DOG", "CAT"],
+        "animalAgeGroups": ["YOUNG"],
+        "animalSizes": ["SMALL"],
+        "animalColors": ["BLACK"],
+        "animalSexes": ["FEMALE"]
+    },
+    "lifestyle": {
+        "petsQuantity": "0",
+        "routine": "FLEXIBLE",
+        "travelFrequency": "RARELLY"
+    }
+}
