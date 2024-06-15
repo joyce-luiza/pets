@@ -4,12 +4,14 @@ import CreateAdopterLifestyleAndPreferencesFactory from "./CreateAdopterLifestyl
 import DeleteLogicallyByAdopterIdFactory from "./DeleteLogicallyByAdopterIdFactory";
 import UpdateAdopterFactory from "./UpdateAdopterFactory";
 import UpdateProfileImageAdopterFactory from "./UpdateProfileImageAdopterFactory";
+import GetByEmailAdopterFactory from "./GetByEmailAdopterFactorys";
 
 export {
-  CreateAdopterFactory,
-  GetByIdAdopterFactory,
-  CreateAdopterLifestyleAndPreferencesFactory,
-  DeleteLogicallyByAdopterIdFactory,
-  UpdateAdopterFactory,
-  UpdateProfileImageAdopterFactory,
+    CreateAdopterFactory,
+    GetByIdAdopterFactory,
+    CreateAdopterLifestyleAndPreferencesFactory,
+    DeleteLogicallyByAdopterIdFactory,
+    UpdateAdopterFactory,
+    UpdateProfileImageAdopterFactory,
+    GetByEmailAdopterFactory,
 };
