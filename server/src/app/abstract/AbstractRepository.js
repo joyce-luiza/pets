@@ -61,6 +61,12 @@ export default class AbstractRepository {
     return await this.model.findAll();
   }
 
+  async findAllWithProperties(properties) {
+    return await this.model.findAll({
+      where: properties,
+    });
+  }
+
   async findOne(options) {
     return await this.model.findOne(options);
   }

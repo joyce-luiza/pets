@@ -14,8 +14,15 @@ import ErrorImg from "../../../assets/undraw_Taken_re_yn20.png";
 const { Title, Paragraph } = Typography;
 
 export default function InvitedAccount() {
+    const { token } = useParams();
+    const { login } = useAuth();
+    const [loading, setLoading] = useState(false);
+    const [organizationId, setOrganizationId] = useState();
+    const [invalidInvite, setInvalidInvite] = useState();
+
     useEffect(() => {
         const validateToken = async () => {
+            setLoading(true);
             try {
                 const result = await axiosRequest({
                     method: "get",
@@ -24,19 +31,12 @@ export default function InvitedAccount() {
                 setOrganizationId(result);
                 setLoading(false);
             } catch (error) {
-                showMessage("error", error);
-                setError(error);
+                setInvalidInvite(error);
                 setLoading(false);
             }
         };
         validateToken();
-    });
-
-    const { token } = useParams();
-    const { login } = useAuth();
-    const [loading, setLoading] = useState(false);
-    const [organizationId, setOrganizationId] = useState();
-    const [error, setError] = useState();
+    }, [token]);
 
     const handleSubmit = async ({
         fullName,
@@ -57,6 +57,7 @@ export default function InvitedAccount() {
             phoneNumber: phoneNumber,
             role: "DEFAULT",
             organizationId: organizationId,
+            token: token,
         };
 
         try {
@@ -75,7 +76,7 @@ export default function InvitedAccount() {
 
     return (
         <>
-            {!error ? (
+            {!invalidInvite ? (
                 <div className={styles.container}>
                     <section className={styles.createAccount}>
                         <Title level={2} style={{ margin: 0 }}>
@@ -155,7 +156,7 @@ export default function InvitedAccount() {
             ) : (
                 <div className={styles.errorMessage}>
                     <Title level={2} style={{ margin: 0 }}>
-                        {error}
+                        {invalidInvite}
                     </Title>
                     <Paragraph>
                         Parece que este convite não é mais válido. Isso pode

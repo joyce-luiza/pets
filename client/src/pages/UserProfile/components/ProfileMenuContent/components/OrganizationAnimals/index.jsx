@@ -13,7 +13,6 @@ import {
   ANIMAL_SIZES,
   ANIMAL_TYPES,
 } from '../../../../../../constants';
-
 const { Search } = Input;
 
 export default function OrganizationAnimals({ setContent, content }) {

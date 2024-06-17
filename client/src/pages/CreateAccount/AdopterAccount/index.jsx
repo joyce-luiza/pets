@@ -80,6 +80,7 @@ export default function AdopterAccount() {
                                         message: "Insira o seu nome completo",
                                     },
                                 ]}
+                                data-cy="adopter-fullname"
                             >
                                 <Input
                                     size="large"
@@ -101,12 +102,16 @@ export default function AdopterAccount() {
                                     },
                                 ]}
                                 validateTrigger="onBlur"
+                                data-cy="adopter-email"
                             >
                                 <Input size="large" placeholder="Email"></Input>
                             </Form.Item>
-                            <PhoneNumberField></PhoneNumberField>
-                            <BirthDateField></BirthDateField>
-                            <PasswordField name={"password"}></PasswordField>
+                            <PhoneNumberField data-cy="adopter-phone-number"></PhoneNumberField>
+                            <BirthDateField data-cy="adopter-birth-date"></BirthDateField>
+                            <PasswordField
+                                name={"password"}
+                                data-cy="adopter-password"
+                            ></PasswordField>
                             <Form.Item>
                                 <Button
                                     block
@@ -114,6 +119,7 @@ export default function AdopterAccount() {
                                     type="primary"
                                     htmlType="submit"
                                     loading={loading}
+                                    data-cy="create-adopter-account-button"
                                 >
                                     Criar conta
                                 </Button>

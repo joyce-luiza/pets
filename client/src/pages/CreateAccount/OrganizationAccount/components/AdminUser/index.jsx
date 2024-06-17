@@ -75,6 +75,7 @@ export default function AdminUser({ answers, updateAnswers, nextStep }) {
                                 message: "Insira o seu nome completo",
                             },
                         ]}
+                        data-cy="admin-fullname"
                     >
                         <Input size="large" placeholder="Nome completo"></Input>
                     </Form.Item>
@@ -93,12 +94,16 @@ export default function AdminUser({ answers, updateAnswers, nextStep }) {
                             },
                         ]}
                         validateTrigger="onBlur"
+                        data-cy="admin-email"
                     >
                         <Input size="large" placeholder="Email"></Input>
                     </Form.Item>
-                    <PhoneNumberField></PhoneNumberField>
-                    <BirthDateField></BirthDateField>
-                    <PasswordField name={"password"}></PasswordField>
+                    <PhoneNumberField data-cy="admin-phone-number"></PhoneNumberField>
+                    <BirthDateField data-cy="admin-birth-date"></BirthDateField>
+                    <PasswordField
+                        name={"password"}
+                        data-cy="admin-password"
+                    ></PasswordField>
 
                     <Form.Item style={{ width: "100%" }}>
                         <Button
@@ -107,6 +112,7 @@ export default function AdminUser({ answers, updateAnswers, nextStep }) {
                             type="primary"
                             htmlType="submit"
                             loading={loading}
+                            data-cy="next-step-button"
                         >
                             Continuar
                         </Button>

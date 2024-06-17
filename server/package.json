@@ -31,6 +31,7 @@
 		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
+		"cypress": "^13.11.0",
 		"nodemon": "^3.0.1",
 		"sequelize-cli": "^6.6.1",
 		"sucrase": "^3.34.0"

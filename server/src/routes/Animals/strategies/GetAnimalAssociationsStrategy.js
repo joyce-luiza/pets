@@ -63,6 +63,9 @@ export default class GetAnimalAssociationsStrategy extends AbstractStrategy {
       data.status
     );
 
+    console.log(status);
+    console.log(data.status);
+
     if (!status) {
       this.throwError('Não foi possível encontrar o status informado.', 400);
       return;
@@ -91,8 +94,7 @@ export default class GetAnimalAssociationsStrategy extends AbstractStrategy {
       'title',
       ageGroup
     );
-    console.log(animalAgeGroup);
-    console.log(ageGroup);
+
     if (!animalAgeGroup) {
       this.throwError(
         'Não foi possível encontrar a faixa etária informada.',
