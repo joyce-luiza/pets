@@ -52,6 +52,7 @@ module.exports = Object.freeze({
     RABBIT: "Coelho",
     BIRD: "Pássaro",
     ANY: "Outro",
+    ANY: "Outro",
   },
   ANIMAL_AGE_GROUPS: {
     YOUNG: "Filhote (1 a 12 meses)",
