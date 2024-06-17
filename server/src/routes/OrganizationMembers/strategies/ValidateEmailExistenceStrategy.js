@@ -1,6 +1,4 @@
 import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
-import { OrganizationMember } from "../../../app/domains";
-import { STATUS } from "../../../constants";
 
 /**
  * Strategy to validate if member's email already exists.
@@ -21,8 +19,12 @@ export default class ValidateEmailExistenceStrategy extends AbstractStrategy {
      * @throws {Error} Throws an error if the member's email already existence.
      */
     async execute({ email }) {
-        const orgMember = await this.organizationMemberRepository.countGeneric({
-            where: { email },
+        const orgMember = await this.organizationMemberRepository.findOne({
+            where: {
+                email,
+                statusId:
+                    await this.organizationMemberRepository.getActiveStatusId(),
+            },
         });
 
         if (orgMember) {

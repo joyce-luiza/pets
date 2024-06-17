@@ -7,43 +7,56 @@ module.exports = {
             id: {
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUIDV4,
+                allowNull: false,
                 primaryKey: true,
                 autoIncrement: false,
-                allowNull: false,
             },
-            invitedEmail: {
-                field: "invited_email",
+            invited_email: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
             token: {
-                field: "token",
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            organizationAdminId: {
-                field: "organization_admin_id",
+            organization_admin_id: {
                 type: Sequelize.UUID,
                 allowNull: false,
+                references: {
+                    model: "OrganizationMembers",
+                    key: "id",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
             },
-            organizationId: {
-                field: "organization_id",
+            organization_id: {
                 type: Sequelize.UUID,
                 allowNull: false,
+                references: {
+                    model: "Organizations",
+                    key: "id",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
             },
-            statusId: {
-                field: "status_id",
+            status_id: {
                 type: Sequelize.UUID,
                 allowNull: false,
+                references: {
+                    model: "Statuses",
+                    key: "id",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "SET NULL",
             },
             created_at: {
-                allowNull: false,
                 type: Sequelize.DATE,
+                allowNull: false,
                 defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
             },
             updated_at: {
-                allowNull: false,
                 type: Sequelize.DATE,
+                allowNull: false,
                 defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
             },
         });

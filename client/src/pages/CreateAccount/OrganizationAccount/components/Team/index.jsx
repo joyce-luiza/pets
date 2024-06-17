@@ -87,6 +87,7 @@ export default function Team({ emails, setEmails, prevStep, finishForm }) {
                                                             width: "100%",
                                                         }}
                                                         size="large"
+                                                        data-cy={`organization-invite-${index}`}
                                                     />
                                                 </Form.Item>
                                             </Col>
@@ -116,6 +117,7 @@ export default function Team({ emails, setEmails, prevStep, finishForm }) {
                                             add();
                                         }}
                                         style={{ width: "100%" }}
+                                        data-cy="add-email-button"
                                     >
                                         <PlusOutlined /> Adicionar email
                                     </Button>
@@ -143,6 +145,7 @@ export default function Team({ emails, setEmails, prevStep, finishForm }) {
                             type="primary"
                             size="large"
                             htmlType="submit"
+                            data-cy="submit-button"
                         >
                             Finalizar cadastro
                         </Button>

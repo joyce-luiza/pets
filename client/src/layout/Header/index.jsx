@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from "react";
+import { Button } from "antd";
 import styles from "./Header.module.css";
 import Logo from "../../assets/Logo.png";
 import Link from "../../components/Link";
@@ -6,7 +7,6 @@ import { USER_TYPE } from "../../constants";
 import { useAuth } from "../../contexts/AuthContext";
 import { axiosRequest } from "../../utils/axiosRequest";
 import showMessage from "../../utils/Message";
-import { Button } from "antd";
 
 export default function Header() {
     const { user, logout } = useAuth();
@@ -40,13 +40,34 @@ export default function Header() {
                     <>
                         <ul className={styles.menuItems}>
                             <li className={styles.menuItem}>
-                                <Link href="/">Organizações de contato</Link>
+                                <Button
+                                    type="link"
+                                    href="/"
+                                    size="large"
+                                    className={styles.linkButton}
+                                >
+                                    Organizações de contato
+                                </Button>
                             </li>
                             <li className={styles.menuItem}>
-                                <Link href="/">Adoção</Link>
+                                <Button
+                                    type="link"
+                                    href="/"
+                                    size="large"
+                                    className={styles.linkButton}
+                                >
+                                    Adoção
+                                </Button>
                             </li>
                             <li className={styles.menuItem}>
-                                <Link href="/">Contato</Link>
+                                <Button
+                                    type="link"
+                                    href="/"
+                                    size="large"
+                                    className={styles.linkButton}
+                                >
+                                    Contato
+                                </Button>
                             </li>
                         </ul>
                         <div className={styles.divider}></div>
@@ -63,18 +84,38 @@ export default function Header() {
 
                 {user && user.token ? (
                     <>
-                        <Link>{`Olá, ${user.firstName} `}</Link>
+                        <Button
+                            type="link"
+                            href="/profile"
+                            size="large"
+                            className={styles.linkButton}
+                        >
+                            {`Olá, ${user.firstName} `}
+                        </Button>
 
-                        <Button type="text" onClick={logout}>
+                        <Button type="link" onClick={logout}>
                             Logout
                         </Button>
                     </>
                 ) : (
                     <div className={styles.menuAccount}>
-                        <Link href="/login">Fazer login</Link>
-                        <button className={styles.registerBtn}>
-                            <Link href="/register">Criar conta</Link>
-                        </button>
+                        <Button
+                            type="link"
+                            href="/login"
+                            data-cy="login-button"
+                            size="large"
+                            className={styles.linkButton}
+                        >
+                            Fazer login
+                        </Button>
+                        <Button
+                            type="primary"
+                            data-cy="create-account-button"
+                            href="/register"
+                            size="large"
+                        >
+                            Criar conta
+                        </Button>
                     </div>
                 )}
             </div>

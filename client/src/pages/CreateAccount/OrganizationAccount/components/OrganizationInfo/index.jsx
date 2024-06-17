@@ -72,10 +72,11 @@ export default function OrganizationInfo({
                             message: "Insira o nome da organização",
                         },
                     ]}
+                    data-cy="organization-name"
                 >
                     <Input size="large" placeholder="Nome da organização" />
                 </Form.Item>
-                <CnpjField></CnpjField>
+                <CnpjField data-cy="organization-cnpj"></CnpjField>
                 <Form.Item
                     label="Email:"
                     name="email"
@@ -85,10 +86,11 @@ export default function OrganizationInfo({
                             message: "Insira um email",
                         },
                     ]}
+                    data-cy="organization-email"
                 >
                     <Input size="large" placeholder="Email" />
                 </Form.Item>
-                <PhoneNumberField></PhoneNumberField>
+                <PhoneNumberField data-cy="organization-phone-number"></PhoneNumberField>
 
                 <Form.Item
                     label="Descrição:"
@@ -99,6 +101,7 @@ export default function OrganizationInfo({
                             message: "Insira uma descrição",
                         },
                     ]}
+                    data-cy="organization-description"
                 >
                     <Input.TextArea placeholder="Descrição da organização" />
                 </Form.Item>
@@ -121,6 +124,7 @@ export default function OrganizationInfo({
                             size="large"
                             htmlType="submit"
                             loading={loading}
+                            data-cy="next-step-button"
                         >
                             Continuar
                         </Button>
