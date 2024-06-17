@@ -93,6 +93,74 @@ class AnimalRepository extends AbstractRepository {
     );
     return animals;
   }
+
+  async findAllToCardListView({ page, size, isPaginated, conditions }) {
+    const columnsToFilter = {
+      name: {
+        value: "a.name",
+        operation: "=",
+      },
+      types: {
+        value: "at.title",
+        operation: "IN",
+      },
+      sex: {
+        value: "a.sex",
+        operation: "IN",
+      },
+      states: {
+        value: "ad.state",
+        operation: "=",
+      },
+      sizes: {
+        value: "asz.title",
+        operation: "IN",
+      },
+      ageGroups: {
+        value: "aag.title",
+        operation: "IN",
+      },
+      colors: {
+        value: "ac.title",
+        operation: "IN",
+      },
+    };
+
+    let filterCondition = this.formatWhereCondition(
+      conditions,
+      columnsToFilter
+    );
+
+    const animalQuery = `
+      SELECT
+        a.id,
+        a.name,
+        a.sex,
+        at.title as type,
+        a.birth_date as "birthDate",
+        ad.city,
+        ad.state
+      FROM
+        "Animals" a
+      INNER JOIN "Organizations" o ON a.organization_id = o.id
+      INNER JOIN "Addresses" ad ON o.id = ad.organization_id
+      INNER JOIN "AnimalTypes" at ON a.type_id = at.id
+      INNER JOIN "AnimalColors" ac ON a.color_id = ac.id
+      INNER JOIN "AnimalAgeGroups" aag on a.age_group_id = aag.id
+      INNER JOIN "AnimalSizes" asz on a.size_id = asz.id
+      ${filterCondition.whereCondition}
+    `;
+
+    const animals = await this.paginateSqlQuery(
+      animalQuery,
+      page,
+      size,
+      isPaginated,
+      filterCondition.replacements
+    );
+
+    return animals;
+  }
 }
 
 export default new AnimalRepository();

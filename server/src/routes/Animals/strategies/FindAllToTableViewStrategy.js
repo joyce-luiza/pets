@@ -1,12 +1,13 @@
 import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
-import { AnimalAdapter, Pagination } from "../../../app/domains/adapters";
+import { AnimalAdapter } from "../../../app/domains/adapters";
+import { Pagination } from "../../../app/domains";
 
 /**
  * Strategy to find and validate Animal associations fields
  *
  * @extends AbstractStrategy
  */
-export default class CreateAnimalStrategy extends AbstractStrategy {
+export default class FindAllToTableViewStrategy extends AbstractStrategy {
   constructor(animalRepository) {
     super();
     this.animalRepository = animalRepository;

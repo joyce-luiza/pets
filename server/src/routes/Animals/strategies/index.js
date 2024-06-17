@@ -4,6 +4,7 @@ import CreateAnimalStrategy from "./CreateAnimalStrategy";
 import CreateAnimalFilesStrategy from "./CreateAnimalFilesStrategy";
 import FormatCreateAnimalResultStrategy from "./FormatCreateAnimalResultStrategy";
 import FindAllToTableViewStrategy from "./FindAllToTableViewStrategy";
+import FindAllToCardListViewStrategy from "./FindAllToCardListViewStrategy";
 
 export {
   ValidateAnimalRequiredFieldsStrategy,
@@ -12,4 +13,5 @@ export {
   CreateAnimalFilesStrategy,
   FormatCreateAnimalResultStrategy,
   FindAllToTableViewStrategy,
+  FindAllToCardListViewStrategy,
 };

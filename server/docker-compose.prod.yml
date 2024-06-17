@@ -14,18 +14,40 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_ROOT_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DATABASE}
+    networks:
+      - api-network
 
   api-pets:
     container_name: api-pets
     build: ./
     restart: on-failure
     ports:
-      - 3335:3335
+      - "3335:3335"
     depends_on:
       - pets-db
     env_file:
       - ./.env
     command: sh -c "npm run db && npm start"
+    networks:
+      - api-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/etc/nginx/certs
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - api-pets
+    networks:
+      - api-network
+
+networks:
+  api-network:
+    driver: bridge
 
 volumes:
   petsdb:

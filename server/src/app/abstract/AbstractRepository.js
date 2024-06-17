@@ -57,6 +57,15 @@ export default class AbstractRepository {
     return await this.model.findOne({ where: { [`${prop}`]: value } });
   }
 
+  /**
+   *
+   * @param {string} prop
+   * @param {*} value
+   */
+  async findAllByProp(prop, value) {
+    return await this.model.findAll({ where: { [`${prop}`]: value } });
+  }
+
   async findAll() {
     return await this.model.findAll();
   }
@@ -158,5 +167,72 @@ export default class AbstractRepository {
 
       return data;
     }
+  }
+
+  formatWhereCondition(conditions, columns, combineWith = "AND") {
+    let whereCondition = "";
+    const replacements = {};
+    const columnsKeys = Object.keys(columns);
+    const conditionKeys = Object.keys(conditions);
+
+    if (conditionKeys.length) {
+      const conditionArray = [];
+
+      for (const key of conditionKeys) {
+        if (columnsKeys.includes(key)) {
+          const columnName = columns[key].value;
+          const condition = conditions[key];
+          const value = condition;
+          const operation = columns[key].operation.toUpperCase();
+          const paramName = `${key}`;
+
+          switch (operation) {
+            case "LIKE":
+              conditionArray.push(`${columnName} LIKE :${paramName}`);
+              replacements[paramName] = `%${value}%`;
+              break;
+            case "=":
+              conditionArray.push(`${columnName} ${operation} :${paramName}`);
+              replacements[paramName] = value;
+              break;
+            case ">":
+              conditionArray.push(`${columnName} ${operation} :${paramName}`);
+              replacements[paramName] = value;
+              break;
+            case "<":
+              conditionArray.push(`${columnName} ${operation} :${paramName}`);
+              replacements[paramName] = value;
+              break;
+            case ">=":
+              conditionArray.push(`${columnName} ${operation} :${paramName}`);
+              replacements[paramName] = value;
+              break;
+            case "<=":
+              conditionArray.push(`${columnName} ${operation} :${paramName}`);
+              replacements[paramName] = value;
+              break;
+            case "<>":
+              conditionArray.push(`${columnName} ${operation} :${paramName}`);
+              replacements[paramName] = value;
+              break;
+            case "IN":
+              conditionArray.push(`${columnName} ${operation} (:${paramName})`);
+              replacements[paramName] = value.split(",");
+              break;
+            default:
+              throw new Error(`Unsupported operation: ${operation}`);
+          }
+        }
+      }
+
+      if (conditionArray.length) {
+        whereCondition = conditionArray.join(` ${combineWith} `);
+      }
+    }
+
+    return {
+      whereCondition: whereCondition ? `WHERE ${whereCondition}` : "",
+      replacements,
+    };
   }
 }

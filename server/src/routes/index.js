@@ -22,6 +22,6 @@ routes.use("/animalColors", animalColorsRoutes);
 routes.use("/organization", organizationRoutes);
 routes.use("/member", organizationMemberRoutes);
 routes.use("/invite", organizationInviteRoutes);
-routes.use("/animals", authMiddleware, animalRoutes);
+routes.use("/animals", animalRoutes);
 
 export default routes;

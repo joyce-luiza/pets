@@ -2,13 +2,20 @@ import { Router } from "express";
 import AnimalFacade from "../../app/facades/AnimalFacade";
 import AnimalController from "../../app/controllers/AnimalController";
 import { multerUpload } from "../../config/multer";
+import authMiddleware from "../../middlewares/auth";
 
 const animalRoutes = Router();
 
 const controller = new AnimalController();
 const facade = new AnimalFacade(controller);
 
-animalRoutes.post("/", multerUpload.array("files"), facade.create);
-animalRoutes.get("/table", facade.findAllToTableView);
+animalRoutes.post(
+  "/",
+  authMiddleware,
+  multerUpload.array("files"),
+  facade.create
+);
+animalRoutes.get("/table", authMiddleware, facade.findAllToTableView);
+animalRoutes.get("/card/list", facade.findAllToCardListView);
 
 export default animalRoutes;

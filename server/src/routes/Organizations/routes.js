@@ -10,5 +10,6 @@ organizationRoutes.post("/", facade.create);
 organizationRoutes.get("/:id", facade.getById);
 organizationRoutes.get("/cnpj/:cnpj", facade.getByCNPJ);
 organizationRoutes.get("/complement/:id", facade.getComplement);
+organizationRoutes.get("/all/address", facade.getAllOrganizationsCityState);
 
 export default organizationRoutes;
