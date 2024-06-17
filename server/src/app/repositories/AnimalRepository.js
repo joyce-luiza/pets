@@ -1,5 +1,5 @@
-import { Animal } from "../../database/models";
-import AbstractRepository from "../abstract/AbstractRepository";
+import { Animal } from '../../database/models';
+import AbstractRepository from '../abstract/AbstractRepository';
 
 class AnimalRepository extends AbstractRepository {
   constructor() {
@@ -17,6 +17,7 @@ class AnimalRepository extends AbstractRepository {
         a.medical_information AS "medicalInformation",
         a.sex,
         a.birth_date AS "birthDate",
+        a.organization_id AS "organizationId",
         at.title AS "type",
         asz.title AS "size",
         aag.title AS "ageGroup",
@@ -31,7 +32,7 @@ class AnimalRepository extends AbstractRepository {
         a.id = :id
     `;
 
-    const [animal] = await this.query(animalQuery, "SELECT", {
+    const [animal] = await this.query(animalQuery, 'SELECT', {
       replacements,
     });
 
@@ -52,7 +53,7 @@ class AnimalRepository extends AbstractRepository {
         af.animal_id = :id
     `;
 
-    const animalFiles = await this.query(animalFilesQuery, "SELECT", {
+    const animalFiles = await this.query(animalFilesQuery, 'SELECT', {
       replacements,
     });
 
@@ -75,6 +76,7 @@ class AnimalRepository extends AbstractRepository {
         asz.title AS "size",
         aag.title AS "ageGroup",
         ac.title AS "color",
+        a.organization_id AS "organizationId",
         s.description as status
       FROM
         "Animals" a

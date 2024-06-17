@@ -6,7 +6,7 @@ import {
   UpdateByIdCommand,
   FindAllCommand,
   UpdateCommand,
-} from "../commands";
+} from '../commands';
 
 export default class AbstractFacade {
   /**
@@ -23,6 +23,7 @@ export default class AbstractFacade {
     this.deleteById = this.deleteById.bind(this);
     this.deleteLogicallyById = this.deleteLogicallyById.bind(this);
     this.findAll = this.findAll.bind(this);
+    this.update = this.update.bind(this);
   }
 
   handleError(res, error) {

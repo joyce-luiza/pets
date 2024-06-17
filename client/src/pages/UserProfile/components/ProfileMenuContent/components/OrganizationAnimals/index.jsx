@@ -1,22 +1,27 @@
-import styles from "./styles.module.css";
-import moment from "moment";
-import { Button, Input, Table } from "antd";
-import { Tooltip } from "antd";
-import Column from "antd/es/table/Column";
-import { useEffect, useState } from "react";
-import CreateAnimal from "./components/CreateAnimal";
-import { axiosRequest } from "../../../../../../utils/axiosRequest";
-import showMessage from "../../../../../../utils/Message";
+import styles from './styles.module.css';
+import moment from 'moment';
+import { Button, Input, Table, Modal, Tooltip } from 'antd';
+import Column from 'antd/es/table/Column';
+import { useEffect, useState } from 'react';
+import CreateAnimal from './components/CreateAnimal';
+import UpdateAnimal from './components/UpdateAnimal';
+import ViewAnimal from './components/ViewAnimal';
+import { axiosRequest } from '../../../../../../utils/axiosRequest';
+import showMessage from '../../../../../../utils/Message';
 import {
   ANIMAL_SEX,
   ANIMAL_SIZES,
   ANIMAL_TYPES,
-} from "../../../../../../constants";
+} from '../../../../../../constants';
+
 const { Search } = Input;
 
 export default function OrganizationAnimals({ setContent, content }) {
   const [loading, setLoading] = useState(false);
   const [createAnimal, setCreateAnimal] = useState(false);
+  const [updateAnimal, setUpdateAnimal] = useState(false);
+  const [selectedAnimal, setSelectedAnimal] = useState(null);
+  const [viewAnimal, setViewAnimal] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [tableFilter, setTableFilter] = useState({
     page: 1,
@@ -26,17 +31,17 @@ export default function OrganizationAnimals({ setContent, content }) {
   const getLifetime = (date) => {
     const inputDate = moment(date);
     const currentDate = moment();
-    const years = currentDate.diff(inputDate, "years");
-    const months = currentDate.diff(inputDate, "months");
-    const days = currentDate.diff(inputDate, "days");
+    const years = currentDate.diff(inputDate, 'years');
+    const months = currentDate.diff(inputDate, 'months');
+    const days = currentDate.diff(inputDate, 'days');
 
     if (years >= 1) {
-      return `${years} ${years > 1 ? "anos" : "ano"}`;
+      return `${years} ${years > 1 ? 'anos' : 'ano'}`;
     } else if (months >= 1) {
       const exactMonths = months % 12;
-      return `${exactMonths} ${exactMonths > 1 ? "meses" : "mês"}`;
+      return `${exactMonths} ${exactMonths > 1 ? 'meses' : 'mês'}`;
     } else {
-      return `${days} ${days > 1 ? "dias" : "dia"}`;
+      return `${days} ${days > 1 ? 'dias' : 'dia'}`;
     }
   };
 
@@ -44,13 +49,13 @@ export default function OrganizationAnimals({ setContent, content }) {
     try {
       setLoading(true);
       const animals = await axiosRequest({
-        method: "GET",
+        method: 'GET',
         authenticated: true,
         params: tableFilter,
-        path: "/animals/table",
+        path: '/animals/table',
       });
 
-      if ("data" in animals) {
+      if ('data' in animals) {
         const formattedAnimals = animals.data.map((animal) => ({
           key: animal.id,
           name: animal.name,
@@ -65,7 +70,7 @@ export default function OrganizationAnimals({ setContent, content }) {
                 <Button
                   size="middle"
                   type="link"
-                  onClick={() => console.log(`Teste`)}
+                  onClick={() => handleViewAnimal(animal)}
                 >
                   <i className="ri-search-eye-line"></i>
                 </Button>
@@ -74,7 +79,7 @@ export default function OrganizationAnimals({ setContent, content }) {
                 <Button
                   size="middle"
                   type="link"
-                  onClick={() => console.log("Botão na tabela")}
+                  onClick={() => handleEditAnimal(animal)}
                 >
                   <i className="ri-edit-line"></i>
                 </Button>
@@ -83,7 +88,42 @@ export default function OrganizationAnimals({ setContent, content }) {
                 <Button
                   size="middle"
                   type="link"
-                  onClick={() => console.log("Botão na tabela")}
+                  onClick={() => {
+                    Modal.confirm({
+                      title: 'Excluir',
+                      content: 'Confirma a exclusão do registro do animal?',
+                      onOk: async () => {
+                        try {
+                          const data = {
+                            id: animal.id,
+                          };
+                          console.log(data);
+
+                          await axiosRequest({
+                            method: 'DELETE',
+                            authenticated: true,
+                            path: `/animals/${data.id}`,
+                          });
+                          showMessage(
+                            'success',
+                            'Registro excluído com sucesso'
+                          );
+                          handleGetTableData(); // Atualiza a tabela após a exclusão
+                        } catch (error) {
+                          showMessage('error', 'Erro ao excluir registro');
+                        }
+                      },
+                      onCancel: () => {
+                        console.log('Ação de exclusão cancelada');
+                      },
+                      footer: (_, { OkBtn, CancelBtn }) => (
+                        <>
+                          <CancelBtn />
+                          <OkBtn />
+                        </>
+                      ),
+                    });
+                  }}
                 >
                   <i className="ri-delete-bin-line"></i>
                 </Button>
@@ -91,75 +131,84 @@ export default function OrganizationAnimals({ setContent, content }) {
             </div>
           ),
         }));
-        setTableData(() => ({
+        setTableData({
           data: formattedAnimals,
           records: animals.records,
-        }));
+        });
       }
 
       setLoading(false);
     } catch (error) {
-      setTableData(() => []);
-      showMessage("error", error);
+      setTableData([]);
+      showMessage('error', error.message || error);
       setLoading(false);
     }
   };
 
   const columns = [
     {
-      title: "Nome",
-      dataIndex: "name",
-      key: "name",
+      title: 'Nome',
+      dataIndex: 'name',
+      key: 'name',
       width: 200,
     },
     {
-      title: "Tipo",
-      dataIndex: "type",
-      key: "type",
+      title: 'Tipo',
+      dataIndex: 'type',
+      key: 'type',
       width: 130,
     },
     {
-      title: "Sexo",
-      dataIndex: "sex",
-      key: "sex",
+      title: 'Sexo',
+      dataIndex: 'sex',
+      key: 'sex',
       width: 130,
     },
     {
-      title: "Porte",
-      dataIndex: "size",
-      key: "size",
+      title: 'Porte',
+      dataIndex: 'size',
+      key: 'size',
       width: 130,
     },
     {
-      title: "Idade",
-      dataIndex: "age",
-      key: "age",
+      title: 'Idade',
+      dataIndex: 'age',
+      key: 'age',
       width: 130,
     },
     {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
       width: 150,
     },
     {
-      title: "",
-      dataIndex: "actions",
-      key: "actions",
+      title: '',
+      dataIndex: 'actions',
+      key: 'actions',
       width: 200,
     },
   ];
 
+  const handleEditAnimal = (animal) => {
+    setSelectedAnimal(animal);
+    setUpdateAnimal(true);
+  };
+
+  const handleViewAnimal = (animal) => {
+    setSelectedAnimal(animal);
+    setViewAnimal(true);
+  };
+
   useEffect(() => {
     handleGetTableData();
-    console.log(tableData.records);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tableFilter, createAnimal]);
+  }, [tableFilter, createAnimal, updateAnimal, viewAnimal]);
 
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        {!createAnimal ? (
+        {!createAnimal && !updateAnimal && !viewAnimal ? (
           <>
             <h2 className={styles.title}>Animais</h2>
             <section className={styles.actions}>
@@ -171,7 +220,7 @@ export default function OrganizationAnimals({ setContent, content }) {
               <Button
                 size="middle"
                 type="primary"
-                onClick={() => setCreateAnimal(() => true)}
+                onClick={() => setCreateAnimal(true)}
               >
                 Cadastrar animal
               </Button>
@@ -184,46 +233,49 @@ export default function OrganizationAnimals({ setContent, content }) {
 
             <section
               className={styles.tableData}
-              style={{ minWidth: "max-content" }}
+              style={{ minWidth: 'max-content' }}
             >
               <Table
                 loading={loading}
                 className={styles.table}
                 dataSource={tableData.data}
                 rowClassName={styles.tableRow}
-                headerClassName={styles.headerRow}
                 pagination={{
                   total: tableData.records,
                   pageSize: tableFilter.size,
                   showSizeChanger: true,
-                  locale: { items_per_page: "" },
-                  pageSizeOptions: ["10", "20", "30", "40", "50"],
+                  locale: { items_per_page: '' },
+                  pageSizeOptions: ['10', '20', '30', '40', '50'],
                 }}
                 onChange={({ current, pageSize }) =>
-                  setTableFilter(() => ({ page: current, size: pageSize }))
+                  setTableFilter({ page: current, size: pageSize })
                 }
-                onRow={(record, rowIndex) => {
+                onRow={(animal) => {
                   return {
-                    onDoubleClick: (event) => {
-                      console.log("Teste");
-                    },
+                    onDoubleClick: () => handleViewAnimal(animal),
                   };
                 }}
               >
-                {columns.length &&
-                  columns.map(({ title, key, dataIndex, width }) => (
-                    <Column
-                      title={
-                        <span className={styles.tableColumnTitle}>{title}</span>
-                      }
-                      dataIndex={dataIndex}
-                      key={key}
-                      width={width}
-                    />
-                  ))}
+                {columns.map(({ title, key, dataIndex, width }) => (
+                  <Column
+                    title={
+                      <span className={styles.tableColumnTitle}>{title}</span>
+                    }
+                    dataIndex={dataIndex}
+                    key={key}
+                    width={width}
+                  />
+                ))}
               </Table>
             </section>
           </>
+        ) : updateAnimal ? (
+          <UpdateAnimal
+            setUpdateAnimal={setUpdateAnimal}
+            animal={selectedAnimal}
+          />
+        ) : viewAnimal ? (
+          <ViewAnimal setViewAnimal={setViewAnimal} animal={selectedAnimal} />
         ) : (
           <CreateAnimal setCreateAnimal={setCreateAnimal} />
         )}

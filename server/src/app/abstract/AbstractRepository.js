@@ -1,8 +1,8 @@
-import { Sequelize } from "sequelize";
-import dbConfig from "../../config/database";
-import Status from "../../database/models/status";
-import { STATUS } from "../constants";
-import sanitize from "../utils/sanitize";
+import { Sequelize } from 'sequelize';
+import dbConfig from '../../config/database';
+import Status from '../../database/models/status';
+import { STATUS } from '../constants';
+import sanitize from '../utils/sanitize';
 
 export default class AbstractRepository {
   constructor(model) {
@@ -72,7 +72,7 @@ export default class AbstractRepository {
   async deleteLogicallyById(id) {
     return await this.model.update(
       {
-        statusId: this.getInactiveStatusId(),
+        statusId: await this.getInactiveStatusId(),
       },
       {
         where: { id },

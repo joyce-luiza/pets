@@ -1,5 +1,5 @@
-import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
-import { AnimalAdapter, Pagination } from "../../../app/domains/adapters";
+import AbstractStrategy from '../../../app/abstract/AbstractStrategy';
+import { AnimalAdapter, Pagination } from '../../../app/domains/adapters';
 
 /**
  * Strategy to find and validate Animal associations fields
@@ -24,7 +24,7 @@ export default class CreateAnimalStrategy extends AbstractStrategy {
       result = animals.map((animal) => new AnimalAdapter(animal));
     }
 
-    if ("data" in animals && animals.data.length) {
+    if ('data' in animals && animals.data.length) {
       result = {
         ...animals,
         data: animals.data.map((animal) => new AnimalAdapter(animal)),

@@ -1,7 +1,7 @@
-import moment from "moment";
-import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
-import { Animal } from "../../../app/domains";
-import { AnimalAdapter } from "../../../app/domains/adapters";
+import moment from 'moment';
+import AbstractStrategy from '../../../app/abstract/AbstractStrategy';
+import { Animal } from '../../../app/domains';
+import { AnimalAdapter } from '../../../app/domains/adapters';
 
 /**
  * Strategy to find and validate Animal associations fields
@@ -29,72 +29,73 @@ export default class GetAnimalAssociationsStrategy extends AbstractStrategy {
    */
   async execute(data, dto) {
     const animalColor = await this.animalColorRepository.findByProp(
-      "title",
+      'title',
       data.color
     );
 
     if (!animalColor) {
-      this.throwError("Não foi possível encontrar a cor informada.", 400);
+      this.throwError('Não foi possível encontrar a cor informada.', 400);
       return;
     }
 
     const animalSize = await this.animalSizeRepository.findByProp(
-      "title",
+      'title',
       data.size
     );
 
     if (!animalSize) {
-      this.throwError("Não foi possível encontrar o porte informado.", 400);
+      this.throwError('Não foi possível encontrar o porte informado.', 400);
       return;
     }
 
     const animalType = await this.animalTypeRepository.findByProp(
-      "title",
+      'title',
       data.type
     );
 
     if (!animalType) {
-      this.throwError("Não foi possível encontrar o tipo informado.", 400);
+      this.throwError('Não foi possível encontrar o tipo informado.', 400);
       return;
     }
 
     const status = await this.statusesRepository.findByProp(
-      "description",
+      'description',
       data.status
     );
 
     if (!status) {
-      this.throwError("Não foi possível encontrar o status informado.", 400);
+      this.throwError('Não foi possível encontrar o status informado.', 400);
       return;
     }
 
-    const birthDate = moment(data.birthDate).format("YYYY-MM-DD");
+    const birthDate = moment(data.birthDate).format('YYYY-MM-DD');
 
-    const animalYears = moment().diff(birthDate, "years", true);
+    const animalYears = moment().diff(birthDate, 'years', true);
 
-    let ageGroup = "";
+    let ageGroup = '';
 
     if (animalYears < 1) {
-      ageGroup = "YOUNG";
+      ageGroup = 'YOUNG';
     } else if (animalYears >= 1 && animalYears < 7) {
-      ageGroup = "ADULT";
+      ageGroup = 'ADULT';
     } else if (animalYears >= 7) {
-      ageGroup = "SENIOR";
+      ageGroup = 'SENIOR';
     } else {
       this.throwError(
-        "Não foi possível recuperar a faixa etária do animal",
+        'Não foi possível recuperar a faixa etária do animal',
         400
       );
     }
 
     const animalAgeGroup = await this.animalAgeGroupRepository.findByProp(
-      "title",
+      'title',
       ageGroup
     );
-
+    console.log(animalAgeGroup);
+    console.log(ageGroup);
     if (!animalAgeGroup) {
       this.throwError(
-        "Não foi possível encontrar a faixa etária informada.",
+        'Não foi possível encontrar a faixa etária informada.',
         400
       );
       return;

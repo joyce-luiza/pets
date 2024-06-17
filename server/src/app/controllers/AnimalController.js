@@ -1,14 +1,20 @@
 import {
   CreateAnimalFactory,
   FindAllToTableViewFactory,
-} from "../../routes/Animals/factories";
-import { Pagination } from "../domains";
-import { AnimalAdapter } from "../domains/adapters";
+  UpdateAnimalFactory,
+  DeleteLogicallyByAnimalIdFactory,
+  GetByIdAnimalFactory,
+} from '../../routes/Animals/factories';
+import { Pagination, Animal } from '../domains';
+import { AnimalAdapter } from '../domains/adapters';
 
-export default class AdopterController {
+export default class AnimalController {
   constructor() {
     this.create = this.create.bind(this);
     this.findAllToTableView = this.findAllToTableView.bind(this);
+    this.update = this.update.bind(this);
+    this.deleteLogicallyById = this.deleteLogicallyById.bind(this);
+    this.getById = this.getById.bind(this);
   }
 
   async create(req, res, next) {
@@ -22,6 +28,33 @@ export default class AdopterController {
     const domain = new Pagination(req.query);
     const factory = new FindAllToTableViewFactory();
     const result = await factory.execute(domain, req.loggedUserInfo);
+    res.json(result);
+  }
+  async update(req, res, next) {
+    const data = JSON.parse(req.body.data);
+
+    const animal = new AnimalAdapter({ ...data, files: req.files });
+    console.log('controller');
+    console.log(animal);
+    const factory = new UpdateAnimalFactory();
+    const result = await factory.execute(animal, req.loggedUserInfo);
+    res.json(result);
+  }
+  async deleteLogicallyById(req, res, next) {
+    const animal = new AnimalAdapter({ id: req.params.id });
+    console.log('delete');
+    console.log(animal.id);
+
+    const factory = new DeleteLogicallyByAnimalIdFactory();
+    const result = await factory.execute(animal, req.loggedUserInfo);
+    res.json(result);
+  }
+
+  async getById(req, res, next) {
+    const animal = new AnimalAdapter({ id: req.params.id });
+    console.log('getById');
+    const factory = new GetByIdAnimalFactory();
+    const result = await factory.execute(animal);
     res.json(result);
   }
 }
