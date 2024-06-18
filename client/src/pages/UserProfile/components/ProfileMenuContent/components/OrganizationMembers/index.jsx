@@ -140,6 +140,7 @@ export default function OrganizationMembers({ user }) {
                             size="middle"
                             type="primary"
                             onClick={showInviteModal}
+                            data-cy="invite-organization-member-button"
                         >
                             Convidar membros
                         </Button>

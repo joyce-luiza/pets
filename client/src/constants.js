@@ -96,4 +96,9 @@ module.exports = Object.freeze({
         FRIDAY: "Sexta-feira",
         SATURDAY: "Sábado",
     },
+    RESULTS: {
+        APPROVED: "Aprovado",
+        REJECTED: "Reprovado",
+        PENDING: "Pendente",
+    },
 });

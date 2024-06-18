@@ -4,6 +4,7 @@ import OrganizationAnimals from "./components/OrganizationAnimals/index.jsx";
 import OrganizationData from "./components/OrganizationData/index.jsx";
 import OrganizationMembers from "./components/OrganizationMembers/index.jsx";
 import UserData from "./components/UserData/index.jsx";
+import OrganizationAdoptions from "./components/OrganizationAdoptions/index.jsx";
 
 export default function ProfileMenuContent({ content, setContent }) {
     const { user } = useAuth();
@@ -15,7 +16,9 @@ export default function ProfileMenuContent({ content, setContent }) {
                     {content === "Organization" && (
                         <OrganizationData user={user} />
                     )}
-                    {content === "Adoptions" && <h1>Adoptions</h1>}
+                    {content === "Adoptions" && (
+                        <OrganizationAdoptions setContent={setContent} />
+                    )}
                     {content === "Animals" && (
                         <OrganizationAnimals setContent={setContent} />
                     )}

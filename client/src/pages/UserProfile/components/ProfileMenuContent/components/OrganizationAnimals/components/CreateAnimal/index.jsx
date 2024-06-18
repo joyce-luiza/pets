@@ -328,8 +328,8 @@ export default function CreateAnimal({ setCreateAnimal }) {
                                     handleFormChange("status", e.target.value)
                                 }
                             >
-                                <Radio value={"Ativo"}>Sim</Radio>
-                                <Radio value={"Inativo"}>Não</Radio>
+                                <Radio value={"ATIVO"}>Sim</Radio>
+                                <Radio value={"INATIVO"}>Não</Radio>
                             </Radio.Group>
                         </Form.Item>
 
