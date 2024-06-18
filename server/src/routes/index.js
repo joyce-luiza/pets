@@ -10,6 +10,7 @@ import organizationRoutes from "./Organizations/routes";
 import organizationMemberRoutes from "./OrganizationMembers/routes";
 import organizationInviteRoutes from "./OrganizationInvites/routes";
 import animalRoutes from "./Animals/routes";
+import adoptionRoutes from "./Adoptions/routes";
 
 const routes = Router();
 
@@ -23,5 +24,6 @@ routes.use("/organization", organizationRoutes);
 routes.use("/member", organizationMemberRoutes);
 routes.use("/invite", organizationInviteRoutes);
 routes.use("/animals", authMiddleware, animalRoutes);
+routes.use("/adoption", adoptionRoutes);
 
 export default routes;

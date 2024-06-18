@@ -69,9 +69,6 @@ export default class GetAnimalAssociationsStrategy extends AbstractStrategy {
             data.status
         );
 
-        console.log(status);
-        console.log(data.status);
-
         if (!status) {
             this.throwError(
                 "Não foi possível encontrar o status informado.",

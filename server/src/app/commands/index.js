@@ -6,14 +6,16 @@ import UpdateCommand from "./UpdateCommand";
 import DoLoginCommand from "./DoLoginCommand";
 import FindAllCommand from "./FindAllCommand";
 import UpdateProfileImageCommand from "./UpdateProfileImageCommand";
+import FindAllToTableViewCommand from "./FindAllToTableViewCommand";
 
 export {
-  CreateCommand,
-  DeleteByIdCommand,
-  DeleteLogicallyByIdCommand,
-  GetByIdCommand,
-  UpdateCommand,
-  DoLoginCommand,
-  FindAllCommand,
-  UpdateProfileImageCommand,
+    CreateCommand,
+    DeleteByIdCommand,
+    DeleteLogicallyByIdCommand,
+    GetByIdCommand,
+    UpdateCommand,
+    DoLoginCommand,
+    FindAllCommand,
+    UpdateProfileImageCommand,
+    FindAllToTableViewCommand,
 };

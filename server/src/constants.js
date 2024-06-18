@@ -35,4 +35,9 @@ module.exports = Object.freeze({
         BROWN: "Marrom",
         MIXED: "Mesclado",
     },
+    RESULTS: {
+        APPROVED: "Aprovado",
+        REJECTED: "Reprovado",
+        PENDING: "Pendente",
+    },
 });
