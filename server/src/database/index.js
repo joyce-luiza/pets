@@ -26,6 +26,8 @@ import {
     OrganizationInvite,
     Animal,
     AnimalFile,
+    Adoption,
+    Result,
 } from "./models";
 
 const models = [
@@ -47,6 +49,8 @@ const models = [
     OrganizationInvite,
     Animal,
     AnimalFile,
+    Adoption,
+    Result,
 ];
 
 class Database {
