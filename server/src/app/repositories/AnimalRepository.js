@@ -93,6 +93,85 @@ class AnimalRepository extends AbstractRepository {
     );
     return animals;
   }
+
+  async findAllCardListView({ page, size, isPaginated, conditions }) {
+    const columnsToFilter = {
+      name: "a.name",
+      types: "at.title",
+      sizes: "asz.title",
+      sex: "a.sex",
+      ageGroups: "aag.title",
+      state: "ad.state",
+      colors: "ac.title",
+      status: "s.title",
+    };
+
+    const conditionss = {
+      name: {
+        value: conditions?.name || "",
+        operation: "LIKE",
+      },
+      types: {
+        value: conditions?.types || "",
+        operation: "IN",
+      },
+      sizes: {
+        value: conditions?.sizes || "",
+        operation: "IN",
+      },
+      sex: {
+        value: conditions?.sex || "",
+        operation: "IN",
+      },
+      ageGroups: {
+        value: conditions?.ageGroups || "",
+        operation: "IN",
+      },
+      state: {
+        value: conditions?.state || "",
+        operation: "=",
+      },
+      colors: {
+        value: conditions?.colors || "",
+        operation: "IN",
+      },
+    };
+
+    const { whereCondition, replacements } = await this.formatWhereCondition(
+      conditionss,
+      columnsToFilter
+    );
+
+    const animalQuery = `
+      SELECT
+        a.id,
+        a.name,
+        a.sex,
+        at.title as type,
+        a.birth_date as birthDate,
+        ad.city,
+        ad.state
+      FROM
+        "Animals" a
+      INNER JOIN "Organizations" o ON a.organization_id = o.id
+      INNER JOIN "Addresses" ad ON o.id = ad.organization_id
+      INNER JOIN "AnimalTypes" at ON a.type_id = at.id
+      INNER JOIN "AnimalColors" ac ON a.color_id = ac.id
+      INNER JOIN "AnimalAgeGroups" aag on a.age_group_id = aag.id
+      INNER JOIN "AnimalSizes" asz on a.size_id = asz.id
+      INNER JOIN "Statuses" s ON s.id = a.status_id AND s.id = '${await this.getActiveStatusId()}'
+      ${whereCondition}
+    `;
+
+    const animals = await this.paginateSqlQuery(
+      animalQuery,
+      page,
+      size,
+      isPaginated,
+      replacements
+    );
+    return animals;
+  }
 }
 
 export default new AnimalRepository();

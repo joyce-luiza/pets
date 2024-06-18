@@ -6,34 +6,26 @@ import styles from "./styles.module.css";
 import testimonialImage1 from "./images/testimonial1.png";
 import ctaImage from "./images/cta.png";
 import Footer from "../../layout/Footer";
-import { ANIMAL_AGE_GROUPS, ANIMAL_TYPES } from "../../constants";
+import {
+  ANIMAL_AGE_GROUPS,
+  ANIMAL_TYPES,
+  BRAZILIAN_STATES,
+} from "../../constants";
 import { useNavigate } from "react-router-dom";
 
 const { Title, Paragraph } = Typography;
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
-  const [cities, setCities] = useState(false);
+
+  const states = Object.keys(BRAZILIAN_STATES).map((key, index) => ({
+    id: index,
+    value: key,
+    label: BRAZILIAN_STATES[key],
+  }));
+
   const [filter, setFilter] = useState({});
   const navigate = useNavigate();
-
-  const getCities = async () => {
-    setLoading(true);
-    const result = await axiosRequest({
-      basePath: true,
-      path: "/organization/all/address",
-    });
-    setCities(
-      result.map((address) => {
-        return {
-          id: address.id,
-          value: address.state,
-          label: `${address.state}`,
-        };
-      })
-    );
-    setLoading(false);
-  };
 
   const searchAnimals = () => {
     const queryParams = Object.keys(filter).length
@@ -44,10 +36,6 @@ export default function Home() {
 
     navigate(`/animals/${queryParams}`);
   };
-
-  useEffect(() => {
-    getCities();
-  }, []);
 
   return (
     <>
@@ -115,7 +103,7 @@ export default function Home() {
                       .toLowerCase()
                       .localeCompare((optionB?.label ?? "").toLowerCase())
                   }
-                  options={cities}
+                  options={states}
                   onSelect={(states) =>
                     setFilter((prev) => ({ ...prev, states }))
                   }

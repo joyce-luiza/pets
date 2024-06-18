@@ -1,5 +1,5 @@
 import { Router } from "express";
-import authMiddleware from "../middlewares/auth";
+
 import adopterRoutes from "./Adopters/routes";
 import authenticationRoutes from "./Authentication/routes";
 import animalTypesRoutes from "./AnimalTypes/routes";
@@ -22,6 +22,6 @@ routes.use("/animalColors", animalColorsRoutes);
 routes.use("/organization", organizationRoutes);
 routes.use("/member", organizationMemberRoutes);
 routes.use("/invite", organizationInviteRoutes);
-routes.use("/animals", authMiddleware, animalRoutes);
+routes.use("/animals", animalRoutes);
 
 export default routes;
