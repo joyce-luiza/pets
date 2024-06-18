@@ -18,25 +18,29 @@ import StatusesRepository from "./StatusesRepository";
 import StatusesRepository from "./StatusesRepository";
 import AnimalRepository from "./AnimalRepository";
 import AnimalFileRepository from "./AnimalFileRepository";
+import AdoptionRepository from "./AdoptionRepository";
+import ResultRepository from "./ResultRepository";
 
 export {
-  AdopterRepository,
-  AnimalTypeRepository,
-  AnimalAgeGroupRepository,
-  AnimalSizeRepository,
-  AnimalColorRepository,
-  AdopterPreferenceRepository,
-  AdopterAnimalTypePreferenceRepository,
-  AnimalTypeRepository,
-  AdopterAnimalSizePreferenceRepository,
-  AdopterAnimalColorPreferenceRepository,
-  AdopterAnimalAgeGroupPreferenceRepository,
-  AddressRepository,
-  LifestyleRepository,
-  OrganizationRepository,
-  OrganizationMemberRepository,
-  OrganizationInviteRepository,
-  StatusesRepository,
-  AnimalRepository,
-  AnimalFileRepository,
+    AdopterRepository,
+    AnimalTypeRepository,
+    AnimalAgeGroupRepository,
+    AnimalSizeRepository,
+    AnimalColorRepository,
+    AdopterPreferenceRepository,
+    AdopterAnimalTypePreferenceRepository,
+    AnimalTypeRepository,
+    AdopterAnimalSizePreferenceRepository,
+    AdopterAnimalColorPreferenceRepository,
+    AdopterAnimalAgeGroupPreferenceRepository,
+    AddressRepository,
+    LifestyleRepository,
+    OrganizationRepository,
+    OrganizationMemberRepository,
+    OrganizationInviteRepository,
+    StatusesRepository,
+    AnimalRepository,
+    AnimalFileRepository,
+    AdoptionRepository,
+    ResultRepository,
 };
