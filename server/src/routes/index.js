@@ -12,7 +12,7 @@ import organizationInviteRoutes from "./OrganizationInvites/routes";
 import animalRoutes from "./Animals/routes";
 
 const routes = Router();
-
+routes.get("/", (req,res) => {res.json({ok: true})});
 routes.use("/auth", authenticationRoutes);
 routes.use("/adopter", adopterRoutes);
 routes.use("/animalTypes", animalTypesRoutes);
