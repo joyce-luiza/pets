@@ -1,3 +1,4 @@
 import AnimalWithFilesResult from "./AnimalWithFilesResult";
+import AdoptionResult from "./AdoptionResult";
 
-export { AnimalWithFilesResult };
+export { AnimalWithFilesResult, AdoptionResult };
