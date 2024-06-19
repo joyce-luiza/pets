@@ -1,12 +1,13 @@
 .container {
   display: flex;
-  margin: 2.5rem 10.5rem 7.875rem 6.25rem;
+  margin: 2.5rem 10.5rem 4rem 6.25rem;
 }
 
 .sidebar {
   background-color: white;
   width: 268px;
   margin-right: 12rem;
+  height: 67rem;
 }
 
 .sidebarTitle {
@@ -14,9 +15,20 @@
 }
 
 .topFilter {
-  font-size: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 50rem;
+}
+
+.topTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2.5rem;
   margin-bottom: 28px;
 }
+
 .filterGroupsContainer {
   display: flex;
   flex-direction: column;
@@ -45,7 +57,6 @@
 
 .listContainer {
   width: 100%;
-  height: 300px;
 }
 
 .list {
@@ -53,4 +64,10 @@
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
+}
+
+.pagination {
+  width: 100%;
+  text-align: center;
+  margin-top: 3rem;
 }

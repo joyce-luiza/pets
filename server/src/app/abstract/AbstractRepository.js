@@ -63,7 +63,7 @@ export default class AbstractRepository {
    * @param {*} value
    */
   async findAllByProp(prop, value) {
-    return await this.model.findOne({ where: { [`${prop}`]: value } });
+    return await this.model.findAll({ where: { [`${prop}`]: value } });
   }
 
   async findAll() {

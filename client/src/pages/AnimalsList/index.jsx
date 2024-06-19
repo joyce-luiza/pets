@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { getQueryParams } from "../../utils/getQueryParams";
 import { useEffect, useState } from "react";
-import { Checkbox } from "antd";
+import { Checkbox, Pagination, Select } from "antd";
 import styles from "./styles.module.css";
 import {
   ANIMAL_AGE_GROUPS,
@@ -9,6 +9,7 @@ import {
   ANIMAL_SEX,
   ANIMAL_SIZES,
   ANIMAL_TYPES,
+  BRAZILIAN_STATES,
 } from "../../constants";
 import AnimalListCard from "./components/AnimalListCard";
 import { axiosRequest } from "../../utils/axiosRequest";
@@ -19,10 +20,18 @@ export default function AnimalsList() {
   const location = useLocation();
   const navigate = useNavigate();
   const queryObject = getQueryParams(location.search);
+
+  const states = Object.keys(BRAZILIAN_STATES).map((key, index) => ({
+    id: index,
+    value: key,
+    label: BRAZILIAN_STATES[key],
+  }));
+
   const [animals, setAnimals] = useState({
     data: [],
     records: 0,
   });
+
   const [loading, setLoading] = useState(false);
 
   const [filter, setFilter] = useState({
@@ -32,6 +41,11 @@ export default function AnimalsList() {
     sex: queryObject?.sex ? queryObject?.sex.split(",") : [],
     colors: queryObject?.colors ? queryObject?.colors.split(",") : [],
     sizes: queryObject?.sizes ? queryObject?.sizes.split(",") : [],
+  });
+
+  const [pagination, setPagination] = useState({
+    page: 1,
+    size: 10,
   });
 
   const handleFilter = (key, values) => {
@@ -63,8 +77,10 @@ export default function AnimalsList() {
     try {
       setLoading(true);
       const params = generateQueryParams(filter);
+      const pageFilter = `${params ? "&" : "?"}page=${pagination.page}&size=${pagination.size}`;
+
       const result = await axiosRequest({
-        path: `/animals/card/list${params}&page=1&size=10`,
+        path: `/animals/card/list${params}${pageFilter}`,
         type: "default",
       });
       if ("data" in result) {
@@ -89,9 +105,21 @@ export default function AnimalsList() {
     }
   };
 
+  const handlePageChange = (newPage, newSize) => {
+    setPagination(() => ({
+      page: newPage,
+      size: newSize,
+    }));
+  };
+
+  const handleStateFilter = (state) => {
+    setFilter((prev) => ({ ...prev, states: [state] }));
+  };
+
   useEffect(() => {
     getAnimals();
-  }, [filter]); // Re-fetch data whenever filters change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter, pagination]);
 
   return (
     <div className={styles.container}>
@@ -204,7 +232,20 @@ export default function AnimalsList() {
       </div>
 
       <section className={styles.listContainer}>
-        <h1 className={styles.topFilter}>{animals.records} disponíveis</h1>
+        <div className={styles.topFilter}>
+          <h1 className={styles.topTitle}>{animals.records} disponíveis</h1>
+          <Select
+            placeholder="Selecione a localização"
+            value={filter.states}
+            showSearch
+            size="large"
+            style={{
+              width: 250,
+            }}
+            options={states}
+            onChange={handleStateFilter}
+          />
+        </div>
 
         <div className={styles.list}>
           {!loading && animals.data.length > 0 ? (
@@ -217,6 +258,19 @@ export default function AnimalsList() {
             <p>Carregando...</p>
           )}
         </div>
+
+        {animals.records ? (
+          <Pagination
+            className={styles.pagination}
+            current={pagination.page}
+            total={animals.records}
+            pageSize={pagination.size}
+            onChange={handlePageChange}
+            pageSizeOptions={["10", "20", "30", "40", "50"]}
+          />
+        ) : (
+          <></>
+        )}
       </section>
     </div>
   );

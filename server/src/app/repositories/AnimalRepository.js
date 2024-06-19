@@ -101,7 +101,7 @@ class AnimalRepository extends AbstractRepository {
       sizes: "asz.title",
       sex: "a.sex",
       ageGroups: "aag.title",
-      state: "ad.state",
+      states: "ad.state",
       colors: "ac.title",
       status: "s.title",
     };
@@ -127,8 +127,8 @@ class AnimalRepository extends AbstractRepository {
         value: conditions?.ageGroups || "",
         operation: "IN",
       },
-      state: {
-        value: conditions?.state || "",
+      states: {
+        value: conditions?.states || "",
         operation: "=",
       },
       colors: {
@@ -148,7 +148,7 @@ class AnimalRepository extends AbstractRepository {
         a.name,
         a.sex,
         at.title as type,
-        a.birth_date as birthDate,
+        a.birth_date as "birthDate",
         ad.city,
         ad.state
       FROM
