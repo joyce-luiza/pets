@@ -45,7 +45,7 @@ export default function AnimalsList() {
 
   const [pagination, setPagination] = useState({
     page: 1,
-    size: 10,
+    size: 12,
   });
 
   const handleFilter = (key, values) => {
