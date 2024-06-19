@@ -16,7 +16,10 @@ export default function ChooseAccount() {
                     Selecione qual é o seu perfil para a criação de conta.
                 </Paragraph>
                 <Link href="/adopter">
-                    <div className={styles.typeAccountCard}>
+                    <div
+                        className={styles.typeAccountCard}
+                        data-cy="adopter-account-option"
+                    >
                         <div>
                             <i className="ri-user-heart-line ri-2x"></i>
                             <Title
@@ -33,7 +36,10 @@ export default function ChooseAccount() {
                     </div>
                 </Link>
                 <Link href="/organization">
-                    <div className={styles.typeAccountCard}>
+                    <div
+                        className={styles.typeAccountCard}
+                        data-cy="organization-account-option"
+                    >
                         <div>
                             <i className="ri-home-heart-line ri-2x"></i>
                             <Title

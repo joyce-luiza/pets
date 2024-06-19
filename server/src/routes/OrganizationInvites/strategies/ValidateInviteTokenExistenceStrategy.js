@@ -1,13 +1,14 @@
 import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
 import { OrganizationInviteRepository } from "../../../app/repositories";
-import { OrganizationInvite } from "../../../app/domains";
 
 /**
+ * Strategy to validate token existence
+ *
  * @extends AbstractStrategy
  */
 export default class ValidateInviteTokenExistenceStrategy extends AbstractStrategy {
     /**
-     * @param {OrganizationRepository} organizationInviteRepository
+     * @param {OrganizationInviteRepository} organizationInviteRepository
      */
     constructor(organizationInviteRepository) {
         super();
@@ -15,12 +16,15 @@ export default class ValidateInviteTokenExistenceStrategy extends AbstractStrate
     }
 
     /**
-     * @param {string} token
-     * @throws {Error}
+     * Checks if the token exists in the OrganizationInvites table
+     *
+     * @param {string} token - The token property.
+     * @throws {Error} Throws an error if the member's email already existence.
      */
 
     async execute({ token }) {
-        const invite = await this.organizationInviteRepository.countGeneric({
+        // Retrives invite by token
+        const invite = await this.organizationInviteRepository.findOne({
             where: { token },
         });
         if (!invite) {

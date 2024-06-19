@@ -1,6 +1,5 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { Button, Form, Select, Typography } from "antd";
-import { axiosRequest } from "../../utils/axiosRequest";
 import PetCard from "../../components/PetCard";
 import styles from "./styles.module.css";
 import testimonialImage1 from "./images/testimonial1.png";
@@ -16,8 +15,6 @@ import { useNavigate } from "react-router-dom";
 const { Title, Paragraph } = Typography;
 
 export default function Home() {
-  const [loading, setLoading] = useState(false);
-
   const states = Object.keys(BRAZILIAN_STATES).map((key, index) => ({
     id: index,
     value: key,
@@ -43,10 +40,10 @@ export default function Home() {
         <Title level={1} style={{ margin: 0 }}>
           Encontre seu novo melhor amigo
         </Title>
-        <p>
+        <span>
           Sua nova melhor amizade está apenas a um clique de distância. [Nome do
           site] está cheio de animais adoráveis esperando por um lar amoroso.
-        </p>
+        </span>
         <div>
           <Form className={styles.searchBox} layout="vertical">
             <>

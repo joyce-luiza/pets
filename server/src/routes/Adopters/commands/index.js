@@ -1,3 +1,4 @@
 import CreateComplementCommand from "./CreateComplementCommand";
+import GetByEmailCommand from "./GetByEmailCommand";
 
-export { CreateComplementCommand };
+export { CreateComplementCommand, GetByEmailCommand };

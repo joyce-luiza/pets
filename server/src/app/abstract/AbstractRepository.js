@@ -70,6 +70,12 @@ export default class AbstractRepository {
     return await this.model.findAll();
   }
 
+  async findAllWithProperties(properties) {
+    return await this.model.findAll({
+      where: properties,
+    });
+  }
+
   async findOne(options) {
     return await this.model.findOne(options);
   }
@@ -81,7 +87,7 @@ export default class AbstractRepository {
   async deleteLogicallyById(id) {
     return await this.model.update(
       {
-        statusId: this.getInactiveStatusId(),
+        statusId: await this.getInactiveStatusId(),
       },
       {
         where: { id },

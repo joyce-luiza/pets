@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { Form, Input } from "antd";
 import InputMask from "react-input-mask";
 
-const PhoneNumberField = () => {
+const PhoneNumberField = (props) => {
     const validatePhone = (_, value) => {
         if (value) {
             const numericValue = value.replace(/[^\d]/g, "");
@@ -32,6 +32,7 @@ const PhoneNumberField = () => {
                 type="text"
                 mask="(99) 99999-9999"
                 placeholder="(00) 00000-0000"
+                {...props}
             ></InputMask>
         </Form.Item>
     );

@@ -126,9 +126,11 @@ export default function CreateAnimal({ setCreateAnimal }) {
               <Radio.Group
                 onChange={(e) => handleFormChange("type", e.target.value)}
               >
-                {Object.keys(ANIMAL_TYPES).map((key) => (
-                  <Radio value={key}>{ANIMAL_TYPES[key]}</Radio>
-                ))}
+                {Object.keys(ANIMAL_TYPES).map((key) => {
+                  if (key !== "ANY") {
+                    return <Radio value={key}>{ANIMAL_TYPES[key]}</Radio>;
+                  } else return <></>;
+                })}
               </Radio.Group>
             </Form.Item>
 
@@ -292,8 +294,8 @@ export default function CreateAnimal({ setCreateAnimal }) {
               <Radio.Group
                 onChange={(e) => handleFormChange("status", e.target.value)}
               >
-                <Radio value={"ATIVO"}>Sim</Radio>
-                <Radio value={"INATIVO"}>Não</Radio>
+                <Radio value={"Ativo"}>Sim</Radio>
+                <Radio value={"Inativo"}>Não</Radio>
               </Radio.Group>
             </Form.Item>
 

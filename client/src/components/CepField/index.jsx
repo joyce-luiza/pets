@@ -1,8 +1,8 @@
 import { React } from "react";
-import { Form, Input } from "antd";
+import { Form } from "antd";
 import InputMask from "react-input-mask";
 
-const CepField = ({ value, onChange }) => {
+const CepField = ({ value, onChange, ...props }) => {
     const validateCep = (_, value) => {
         if (value) {
             const numericValue = value.replace(/[^\d]/g, "");
@@ -35,6 +35,7 @@ const CepField = ({ value, onChange }) => {
                 mask="99999-999"
                 value={value}
                 onChange={onChange}
+                {...props}
             ></InputMask>
         </Form.Item>
     );

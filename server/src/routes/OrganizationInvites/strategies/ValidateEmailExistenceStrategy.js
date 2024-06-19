@@ -19,15 +19,17 @@ export default class ValidateEmailExistenceStrategy extends AbstractStrategy {
      * @throws {Error} Throws an error if the member's email already existence.
      */
     async execute({ invitedEmail }) {
-        const orgMember = await this.organizationMemberRepository.findByProp(
-            "email",
-            invitedEmail
-        );
+        // Checks if there is another active user with the same email
+        const orgMember = await this.organizationMemberRepository.findOne({
+            where: {
+                email: invitedEmail,
+                statusId:
+                    await this.organizationMemberRepository.getActiveStatusId(),
+            },
+        });
 
         if (orgMember) {
-            this.throwError(
-                `O email ${invitedEmail} já está cadastrado na organização.`
-            );
+            this.throwError(`O email ${invitedEmail} já está cadastrado.`);
         }
     }
 }
