@@ -2,7 +2,7 @@ import { React } from "react";
 import { Form, DatePicker } from "antd";
 import dayjs from "dayjs";
 
-const BirthDateField = () => {
+const BirthDateField = (props) => {
     const validateDateOfBirth = (_, value) => {
         if (value) {
             const eighteenYearsAgo = dayjs().subtract(18, "year");
@@ -37,6 +37,7 @@ const BirthDateField = () => {
                     type: "mask",
                 }}
                 placeholder="00/00/0000"
+                {...props}
             />
         </Form.Item>
     );

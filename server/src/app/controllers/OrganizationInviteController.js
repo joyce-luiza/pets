@@ -17,7 +17,11 @@ export default class OrganizationInviteController {
         let results = [];
         const factory = new CreateOrganizationInviteFactory();
         const emailSender = new SendInvitationEmailFactory();
-        const invites = req.body.invites;
+        const invites = req.body.invites.map((email) => ({
+            invitedEmail: email,
+            organizationId: req.loggedUserInfo.organizationId,
+            organizationAdminId: req.loggedUserInfo.userId,
+        }));
         await Promise.all(
             invites.map(async (invite) => {
                 const createdInvite = await factory.execute(invite);

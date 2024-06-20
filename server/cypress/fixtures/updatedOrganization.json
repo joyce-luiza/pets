@@ -1,0 +1,17 @@
+{
+    "organization": {
+        "name": "Amigos dos Animais",
+        "cnpj": "00.000.000/0000-02",
+        "description": "Amigos dos Animais é uma ONG dedicada ao resgate, reabilitação e adoção de animais abandonados e em situação de risco. Nosso objetivo é proporcionar uma vida digna e cheia de amor para cada animal que passa por nossas mãos.",
+        "email": "contato@amigosdosanimais.org.br",
+        "phoneNumber": "(10) 96578-4300"
+    },
+    "address": {
+        "street": "Rua São João",
+        "city": "Ferraz de Vasconcelos",
+        "state": "SP",
+        "cep": "08540220",
+        "residenceType": "N/A",
+        "number": "225"
+    }
+}

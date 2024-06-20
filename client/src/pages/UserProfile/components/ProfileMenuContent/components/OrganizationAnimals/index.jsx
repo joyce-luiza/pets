@@ -200,7 +200,10 @@ export default function OrganizationAnimals({ setContent, content }) {
                   pageSizeOptions: ["10", "20", "30", "40", "50"],
                 }}
                 onChange={({ current, pageSize }) =>
-                  setTableFilter(() => ({ page: current, size: pageSize }))
+                  setTableFilter(() => ({
+                    page: current,
+                    size: pageSize,
+                  }))
                 }
                 onRow={(record, rowIndex) => {
                   return {

@@ -19,10 +19,13 @@ export default class CreateOrganizationInviteStrategy extends AbstractStrategy {
      */
 
     async execute(invited) {
+        // Generates a random number
         const randomNumber = Math.random().toString(36).slice(-8);
 
+        // Encrypts the random number and tokenizes it
         const token = bcrypt.hashSync(randomNumber, 8);
 
+        // Create the invite
         const invite =
             await this.organizationInviteRepository.createOrganizationInvite({
                 ...invited,
@@ -32,6 +35,7 @@ export default class CreateOrganizationInviteStrategy extends AbstractStrategy {
         if (!invite) {
             this.throwError("Erro ao criar o convite.");
         }
+
         const result = new OrganizationInvite(invite);
 
         return result;

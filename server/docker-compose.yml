@@ -1,11 +1,11 @@
-version: "3"
+version: '3'
 
 services:
   pets-dev:
     image: postgres:latest
     ports:
-      - "5432:5432"
-    container_name: "pets-dev"
+      - '5432:5432'
+    container_name: 'pets-dev'
     restart: on-failure
     volumes:
       - petsDev:/var/lib/postgres
@@ -18,8 +18,8 @@ services:
   pets-test:
     image: postgres:latest
     ports:
-      - "5433:5432"
-    container_name: "pets-test"
+      - '5433:5432'
+    container_name: 'pets-test'
     restart: on-failure
     volumes:
       - petsTest:/var/lib/postgresql/data
@@ -28,6 +28,20 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_ROOT_PASSWORD: admin
       POSTGRES_DB: pets_test
+
+    postgres-test:
+      image: postgres:latest
+      ports:
+        - '5433:5432'
+      container_name: 'TCC-postgres-test'
+      restart: on-failure
+      volumes:
+        - postgresTestTCC:/var/lib/postgresql/data
+      environment:
+        POSTGRES_USER: admin
+        POSTGRES_PASSWORD: admin
+        POSTGRES_ROOT_PASSWORD: admin
+        POSTGRES_DB: tccTest
 
 volumes:
   petsDev:

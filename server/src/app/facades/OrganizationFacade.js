@@ -5,6 +5,7 @@ import {
     GetComplementCommand,
     CreateAdminMemberCommand,
     SendInvitesCommand,
+    UpdateOrganizationAddressCommand,
 } from "../../routes/Organizations/commands";
 
 export default class OrganizationFacade extends AbstractFacade {
@@ -13,6 +14,9 @@ export default class OrganizationFacade extends AbstractFacade {
         this.getByCNPJ = this.getByCNPJ.bind(this);
         this.createComplement = this.createComplement.bind(this);
         this.getComplement = this.getComplement.bind(this);
+        this.sendInvites = this.sendInvites.bind(this);
+        this.updateAddress = this.updateAddress.bind(this);
+        this.createAdminMember = this.createAdminMember.bind(this);
     }
 
     async getByCNPJ(req, res, next) {
@@ -36,6 +40,17 @@ export default class OrganizationFacade extends AbstractFacade {
     async getComplement(req, res, next) {
         try {
             const command = new GetComplementCommand(this.controller);
+            await command.execute(req, res, next);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    async updateAddress(req, res, next) {
+        try {
+            const command = new UpdateOrganizationAddressCommand(
+                this.controller
+            );
             await command.execute(req, res, next);
         } catch (error) {
             this.handleError(res, error);

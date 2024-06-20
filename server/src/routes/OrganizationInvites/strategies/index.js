@@ -4,6 +4,8 @@ import SendInvitationEmailStrategy from "./SendInvitationEmailStrategy";
 import ValidateInviteTokenStrategy from "./ValidateInviteTokenStrategy";
 import ValidateInviteTokenExistenceStrategy from "./ValidateInviteTokenExistenceStrategy";
 import FormatToOrganizationInviteDomainStrategy from "./FormatToOrganizationInviteDomainStrategy";
+import VerifyOrganizationInviteEmailStrategy from "./VerifyOrganizationInviteEmailStrategy";
+import DeactivateOrganizationInviteByEmailStrategy from "./DeactivateOrganizationInviteByEmailStrategy";
 
 export {
     CreateOrganizationInviteStrategy,
@@ -12,4 +14,6 @@ export {
     ValidateInviteTokenStrategy,
     ValidateInviteTokenExistenceStrategy,
     FormatToOrganizationInviteDomainStrategy,
+    VerifyOrganizationInviteEmailStrategy,
+    DeactivateOrganizationInviteByEmailStrategy,
 };

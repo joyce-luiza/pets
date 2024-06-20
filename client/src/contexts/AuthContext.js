@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { USER_TYPE } from "../constants";
 import { axiosRequest } from "../utils/axiosRequest";
 import { useNavigate } from "react-router-dom";
-
+import showMessage from "../utils/Message";
 const initUser = {};
 
 const AuthContext = createContext();
@@ -56,16 +56,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   const checkTokenExpiration = async () => {
-    const { token, type } = user;
-    const response = await axiosRequest({
-      method: "POST",
-      path: "/auth/login",
-      body: {
-        token: token,
-        type: type,
-      },
-    });
-    if (!response) {
+    try {
+      const { token, type } = user;
+      const response = await axiosRequest({
+        method: "POST",
+        path: "/auth/login",
+        body: {
+          token: token,
+          type: type,
+        },
+      });
+    } catch (error) {
+      showMessage("error", error);
       logout();
     }
   };
