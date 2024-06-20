@@ -1,156 +1,157 @@
 #recomendations,
 #process {
-    background-color: var(--background1);
-    padding-bottom: 6em;
+  background-color: var(--background1);
+  padding-bottom: 6em;
 }
 
 #testimonials,
 #callToAction {
-    background-color: var(--background2);
-    padding-bottom: 6em;
+  background-color: var(--background2);
+  padding-bottom: 6em;
 }
 
 .searchPet {
-    height: 80vh;
-    background-image: url(./images/bg\ img.png);
-    background-size: cover;
-    background-position: center;
-    padding: 0 4em;
+  height: 80vh;
+  background-image: url(./images/bg\ img.png);
+  background-size: cover;
+  background-position: center;
+  padding: 0 4em;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
+  max-width: 100vw;
 }
 
 .searchPet > div {
-    width: 60vw;
+  width: auto;
 }
 
 .searchPet > h1 {
-    color: #fff;
+  color: #fff;
 }
 
-.searchPet > p {
-    font-size: 1em;
-    color: rgba(224, 224, 224, 0.7);
+.searchPet > span {
+  font-size: 1em;
+  color: rgba(224, 224, 224, 0.7);
 }
 
 .searchBox {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    align-items: end;
-    gap: 1em;
-    padding: 1.5em;
-    background-color: #fff;
-    box-shadow: 0px 0px 16px 0px rgba(79, 79, 79, 0.1);
-    border-radius: 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: end;
+  gap: 1em;
+  padding: 1.5em;
+  background-color: #fff;
+  box-shadow: 0px 0px 16px 0px rgba(79, 79, 79, 0.1);
+  border-radius: 4px;
 }
 
 .searchBox > div {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .searchBox > div:nth-child(-n + 3) {
-    width: 100%;
+  width: 100%;
 }
 
 .testimonials {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8em;
-    margin: 0 10em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8em;
+  margin: 0 10em;
 }
 
 .carouselPets {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4em;
 }
 
 .slidePet {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2em;
 }
 
 .testimonial {
-    display: grid;
-    grid-template-columns: 2fr 2fr;
-    align-items: center;
-    gap: 4em;
-    margin: auto;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  align-items: center;
+  gap: 4em;
+  margin: auto;
 }
 
 .testimonial i {
-    color: var(--color01);
+  color: var(--color01);
 }
 
 .testimonial p {
-    font-size: 20px;
-    font-style: italic;
-    font-weight: 400;
-    line-height: 40px;
-    text-align: left;
-    color: rgba(130, 130, 130, 1);
-    margin-bottom: 1em;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 40px;
+  text-align: left;
+  color: rgba(130, 130, 130, 1);
+  margin-bottom: 1em;
 }
 
 .testimonialImg,
 .ctaImg {
-    background-position: center;
-    background-size: cover;
-    border-radius: 4px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 4px;
 }
 
 .adoptionProcess {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 2em;
-    margin: 0 6em 0 6em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2em;
+  margin: 0 6em 0 6em;
 }
 
 .adoptionStep {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
-    color: var(--copyText);
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  color: var(--copyText);
+  text-align: center;
 }
 
 .adoptionStep h4 {
-    color: var(--color01);
+  color: var(--color01);
 }
 
 .adoptionStep i {
-    color: var(--color01);
+  color: var(--color01);
 }
 
 #callToAction {
-    display: grid;
-    grid-template-columns: 40% auto;
-    align-items: center;
-    gap: 4em;
-    padding: 0 0 0 10em;
+  display: grid;
+  grid-template-columns: 40% auto;
+  align-items: center;
+  gap: 4em;
+  padding: 0 0 0 10em;
 }
 
 #callToActionTitle {
-    width: 100%;
-    text-align: left;
-    padding: 0;
-    margin: 0;
+  width: 100%;
+  text-align: left;
+  padding: 0;
+  margin: 0;
 }
 
 #callToAction > div {
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-    color: var(--copyText);
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  color: var(--copyText);
 }
