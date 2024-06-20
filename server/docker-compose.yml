@@ -29,20 +29,6 @@ services:
       POSTGRES_ROOT_PASSWORD: admin
       POSTGRES_DB: pets_test
 
-    postgres-test:
-      image: postgres:latest
-      ports:
-        - '5433:5432'
-      container_name: 'TCC-postgres-test'
-      restart: on-failure
-      volumes:
-        - postgresTestTCC:/var/lib/postgresql/data
-      environment:
-        POSTGRES_USER: admin
-        POSTGRES_PASSWORD: admin
-        POSTGRES_ROOT_PASSWORD: admin
-        POSTGRES_DB: tccTest
-
 volumes:
   petsDev:
     name: petsDev
