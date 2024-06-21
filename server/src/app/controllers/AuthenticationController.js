@@ -1,15 +1,28 @@
-import LoginFactory from '../../routes/Authentication/factories/LoginFactory';
+import {
+	LoginFactory,
+	VerifyPasswordFactory,
+} from '../../routes/Authentication/factories';
 import { Login } from '../domains';
 
 export default class AuthenticationController {
 	constructor() {
 		this.doLogin = this.doLogin.bind(this);
+		this.verifyPassword = this.verifyPassword.bind(this);
 	}
 
 	async doLogin(req, res, next) {
 		const loginInput = new Login(req.body);
 		const factory = new LoginFactory();
 		const result = await factory.execute(loginInput);
+		res.json(result);
+	}
+
+	async verifyPassword(req, res, next) {
+		const factory = new VerifyPasswordFactory();
+		const result = await factory.execute(
+			{ password: req.body?.password },
+			req.loggedUserInfo
+		);
 		res.json(result);
 	}
 }
