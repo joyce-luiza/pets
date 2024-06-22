@@ -1,0 +1,30 @@
+.container {
+  max-width: 40rem;
+  min-width: 30rem;
+  display: flex;
+  flex-direction: column;
+
+  gap: 2.5rem;
+}
+
+.title {
+  text-align: start;
+  font-size: 2.5rem;
+}
+
+.inline {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.threeInline {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.formBtn {
+  margin-top: 1rem;
+  width: 100%;
+}

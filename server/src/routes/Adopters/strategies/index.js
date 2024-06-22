@@ -5,6 +5,7 @@ import ValidateEmailExistenceStrategy from "./ValidateEmailExistenceStrategy";
 import ValidateAddressRequiredFields from "./ValidateAddressRequiredFields";
 import ValidateAdopterPreferencesRequiredFields from "./ValidateAdopterPreferencesRequiredFields";
 import ValidateAdopterLifestyleRequiredFields from "./ValidateAdopterLifestyleRequiredFields";
+import ValidateRequiredFieldsToUpdateAddress from "./ValidateRequiredFieldsToUpdateAddress";
 
 // Adopter Complement
 import CreateAdopterPreferencesStrategy from "./CreateAdopterPreferencesStrategy";
@@ -13,6 +14,7 @@ import CreateAdopterAnimalSizePreferencesStrategy from "./CreateAdopterAnimalSiz
 import CreateAdopterAnimalColorPreferencesStrategy from "./CreateAdopterAnimalColorPreferencesStrategy";
 import CreateAdopterAnimalAgeGroupPreferencesStrategy from "./CreateAdopterAnimalAgeGroupPreferencesStrategy";
 import CreateAdopterLifestyleStrategy from "./CreateAdopterLifestyleStrategy";
+import CreateOrUpdateAdopterAddressStrategy from "./CreateOrUpdateAdopterAddressStrategy";
 
 // Others
 import CreateAdopterStrategy from "./CreateAdopterStrategy";
@@ -23,6 +25,7 @@ import VerifyAdopterByLoggedInfoStrategy from "./VerifyAdopterByLoggedInfoStrate
 import DeleteLogicallyByAdopterIdStrategy from "./DeleteLogicallyByAdopterIdStrategy";
 import UpdateAdopterStrategy from "./UpdateAdopterStrategy";
 import FindAdopterAndUpdateProfileImageStrategy from "./FindAdopterAndUpdateProfileImageStrategy";
+import FindLoggedAdopterAddressStrategy from "./FindLoggedAdopterAddressStrategy";
 
 export {
   ValidateAdopterRequiredFieldsStrategy,
@@ -45,4 +48,7 @@ export {
   DeleteLogicallyByAdopterIdStrategy,
   UpdateAdopterStrategy,
   FindAdopterAndUpdateProfileImageStrategy,
+  FindLoggedAdopterAddressStrategy,
+  ValidateRequiredFieldsToUpdateAddress,
+  CreateOrUpdateAdopterAddressStrategy,
 };
