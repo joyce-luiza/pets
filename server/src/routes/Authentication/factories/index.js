@@ -1,4 +1,5 @@
-import LoginFactory from './LoginFactory';
-import VerifyPasswordFactory from './VerifyPasswordFactory';
+import LoginFactory from "./LoginFactory";
+import VerifyPasswordFactory from "./VerifyPasswordFactory";
+import ChangePasswordFactory from "./ChangePasswordFactory";
 
-export { LoginFactory, VerifyPasswordFactory };
+export { LoginFactory, VerifyPasswordFactory, ChangePasswordFactory };
