@@ -20,7 +20,7 @@ export default function ChangeUserPassword({ user }) {
 			return;
 		}
 
-		if (currentPassword) {
+		if (!currentPassword) {
 			showMessage('error', 'Senha atual não informada');
 			return;
 		}
@@ -37,7 +37,7 @@ export default function ChangeUserPassword({ user }) {
 						authenticated: true,
 					});
 
-					if (!verifiedCurrentPassword) {
+					if (!verifiedCurrentPassword.isValid) {
 						showMessage('error', 'Senha atual incorreta.');
 						return;
 					}
@@ -66,7 +66,7 @@ export default function ChangeUserPassword({ user }) {
 						authenticated: true,
 					});
 
-					if (!verifiedCurrentPassword) {
+					if (!verifiedCurrentPassword.isValid) {
 						showMessage('error', 'Senha atual incorreta.');
 						return;
 					}

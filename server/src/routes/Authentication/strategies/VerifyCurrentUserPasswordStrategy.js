@@ -31,7 +31,7 @@ export default class VerifyCurrentUserPasswordStrategy extends AbstractStrategy 
 		switch (loggedUserInfo.type) {
 			case USER_TYPE.ADOPTER: {
 				const adopter = await this.adopterRepository.findById(
-					loggedUserInfo.id
+					loggedUserInfo.userId
 				);
 
 				if (!adopter)
@@ -43,12 +43,14 @@ export default class VerifyCurrentUserPasswordStrategy extends AbstractStrategy 
 				const isValidAdopterPassword = await adopter.checkPassword(
 					data.password
 				);
-				return isValidAdopterPassword;
+				return { isValid: isValidAdopterPassword };
 			}
 
 			case USER_TYPE.ORGANIZATION: {
 				const organizationMember =
-					await this.organizationMemberRepository.findById(loggedUserInfo.id);
+					await this.organizationMemberRepository.findById(
+						loggedUserInfo.userId
+					);
 
 				if (!organizationMember)
 					this.throwError(
@@ -59,7 +61,7 @@ export default class VerifyCurrentUserPasswordStrategy extends AbstractStrategy 
 				const isValidMemberPassword = await organizationMember.checkPassword(
 					data.password
 				);
-				return isValidMemberPassword;
+				return { isValid: isValidMemberPassword };
 			}
 			default:
 				this.throwError('Tipo de usuário inválido.', 400);

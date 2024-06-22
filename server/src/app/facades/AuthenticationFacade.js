@@ -1,5 +1,6 @@
+import VerifyPasswordCommand from '../../routes/Authentication/commands/VerifyPasswordCommand';
 import AbstractFacade from '../abstract/AbstractFacade';
-import { DoLoginCommand, VerifyPasswordCommand } from '../commands';
+import { DoLoginCommand } from '../commands';
 
 export default class AuthenticationFacade extends AbstractFacade {
 	constructor(controller) {

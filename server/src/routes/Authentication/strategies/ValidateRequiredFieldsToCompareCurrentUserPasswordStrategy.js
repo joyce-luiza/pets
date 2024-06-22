@@ -21,7 +21,7 @@ export default class ValidateRequiredFieldsToCompareCurrentUserPasswordStrategy 
 		};
 
 		if (!password) generateError();
-		if (!loggedUserInfo.id) generateError();
+		if (!loggedUserInfo.userId) generateError();
 		if (
 			!loggedUserInfo.type ||
 			!Object.values(USER_TYPE).includes(loggedUserInfo.type)
