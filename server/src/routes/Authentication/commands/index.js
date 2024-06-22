@@ -1,3 +1,4 @@
-import VerifyPasswordCommand from './VerifyPasswordCommand';
+import VerifyPasswordCommand from "./VerifyPasswordCommand";
+import ChangePasswordCommand from "./ChangePasswordCommand";
 
-export { VerifyPasswordCommand };
+export { VerifyPasswordCommand, ChangePasswordCommand };
