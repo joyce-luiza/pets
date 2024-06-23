@@ -25,8 +25,6 @@ export default class AdoptionController {
         const factory = new CreateAdoptionFactory();
         const result = await factory.execute(adoption);
 
-        const rejectAdoptions = new RejectOtherAdoptionsFactory();
-
         res.json(result);
     }
 

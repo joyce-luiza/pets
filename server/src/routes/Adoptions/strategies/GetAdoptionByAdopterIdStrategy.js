@@ -1,6 +1,7 @@
 import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
-import { Adoption, Animal } from "../../../app/domains";
+import { Address, Adoption, Organization } from "../../../app/domains";
 import AnimalAdapter from "../../../app/domains/adapters/AnimalAdapter";
+import { AdoptionResult } from "../../../app/domains/result";
 
 /**
  * Strategy to get adoptions by adopter id
@@ -8,11 +9,21 @@ import AnimalAdapter from "../../../app/domains/adapters/AnimalAdapter";
  * @extends AbstractStrategy
  */
 export default class GetAdoptionByAdopterIdStrategy extends AbstractStrategy {
-    constructor(adoptionRepository, animalRepository, animalFileRepository) {
+    constructor(
+        adoptionRepository,
+        animalRepository,
+        animalFileRepository,
+        organizationRepository,
+        addressRepository,
+        resultRepository
+    ) {
         super();
         this.adoptionRepository = adoptionRepository;
         this.animalRepository = animalRepository;
         this.animalFileRepository = animalFileRepository;
+        this.organizationRepository = organizationRepository;
+        this.addressRepository = addressRepository;
+        this.resultRepository = resultRepository;
     }
 
     /**
@@ -21,13 +32,13 @@ export default class GetAdoptionByAdopterIdStrategy extends AbstractStrategy {
     async execute({ id }) {
         let result = [];
 
-        // Fetch all adoptions by adopter ID
+        // Get all adoptions by adopter ID
         const adoptions = await this.adoptionRepository.findAllWithProperties({
             adopterId: id,
         });
 
         if (adoptions.length) {
-            // Fetch animal details and files for each adoption
+            // Get animal details and files for each adoption
             result = await Promise.all(
                 adoptions.map(async (adoption) => {
                     const animal = await this.animalRepository.findById(
@@ -37,10 +48,27 @@ export default class GetAdoptionByAdopterIdStrategy extends AbstractStrategy {
                     const animalWithFiles =
                         await this.animalRepository.getWithFilesById(animal);
 
-                    console.log(animalWithFiles);
+                    const adoptionData = {
+                        ...new Adoption(adoption),
+                        result: await this.resultRepository.getResultTitleById(
+                            adoption.resultId
+                        ),
+                    };
+
+                    const organizationData =
+                        await this.organizationRepository.findById(
+                            animal.organizationId
+                        );
+
+                    const addressData = await this.addressRepository.findByProp(
+                        "organizationId",
+                        animal.organizationId
+                    );
 
                     return {
-                        ...new Adoption(adoption),
+                        ...new AdoptionResult(adoptionData),
+                        address: new Address(addressData),
+                        organization: new Organization(organizationData),
                         animal: animal
                             ? new AnimalAdapter(animalWithFiles)
                             : null,

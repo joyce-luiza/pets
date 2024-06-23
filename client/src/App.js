@@ -41,6 +41,10 @@ export default function AppRoutes() {
                         fontFamily: "Inter",
                         fontWeightStrong: 500,
                     },
+                    Card: {
+                        headerHeight: 64,
+                        headerFontSize: 64,
+                    },
                 },
             }}
         >

@@ -1,8 +1,11 @@
 import AbstractFactory from "../../../app/abstract/AbstractFactory";
 import {
+    AddressRepository,
     AdoptionRepository,
     AnimalFileRepository,
     AnimalRepository,
+    OrganizationRepository,
+    ResultRepository,
 } from "../../../app/repositories";
 import { GetAdoptionByAdopterIdStrategy } from "../strategies";
 
@@ -12,7 +15,10 @@ class GetAdoptionByAdopterIdFactory extends AbstractFactory {
             new GetAdoptionByAdopterIdStrategy(
                 AdoptionRepository,
                 AnimalRepository,
-                AnimalFileRepository
+                AnimalFileRepository,
+                OrganizationRepository,
+                AddressRepository,
+                ResultRepository
             ),
         ]);
     }

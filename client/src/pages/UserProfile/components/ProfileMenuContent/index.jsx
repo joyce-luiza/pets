@@ -5,6 +5,7 @@ import OrganizationData from "./components/OrganizationData/index.jsx";
 import OrganizationMembers from "./components/OrganizationMembers/index.jsx";
 import UserData from "./components/UserData/index.jsx";
 import OrganizationAdoptions from "./components/OrganizationAdoptions/index.jsx";
+import AdopterAdoptions from "./components/AdopterAdoptions/index.jsx";
 
 export default function ProfileMenuContent({ content, setContent }) {
     const { user } = useAuth();
@@ -31,7 +32,9 @@ export default function ProfileMenuContent({ content, setContent }) {
             ) : (
                 <>
                     {content === "MyData" && <UserData user={user} />}
-                    {content === "Adoptions" && <h1>Adoptions</h1>}
+                    {content === "Adoptions" && (
+                        <AdopterAdoptions user={user} />
+                    )}
                     {content === "Address" && <h1>Address</h1>}
                     {content === "Preferences" && <h1>Preferences</h1>}
                     {content === "ChangePassword" && <h1>ChangePassword</h1>}
