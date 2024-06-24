@@ -10,6 +10,8 @@ const controller = new AdopterController();
 const facade = new AdopterFacade(controller);
 
 adopterRoutes.post("/", facade.create);
+adopterRoutes.get("/address", authMiddleware, facade.getAdopterAddress);
+adopterRoutes.put("/address", authMiddleware, facade.updateAdopterAddress);
 adopterRoutes.get("/preferences", authMiddleware, facade.getAdopterPreferences);
 adopterRoutes.put(
   "/preferences",

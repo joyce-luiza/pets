@@ -6,10 +6,12 @@ import {
   UpdateAdopterFactory,
   UpdateProfileImageAdopterFactory,
   GetByEmailAdopterFactory,
+  GetAdopterAddressAdopterFactory,
+  UpdateAdopterAddressAdopterFactory,
   GetAdopterPreferencesFactory,
   UpdateAdopterPreferencesFactory,
 } from "../../routes/Adopters/factories";
-import { Adopter, AdopterComplement, File } from "../domains";
+import { Address, Adopter, AdopterComplement, File } from "../domains";
 
 export default class AdopterController {
   constructor() {
@@ -20,6 +22,8 @@ export default class AdopterController {
     this.deleteLogicallyById = this.deleteLogicallyById.bind(this);
     this.update = this.update.bind(this);
     this.updateProfileImage = this.updateProfileImage.bind(this);
+    this.getAdopterAddress = this.getAdopterAddress.bind(this);
+    this.updateAdopterAddress = this.updateAdopterAddress.bind(this);
     this.getAdopterPreferences = this.getAdopterPreferences.bind(this);
     this.updateAdopterPreferences = this.updateAdopterPreferences.bind(this);
   }
@@ -84,6 +88,19 @@ export default class AdopterController {
     const adopter = new File(req.file);
     const factory = new UpdateProfileImageAdopterFactory();
     const result = await factory.execute(adopter, req.loggedUserInfo);
+    res.json(result);
+  }
+
+  async getAdopterAddress(req, res, next) {
+    const factory = new GetAdopterAddressAdopterFactory();
+    const result = await factory.execute(null, req.loggedUserInfo);
+    res.json(result);
+  }
+
+  async updateAdopterAddress(req, res, next) {
+    const domain = new Address(req.body);
+    const factory = new UpdateAdopterAddressAdopterFactory();
+    const result = await factory.execute(domain, req.loggedUserInfo);
     res.json(result);
   }
 
