@@ -65,7 +65,7 @@ export default function LifestyleStep2({
             result[selectedOption] = true;
         }
 
-        if (selectedOptions.includes(null)) {
+        if (selectedOptions.includes(null) || selectedOptions.includes("")) {
             setAnySelected((prev) => ({ ...prev, [group]: true }));
             handleUserPreferences({ [group]: null });
             return;
@@ -173,19 +173,15 @@ export default function LifestyleStep2({
                                                 name="animalTypes"
                                                 value={type.title}
                                                 disabled={
-                                                    anySelected.animalTypes &&
-                                                    type.title !== "ANY"
+                                                    anySelected.animalTypes
                                                 }
                                             >
                                                 {ANIMAL_TYPES[type.title]}
                                             </Checkbox>
                                         </Col>
                                     ))}
-                                    <Col span={8} key={"ANY"}>
-                                        <Checkbox
-                                            value={null}
-                                            name="animalTypes"
-                                        >
+                                    <Col span={8} key={"NULL"}>
+                                        <Checkbox value={""} name="animalTypes">
                                             Sem preferência
                                         </Checkbox>
                                     </Col>
@@ -233,7 +229,7 @@ export default function LifestyleStep2({
                                     ))}
                                     <Col span={8} key={"ANY"}>
                                         <Checkbox
-                                            value={null}
+                                            value={""}
                                             name="animalAgeGroups"
                                         >
                                             Sem preferência
@@ -279,10 +275,7 @@ export default function LifestyleStep2({
                                         </Col>
                                     ))}
                                     <Col span={8} key={"ANY"}>
-                                        <Checkbox
-                                            value={null}
-                                            name="animalSizes"
-                                        >
+                                        <Checkbox value={""} name="animalSizes">
                                             Sem preferência
                                         </Checkbox>
                                     </Col>
@@ -326,10 +319,7 @@ export default function LifestyleStep2({
                                         </Col>
                                     ))}
                                     <Col span={8} key={"ANY"}>
-                                        <Checkbox
-                                            value={null}
-                                            name="animalSexes"
-                                        >
+                                        <Checkbox value={""} name="animalSexes">
                                             Sem preferência
                                         </Checkbox>
                                     </Col>
@@ -374,7 +364,7 @@ export default function LifestyleStep2({
                                     ))}
                                     <Col span={8} key={"ANY"}>
                                         <Checkbox
-                                            value={null}
+                                            value={""}
                                             name="animalColors"
                                         >
                                             Sem preferência

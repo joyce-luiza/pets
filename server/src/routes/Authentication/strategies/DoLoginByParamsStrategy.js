@@ -43,10 +43,7 @@ export default class DoLoginByParamsStrategy extends AbstractStrategy {
         });
 
         if (!adopter) {
-          this.throwError(
-            "Erro ao realizar login. Email ou senha incorretos.",
-            500
-          );
+          this.throwError("Email ou senha incorretos.", 400);
         }
 
         if (!(await adopter.checkPassword(password))) {

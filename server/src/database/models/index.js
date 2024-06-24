@@ -16,6 +16,7 @@ import Address from "./address";
 import Lifestyle from "./lifestyle";
 import Animal from "./animal";
 import AnimalFile from "./animalFile";
+import AdopterAnimalSexPreference from "./adopterAnimalSexPreference";
 import Adoption from "./adoption";
 import Result from "./result";
 
@@ -38,6 +39,7 @@ export {
     OrganizationInvite,
     Animal,
     AnimalFile,
+    AdopterAnimalSexPreference,
     Adoption,
     Result,
 };

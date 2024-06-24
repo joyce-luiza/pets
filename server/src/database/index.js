@@ -26,6 +26,7 @@ import {
     OrganizationInvite,
     Animal,
     AnimalFile,
+    AdopterAnimalSexPreference,
     Adoption,
     Result,
 } from "./models";
@@ -49,6 +50,7 @@ const models = [
     OrganizationInvite,
     Animal,
     AnimalFile,
+    AdopterAnimalSexPreference,
     Adoption,
     Result,
 ];

@@ -82,12 +82,12 @@ export default function AppRoutes() {
                                     element={<AnimalDetails />}
                                 />
 
-                                <Route element={<ProtectedRoute />}>
-                                    <Route
-                                        path="profile"
-                                        element={<UserProfile />}
-                                    />
-                                </Route>
+                                {/* <Route element={<ProtectedRoute />}> */}
+                                <Route
+                                    path="profile"
+                                    element={<UserProfile />}
+                                />
+                                {/* </Route> */}
                             </Route>
                             <Route element={<ProtectedRoute />}>
                                 <Route path="/user" element={<BasePage />}>

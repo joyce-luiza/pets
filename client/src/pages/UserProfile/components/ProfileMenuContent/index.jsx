@@ -4,6 +4,9 @@ import OrganizationAnimals from "./components/OrganizationAnimals/index.jsx";
 import OrganizationData from "./components/OrganizationData/index.jsx";
 import OrganizationMembers from "./components/OrganizationMembers/index.jsx";
 import UserData from "./components/UserData/index.jsx";
+import ChangeUserPassword from "./components/ChangeUserPassword/index.jsx";
+import ChangeAdopterAddress from "./components/ChangeAdopterAddress/index.jsx";
+import ChangeUserPreferences from "./components/ChangeUserPreferences/index.jsx";
 import OrganizationAdoptions from "./components/OrganizationAdoptions/index.jsx";
 import AdopterAdoptions from "./components/AdopterAdoptions/index.jsx";
 
@@ -26,7 +29,6 @@ export default function ProfileMenuContent({ content, setContent }) {
                     {content === "Visits" && <h1>Visits</h1>}
                     {content === "Team" && <OrganizationMembers user={user} />}
                     {content === "MyData" && <UserData user={user} />}
-                    {content === "ChangePassword" && <h1>ChangePassword</h1>}
                     {content === "Logout" && <h1>Logout</h1>}
                 </>
             ) : (
@@ -35,12 +37,12 @@ export default function ProfileMenuContent({ content, setContent }) {
                     {content === "Adoptions" && (
                         <AdopterAdoptions user={user} />
                     )}
-                    {content === "Address" && <h1>Address</h1>}
-                    {content === "Preferences" && <h1>Preferences</h1>}
-                    {content === "ChangePassword" && <h1>ChangePassword</h1>}
+                    {content === "Address" && <ChangeAdopterAddress />}
+                    {content === "Preferences" && <ChangeUserPreferences />}
                     {content === "Logout" && <h1>Logout</h1>}
                 </>
             )}
+            {content === "ChangePassword" && <ChangeUserPassword user={user} />}
         </>
     );
 }

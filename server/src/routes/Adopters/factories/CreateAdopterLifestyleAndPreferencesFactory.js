@@ -12,6 +12,7 @@ import {
   AnimalSizeRepository,
   AnimalTypeRepository,
   LifestyleRepository,
+  AdopterAnimalSexPreferenceRepository,
 } from "../../../app/repositories";
 import {
   ValidateAddressRequiredFields,
@@ -25,6 +26,7 @@ import {
   CreateAdopterAnimalSizePreferencesStrategy,
   CreateAdopterAnimalColorPreferencesStrategy,
   CreateAdopterAnimalAgeGroupPreferencesStrategy,
+  CreateAdopterAnimalSexPreferencesStrategy,
 } from "../strategies";
 
 class CreateAdopterLifestyleAndPreferencesFactory extends AbstractFactory {
@@ -47,6 +49,9 @@ class CreateAdopterLifestyleAndPreferencesFactory extends AbstractFactory {
       new CreateAdopterAnimalColorPreferencesStrategy(
         AdopterAnimalColorPreferenceRepository,
         AnimalColorRepository
+      ),
+      new CreateAdopterAnimalSexPreferencesStrategy(
+        AdopterAnimalSexPreferenceRepository
       ),
       new CreateAdopterAnimalAgeGroupPreferencesStrategy(
         AdopterAnimalAgeGroupPreferenceRepository,
