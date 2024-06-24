@@ -23,7 +23,6 @@ export default function ProfileMenuContent({ content, setContent }) {
           {content === "Visits" && <h1>Visits</h1>}
           {content === "Team" && <OrganizationMembers user={user} />}
           {content === "MyData" && <UserData user={user} />}
-          {content === "ChangePassword" && <h1>ChangePassword</h1>}
           {content === "Logout" && <h1>Logout</h1>}
         </>
       ) : (
