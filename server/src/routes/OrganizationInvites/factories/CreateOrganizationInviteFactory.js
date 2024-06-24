@@ -11,7 +11,6 @@ import {
 class CreateOrganizationInviteFactory extends AbstractFactory {
     constructor() {
         super([
-            //new ValidateInviteExistenceStrategy(OrganizationInviteRepository),
             new ValidateEmailExistenceStrategy(OrganizationMemberRepository),
             new CreateOrganizationInviteStrategy(OrganizationInviteRepository),
         ]);

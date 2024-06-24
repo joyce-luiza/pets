@@ -35,13 +35,15 @@ export default class DoLoginByParamsStrategy extends AbstractStrategy {
 
     switch (type) {
       case USER_TYPE.ADOPTER: {
-        const adopter = await this.adopterRepository.findByProp("email", email);
+        const adopter = await this.adopterRepository.findOne({
+          where: {
+            email,
+            statusId: await this.adopterRepository.getActiveStatusId(),
+          },
+        });
 
         if (!adopter) {
-          this.throwError(
-            "Erro ao realizar login. Email ou senha incorretos.",
-            500
-          );
+          this.throwError("Email ou senha incorretos.", 400);
         }
 
         if (!(await adopter.checkPassword(password))) {
@@ -61,10 +63,13 @@ export default class DoLoginByParamsStrategy extends AbstractStrategy {
         break;
       }
       case USER_TYPE.ORGANIZATION: {
-        const orgMember = await this.organizationMemberRepository.findByProp(
-          "email",
-          email
-        );
+        const orgMember = await this.organizationMemberRepository.findOne({
+          where: {
+            email,
+            statusId:
+              await this.organizationMemberRepository.getActiveStatusId(),
+          },
+        });
 
         if (!orgMember) {
           this.throwError(

@@ -20,6 +20,7 @@ export default function AnswerLifestyleQuestions({ answerQuestionsFn }) {
                         size="large"
                         type="primary"
                         onClick={answerQuestionsFn}
+                        data-cy="answers-lifestyle-questions-button"
                     >
                         Quero responder
                     </Button>

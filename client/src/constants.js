@@ -11,6 +11,10 @@ module.exports = Object.freeze({
     ADOPTER: "ADOPTER",
     ORGANIZATION: "ORGANIZATION",
   },
+  USER_ROLE: {
+    ADMIN: "ADMIN",
+    DEFAULT: "DEFAULT",
+  },
   RESIDENCE_TYPE: {
     APARTMENT: "Apartamento",
     HOUSE: "Casa",

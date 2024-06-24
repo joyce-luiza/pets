@@ -60,7 +60,7 @@ export default class GetAnimalAssociationsStrategy extends AbstractStrategy {
 
     const status = await this.statusesRepository.findByProp(
       "description",
-      data.status
+      data.status.toUpperCase()
     );
 
     if (!status) {

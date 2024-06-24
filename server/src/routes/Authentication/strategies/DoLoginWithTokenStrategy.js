@@ -27,11 +27,12 @@ export default class DoLoginWithTokenStrategy extends AbstractStrategy {
    */
   async execute({ token, type }) {
     if (!token) return;
+    let verifiedToken = "";
 
-    const verifiedToken = await promisify(jwt.verify)(token, auth.secret);
-
-    if (!verifiedToken) {
-      this.throwError("O token informado não é válido.", 400);
+    try {
+      verifiedToken = await promisify(jwt.verify)(token, auth.secret);
+    } catch (error) {
+      this.throwError("Sessão expirada", 400);
       return;
     }
 
