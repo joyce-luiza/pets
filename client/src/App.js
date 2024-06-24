@@ -14,6 +14,7 @@ import {
     InvitedAccount,
 } from "./pages/CreateAccount/";
 import AnimalsList from "./pages/AnimalsList/index.jsx";
+import AnimalDetails from "./pages/AnimalDetails/index.jsx";
 // import PetDetails from "./pages/PetDetails/index.jsx";
 
 export default function AppRoutes() {
@@ -75,6 +76,10 @@ export default function AppRoutes() {
                                 <Route
                                     path="animals"
                                     element={<AnimalsList />}
+                                ></Route>
+                                <Route
+                                    path="animal/details/:id"
+                                    element={<AnimalDetails />}
                                 />
 
                                 <Route element={<ProtectedRoute />}>
