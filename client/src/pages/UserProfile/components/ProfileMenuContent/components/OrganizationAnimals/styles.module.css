@@ -1,3 +1,5 @@
+/* styles.module.css */
+
 .container {
   width: 100%;
 }
@@ -50,7 +52,6 @@
   align-self: center;
 }
 
-/* styles.module.css */
 .tableColumnTitle {
   font-size: 1rem;
   color: #4435ab;

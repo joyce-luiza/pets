@@ -1,19 +1,23 @@
+import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 import moment from 'moment';
-import { Button, Input, Table, Modal, Tooltip } from 'antd';
+import { Button, Input, Table, Tooltip, Select, Space, Flex } from 'antd';
 import Column from 'antd/es/table/Column';
-import { useEffect, useState } from 'react';
 import CreateAnimal from './components/CreateAnimal';
 import UpdateAnimal from './components/UpdateAnimal';
 import ViewAnimal from './components/ViewAnimal';
+import DeleteAnimal from './components/DeleteAnimal';
 import { axiosRequest } from '../../../../../../utils/axiosRequest';
 import showMessage from '../../../../../../utils/Message';
 import {
   ANIMAL_SEX,
   ANIMAL_SIZES,
   ANIMAL_TYPES,
+  ANIMAL_AGE_GROUPS,
 } from '../../../../../../constants';
+
 const { Search } = Input;
+const { Option } = Select;
 
 export default function OrganizationAnimals({ setContent, content }) {
   const [loading, setLoading] = useState(false);
@@ -21,11 +25,20 @@ export default function OrganizationAnimals({ setContent, content }) {
   const [updateAnimal, setUpdateAnimal] = useState(false);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
   const [viewAnimal, setViewAnimal] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [tableFilter, setTableFilter] = useState({
     page: 1,
     size: 10,
+    search: '',
+    typeFilter: [],
+    sexFilter: [],
+    sizeFilter: [],
+    ageFilter: [],
+    statusFilter: [],
   });
+  const [showFilters, setShowFilters] = useState(false);
+  const [filterAnimation, setFilterAnimation] = useState('');
 
   const getLifetime = (date) => {
     const inputDate = moment(date);
@@ -46,15 +59,25 @@ export default function OrganizationAnimals({ setContent, content }) {
 
   const handleGetTableData = async () => {
     try {
-      setLoading(true);
+      //setLoading(true);
       const animals = await axiosRequest({
         method: 'GET',
         authenticated: true,
-        params: tableFilter,
+        params: {
+          ...tableFilter,
+          conditions: {
+            search: tableFilter.search || '',
+            typeFilter: tableFilter.typeFilter,
+            sexFilter: tableFilter.sexFilter,
+            sizeFilter: tableFilter.sizeFilter,
+            ageFilter: tableFilter.ageFilter,
+            statusFilter: tableFilter.statusFilter,
+          },
+        },
         path: '/animals/table',
       });
 
-      if ('data' in animals) {
+      if ('data' in animals && animals.data.length > 0) {
         const formattedAnimals = animals.data.map((animal) => ({
           key: animal.id,
           name: animal.name,
@@ -87,42 +110,7 @@ export default function OrganizationAnimals({ setContent, content }) {
                 <Button
                   size="middle"
                   type="link"
-                  onClick={() => {
-                    Modal.confirm({
-                      title: 'Excluir',
-                      content: 'Confirma a exclusão do registro do animal?',
-                      onOk: async () => {
-                        try {
-                          const data = {
-                            id: animal.id,
-                          };
-                          console.log(data);
-
-                          await axiosRequest({
-                            method: 'DELETE',
-                            authenticated: true,
-                            path: `/animals/${data.id}`,
-                          });
-                          showMessage(
-                            'success',
-                            'Registro excluído com sucesso'
-                          );
-                          handleGetTableData(); // Atualiza a tabela após a exclusão
-                        } catch (error) {
-                          showMessage('error', 'Erro ao excluir registro');
-                        }
-                      },
-                      onCancel: () => {
-                        console.log('Ação de exclusão cancelada');
-                      },
-                      footer: (_, { OkBtn, CancelBtn }) => (
-                        <>
-                          <CancelBtn />
-                          <OkBtn />
-                        </>
-                      ),
-                    });
-                  }}
+                  onClick={() => handleDeleteAnimal(animal)}
                 >
                   <i className="ri-delete-bin-line"></i>
                 </Button>
@@ -134,11 +122,19 @@ export default function OrganizationAnimals({ setContent, content }) {
           data: formattedAnimals,
           records: animals.records,
         });
+      } else {
+        setTableData({
+          data: [],
+          records: 0,
+        });
       }
 
       setLoading(false);
     } catch (error) {
-      setTableData([]);
+      setTableData({
+        data: [],
+        records: 0,
+      });
       showMessage('error', error.message || error);
       setLoading(false);
     }
@@ -199,85 +195,242 @@ export default function OrganizationAnimals({ setContent, content }) {
     setViewAnimal(true);
   };
 
+  const handleDeleteAnimal = (animal) => {
+    setSelectedAnimal(animal);
+    setIsDeleteModalOpen(true);
+  };
+
+  const onSearch = (value) => {
+    setTableFilter((prevFilter) => ({
+      ...prevFilter,
+      search: value,
+      //page: 1, // Reseta a página para 1 ao fazer uma nova pesquisa
+    }));
+  };
+
+  const handleFilterChange = (value, filterType) => {
+    setTableFilter((prevFilter) => ({
+      ...prevFilter,
+      [filterType]: value,
+      //page: 1, // Reseta a página para 1 ao aplicar o filtro
+    }));
+  };
+
+  const toggleFilters = () => {
+    if (showFilters) {
+      setFilterAnimation('animate__slideInDown');
+      setTimeout(() => {
+        setShowFilters(false);
+      }, 300); // Duração da animação
+    } else {
+      setShowFilters(true);
+      setFilterAnimation('animate__slideOutUp');
+    }
+  };
+
   useEffect(() => {
     handleGetTableData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tableFilter, createAnimal, updateAnimal, viewAnimal]);
+  }, [tableFilter, createAnimal, updateAnimal, viewAnimal, isDeleteModalOpen]);
 
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         {!createAnimal && !updateAnimal && !viewAnimal ? (
-          <>
-            <h2 className={styles.title}>Animais</h2>
-            <section className={styles.actions}>
-              <Search
-                className={styles.searchInput}
-                placeholder="Pesquise pelo nome do animal"
-                loading={false}
-              />
-              <Button
-                size="middle"
-                type="primary"
-                onClick={() => setCreateAnimal(true)}
-              >
-                Cadastrar animal
-              </Button>
-            </section>
+          !loading ? (
+            <>
+              <h2 className={styles.title}>Animais</h2>
+              <section className={styles.actions}>
+                <Search
+                  className={styles.searchInput}
+                  placeholder="Pesquise pelo nome do animal"
+                  loading={false}
+                  onSearch={onSearch}
+                />
+                <Button
+                  size="middle"
+                  type="primary"
+                  onClick={() => setCreateAnimal(true)}
+                >
+                  Cadastrar animal
+                </Button>
+              </section>
 
-            <Tooltip title="Mostrar filtros" className={styles.filterButton}>
-              <i className={`ri-filter-line ri-xl ${styles.buttonColor}`}></i>
-              <span className={styles.buttonColor}>Filtros</span>
-            </Tooltip>
+              <Tooltip title="Mostrar filtros" className={styles.filterButton}>
+                <i
+                  className={`ri-filter-line ri-xl ${styles.buttonColor}`}
+                  onClick={toggleFilters}
+                ></i>
+                <span className={styles.buttonColor}>Filtros</span>
+              </Tooltip>
 
-            <section
-              className={styles.tableData}
-              style={{ minWidth: 'max-content' }}
-            >
-              <Table
-                loading={loading}
-                className={styles.table}
-                dataSource={tableData.data}
-                rowClassName={styles.tableRow}
-                pagination={{
-                  total: tableData.records,
-                  pageSize: tableFilter.size,
-                  showSizeChanger: true,
-                  locale: { items_per_page: '' },
-                  pageSizeOptions: ['10', '20', '30', '40', '50'],
-                }}
-                onChange={({ current, pageSize }) =>
-                  setTableFilter({ page: current, size: pageSize })
-                }
-                onRow={(animal) => {
-                  return {
-                    onDoubleClick: () => handleViewAnimal(animal),
-                  };
-                }}
+              {showFilters && (
+                <div className={`animate__animated ${filterAnimation}`}>
+                  <Space direction="horizontal" size={24}>
+                    <Flex gap={24}>
+                      <div className={styles.filtersContainer}>
+                        <label>Tipo</label>
+                        <Select
+                          mode="multiple"
+                          style={{ width: 200 }}
+                          className={styles.filterSelect}
+                          placeholder="Selecione o tipo"
+                          value={tableFilter.typeFilter}
+                          onChange={(value) =>
+                            handleFilterChange(value, 'typeFilter')
+                          }
+                          allowClear
+                        >
+                          {Object.keys(ANIMAL_TYPES).map((key) => (
+                            <Option key={key} value={key}>
+                              {ANIMAL_TYPES[key]}
+                            </Option>
+                          ))}
+                        </Select>
+                      </div>
+                      <div className={styles.filtersContainer}>
+                        <label>Sexo</label>
+                        <Select
+                          mode="multiple"
+                          style={{ width: 200 }}
+                          className={styles.filterSelect}
+                          placeholder="Selecione o sexo"
+                          value={tableFilter.sexFilter}
+                          onChange={(value) =>
+                            handleFilterChange(value, 'sexFilter')
+                          }
+                          allowClear
+                        >
+                          {Object.keys(ANIMAL_SEX).map((key) => (
+                            <Option key={key} value={key}>
+                              {ANIMAL_SEX[key]}
+                            </Option>
+                          ))}
+                        </Select>
+                      </div>
+                      <div className={styles.filtersContainer}>
+                        <label>Porte</label>
+                        <Select
+                          mode="multiple"
+                          style={{ width: 200 }}
+                          className={styles.filterSelect}
+                          placeholder="Selecione o porte"
+                          value={tableFilter.sizeFilter}
+                          onChange={(value) =>
+                            handleFilterChange(value, 'sizeFilter')
+                          }
+                          allowClear
+                        >
+                          {Object.keys(ANIMAL_SIZES).map((key) => (
+                            <Option key={key} value={key}>
+                              {ANIMAL_SIZES[key]}
+                            </Option>
+                          ))}
+                        </Select>
+                      </div>
+                      <div className={styles.filtersContainer}>
+                        <label>Idade</label>
+                        <Select
+                          mode="multiple"
+                          style={{ width: 200 }}
+                          className={styles.filterSelect}
+                          placeholder="Selecione a idade"
+                          value={tableFilter.ageFilter}
+                          onChange={(value) =>
+                            handleFilterChange(value, 'ageFilter')
+                          }
+                          allowClear
+                        >
+                          {Object.keys(ANIMAL_AGE_GROUPS).map((key) => (
+                            <Option key={key} value={key}>
+                              {ANIMAL_AGE_GROUPS[key]}
+                            </Option>
+                          ))}
+                        </Select>
+                      </div>
+                      <div className={styles.filtersContainer}>
+                        <label>Status</label>
+                        <Select
+                          mode="multiple"
+                          style={{ width: 200 }}
+                          className={styles.filterSelect}
+                          placeholder="Selecione o status"
+                          value={tableFilter.statusFilter}
+                          onChange={(value) =>
+                            handleFilterChange(value, 'statusFilter')
+                          }
+                          allowClear
+                        >
+                          <Option value="ATIVO">ATIVO</Option>
+                          <Option value="INATIVO">INATIVO</Option>
+                        </Select>
+                      </div>
+                    </Flex>
+                  </Space>
+                </div>
+              )}
+
+              <section
+                className={styles.tableData}
+                style={{ minWidth: 'max-content' }}
               >
-                {columns.map(({ title, key, dataIndex, width }) => (
-                  <Column
-                    title={
-                      <span className={styles.tableColumnTitle}>{title}</span>
-                    }
-                    dataIndex={dataIndex}
-                    key={key}
-                    width={width}
-                  />
-                ))}
-              </Table>
-            </section>
-          </>
+                <Table
+                  loading={loading}
+                  className={styles.table}
+                  dataSource={tableData.data}
+                  rowClassName={styles.tableRow}
+                  pagination={{
+                    total: tableData.records,
+                    pageSize: tableFilter.size,
+                    showSizeChanger: true,
+                    locale: { items_per_page: '' },
+                    pageSizeOptions: ['10', '20', '30', '40', '50'],
+                  }}
+                  onChange={({ current, pageSize }) =>
+                    setTableFilter({ page: current, size: pageSize })
+                  }
+                  onRow={(animal) => {
+                    return {
+                      // onDoubleClick: () => handleViewAnimal(animal),
+                    };
+                  }}
+                >
+                  {columns.map(({ title, key, dataIndex, width }) => (
+                    <Column
+                      title={
+                        <span className={styles.tableColumnTitle}>{title}</span>
+                      }
+                      dataIndex={dataIndex}
+                      key={key}
+                      width={width}
+                    />
+                  ))}
+                </Table>
+              </section>
+            </>
+          ) : (
+            <p>Carregando...</p>
+          )
         ) : updateAnimal ? (
           <UpdateAnimal
             setUpdateAnimal={setUpdateAnimal}
-            animal={selectedAnimal}
+            animalData={selectedAnimal}
           />
         ) : viewAnimal ? (
-          <ViewAnimal setViewAnimal={setViewAnimal} animal={selectedAnimal} />
+          <ViewAnimal
+            setViewAnimal={setViewAnimal}
+            animalData={selectedAnimal}
+            getLifetime={getLifetime}
+          />
         ) : (
           <CreateAnimal setCreateAnimal={setCreateAnimal} />
         )}
+        <DeleteAnimal
+          setIsModalOpen={setIsDeleteModalOpen}
+          animalData={selectedAnimal}
+          open={isDeleteModalOpen}
+          handleGetTableData={handleGetTableData}
+        />
       </div>
     </div>
   );

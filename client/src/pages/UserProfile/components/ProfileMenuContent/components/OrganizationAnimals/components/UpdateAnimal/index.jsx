@@ -13,12 +13,13 @@ import showMessage from '../../../../../../../../utils/Message';
 import moment from 'moment';
 import dayjs from 'dayjs';
 
-export default function UpdateAnimal({ setUpdateAnimal, animal }) {
+export default function UpdateAnimal({ setUpdateAnimal, animalData }) {
   const [form] = Form.useForm();
-  console.log(animal);
 
   const [fileList, setFileList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [animal, setAnimal] = useState(null);
+  const [animalFiles, setAnimalFiles] = useState([]);
 
   const handleDateChange = (date, dateString) => {
     const formattedDate = moment(dateString, 'DD/MM/YYYY').format('YYYY-MM-DD');
@@ -31,6 +32,7 @@ export default function UpdateAnimal({ setUpdateAnimal, animal }) {
 
   const onPreview = async (file) => {
     let src = file.url;
+
     if (!src) {
       src = await new Promise((resolve) => {
         const reader = new FileReader();
@@ -52,22 +54,34 @@ export default function UpdateAnimal({ setUpdateAnimal, animal }) {
     }
   };
 
+  const getAnimalData = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosRequest({
+        method: 'get',
+        path: `/animals/${animalData.id}`,
+      });
+      setAnimal(response);
+      setAnimalFiles(response.files);
+      setLoading(false);
+    } catch (error) {
+      showMessage('error', error.message || error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleUpdateAnimal = async (values) => {
     try {
       setLoading(true);
-
-      if (!fileList.length) {
-        throw new Error('Nenhuma foto foi anexada');
-      }
 
       const formData = new FormData();
       const data = {
         ...values,
         organizationId: animal.organizationId,
         id: animal.id,
-        ageGroup: animal.ageGroup,
       };
-      console.log('data');
+
       formData.append('data', JSON.stringify(data)); // Stringify the form values
       fileList.forEach((file) => {
         formData.append('files', file.originFileObj);
@@ -94,14 +108,32 @@ export default function UpdateAnimal({ setUpdateAnimal, animal }) {
     }
   };
 
+  function createAnimalObjects(files) {
+    return files.map((file, index) => ({
+      id: file.id,
+      name: `Animal ${index + 1}`,
+      status: 'active', // Assuming status is always 'active', update this logic if necessary
+      url: file.fileUrl,
+    }));
+  }
+
   useEffect(() => {
-    let { birthDate } = animal;
-    const data = {
-      ...animal,
-      birthDate: dayjs(birthDate),
-    };
-    form.setFieldsValue(data);
-  }, [animal, form]);
+    getAnimalData();
+  }, [animalData.id]);
+
+  useEffect(() => {
+    if (animal) {
+      let { birthDate } = animal;
+      const data = {
+        ...animal,
+        birthDate: dayjs(birthDate),
+      };
+      form.setFieldsValue(data);
+
+      const files = createAnimalObjects(animalFiles);
+      setFileList(files);
+    }
+  }, [animal, animalFiles, form]);
 
   return (
     <>
