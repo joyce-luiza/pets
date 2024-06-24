@@ -21,14 +21,23 @@ export default class GetAdopterPreferenceForComplementStrategy extends AbstractS
     if (!loggedUserInfo.userId)
       this.throwError("Usuário sem permissão para acessar esse registro.", 401);
 
-    const preference = await this.adopterPreferenceRepository.findByProp(
+    let preference = {};
+
+    preference = await this.adopterPreferenceRepository.findByProp(
       "adopterId",
       loggedUserInfo.userId
     );
 
-    return new AdopterComplement({
+    if (!preference) {
+      preference = await this.adopterPreferenceRepository.create({
+        adopterId: loggedUserInfo.userId,
+      });
+    }
+
+    const result = new AdopterComplement({
       ...dto,
       preferences: preference,
     });
+    return result;
   }
 }

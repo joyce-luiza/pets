@@ -1,10 +1,10 @@
 export default class AdopterPreferencesAdapter {
   constructor({
-    animalTypes = {},
-    animalSizes = {},
-    animalColors = {},
-    animalSexes = {},
-    animalAgeGroups = {},
+    animalTypes = null,
+    animalSizes = null,
+    animalColors = null,
+    animalSexes = null,
+    animalAgeGroups = null,
   } = {}) {
     this.animalTypes = animalTypes;
     this.animalSizes = animalSizes;

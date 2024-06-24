@@ -59,13 +59,16 @@ class AdopterRepository extends AbstractRepository {
     const animalSexes = await this.getAdopterAnimalSexesPreferences(adopterId);
 
     const convertArrayToObject = (array, keyField) => {
+      if (array.length === 0) {
+        return null;
+      }
+
       const result = {};
       array.forEach((item) => {
         result[item[keyField]] = true;
       });
       return result;
     };
-
     const result = {
       animalTypes: convertArrayToObject(animalTypes, "title"),
       animalSizes: convertArrayToObject(animalSizes, "title"),

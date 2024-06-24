@@ -47,34 +47,31 @@ export default class RemoveAllPreviousAdopterPreferencesStrategy extends Abstrac
    * @param {*} loggedUserInfo
    */
   async execute(data = null, dto, loggedUserInfo) {
-    const affected2 =
+    if (dto.preferences.id) {
       await this.adopterAnimalTypePreferenceRepository.destroyByProp(
         "adopterPreferenceId",
         dto.preferences.id
       );
 
-    const affected3 =
       await this.adopterAnimalSizePreferenceRepository.destroyByProp(
         "adopterPreferenceId",
         dto.preferences.id
       );
 
-    const affected4 =
       await this.adopterAnimalColorPreferenceRepository.destroyByProp(
         "adopterPreferenceId",
         dto.preferences.id
       );
 
-    const affected5 =
       await this.adopterAnimalSexPreferenceRepository.destroyByProp(
         "adopterPreferenceId",
         dto.preferences.id
       );
 
-    const affected6 =
       await this.adopterAnimalAgeGroupPreferenceRepository.destroyByProp(
         "adopterPreferenceId",
         dto.preferences.id
       );
+    }
   }
 }
