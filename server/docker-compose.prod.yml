@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  pets-db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    container_name: "pets"
+    restart: on-failure
+    volumes:
+      - petsdb:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_ROOT_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+
+  api-pets:
+    container_name: api-pets
+    build: ./
+    restart: on-failure
+    ports:
+      - 3335:3335
+    depends_on:
+      - pets-db
+    env_file:
+      - ./.env
+    command: sh -c "npm run db && npm start"
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./certs:/certs
+      - ./nginx.conf:/nginx.conf
+    depends_on:
+      - api-pets
+    networks:
+      - default
+    command: [nginx-debug, "-g", "daemon off;"]
+
+volumes:
+  petsdb:
+    name: petsdb

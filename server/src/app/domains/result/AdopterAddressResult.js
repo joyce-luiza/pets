@@ -16,5 +16,6 @@ export default class AdopterAddressResult {
     this.cep = cep;
     this.residenceType = residenceType;
     this.complement = complement;
+    this.number = number;
   }
 }
