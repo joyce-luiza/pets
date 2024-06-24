@@ -7,7 +7,8 @@ import FindAllToTableViewStrategy from './FindAllToTableViewStrategy';
 import UpdateAnimalStrategy from './UpdateAnimalStrategy';
 import FormatToAnimalDomainStrategy from './FormatToAnimalDomainStrategy';
 import DeleteLogicallyByAnimalIdStrategy from './DeleteLogicallyByAnimalIdStrategy';
-import FindAnimalFilesStrategy from './FindAnimalFilesStrategy';
+import FindAnimalWithFilesByIdStrategy from './FindAnimalWithFilesByIdStrategy';
+import DeleteFilesByAnimalIdStrategy from './DeleteFilesByAnimalIdStrategy';
 
 export {
   ValidateAnimalRequiredFieldsStrategy,
@@ -19,5 +20,6 @@ export {
   UpdateAnimalStrategy,
   FormatToAnimalDomainStrategy,
   DeleteLogicallyByAnimalIdStrategy,
-  FindAnimalFilesStrategy,
+  FindAnimalWithFilesByIdStrategy,
+  DeleteFilesByAnimalIdStrategy,
 };

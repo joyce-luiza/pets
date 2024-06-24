@@ -1,5 +1,8 @@
 import AbstractFactory from '../../../app/abstract/AbstractFactory';
-import { AnimalRepository } from '../../../app/repositories';
+import {
+  AnimalRepository,
+  AnimalFileRepository,
+} from '../../../app/repositories';
 import {
   GetDomainByIdStrategy,
   VerifyDomainIdParamStrategy,

@@ -3,22 +3,18 @@ import {
   AnimalRepository,
   AnimalFileRepository,
 } from '../../../app/repositories';
-import {
-  GetDomainByIdStrategy,
-  VerifyDomainIdParamStrategy,
-} from '../../../app/strategies';
-import {
-  FormatToAnimalDomainStrategy,
-  FindAnimalFilesStrategy,
-} from '../strategies';
+import { VerifyDomainIdParamStrategy } from '../../../app/strategies';
+import FindAnimalWithFilesByIdStrategy from '../strategies/FindAnimalWithFilesByIdStrategy';
 
 class GetByIdAnimalFactory extends AbstractFactory {
   constructor() {
     super([
       new VerifyDomainIdParamStrategy(),
-      new GetDomainByIdStrategy(AnimalRepository),
-      new FindAnimalFilesStrategy(AnimalFileRepository),
-      new FormatToAnimalDomainStrategy(),
+      // Initialize the strategy with the necessary repositories
+      new FindAnimalWithFilesByIdStrategy(
+        AnimalRepository,
+        AnimalFileRepository
+      ),
     ]);
   }
 }

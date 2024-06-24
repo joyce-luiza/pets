@@ -25,7 +25,7 @@ class UpdateAnimalFactory extends AbstractFactory {
         AnimalTypeRepository,
         StatusesRepository
       ),
-      new UpdateAnimalStrategy(AnimalRepository),
+      new UpdateAnimalStrategy(AnimalRepository, AnimalFileRepository),
     ]);
   }
 }

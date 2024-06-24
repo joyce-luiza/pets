@@ -12,7 +12,6 @@ export default class GetDomainByIdStrategy extends AbstractStrategy {
 
   async execute({ id }) {
     const instance = await this.repository.findById(id);
-    console.log(instance);
 
     if (!instance) {
       this.throwError(

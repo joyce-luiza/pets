@@ -9,8 +9,18 @@ const animalRoutes = Router();
 const controller = new AnimalController();
 const facade = new AnimalFacade(controller);
 
-animalRoutes.post('/', multerUpload.array('files'), facade.create);
-animalRoutes.get('/table', facade.findAllToTableView);
+animalRoutes.post(
+  '/',
+  authMiddleware,
+  multerUpload.array('files'),
+  facade.create
+);
+animalRoutes.get(
+  '/table',
+  multerUpload.array('files'),
+  facade.findAllToTableView
+);
+animalRoutes.get('/:id', multerUpload.array('files'), facade.getById);
 animalRoutes.put(
   '/',
   multerUpload.array('files'),
@@ -18,7 +28,6 @@ animalRoutes.put(
   facade.update
 );
 animalRoutes.delete('/:id', authMiddleware, facade.deleteLogicallyById);
-animalRoutes.get('/:id', facade.getById);
 
 //não esquecer o authMiddleware
 

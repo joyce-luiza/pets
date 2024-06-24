@@ -34,16 +34,14 @@ export default class AnimalController {
     const data = JSON.parse(req.body.data);
 
     const animal = new AnimalAdapter({ ...data, files: req.files });
-    console.log('controller');
-    console.log(animal);
     const factory = new UpdateAnimalFactory();
     const result = await factory.execute(animal, req.loggedUserInfo);
+
     res.json(result);
   }
+
   async deleteLogicallyById(req, res, next) {
     const animal = new AnimalAdapter({ id: req.params.id });
-    console.log('delete');
-    console.log(animal.id);
 
     const factory = new DeleteLogicallyByAnimalIdFactory();
     const result = await factory.execute(animal, req.loggedUserInfo);
@@ -52,9 +50,16 @@ export default class AnimalController {
 
   async getById(req, res, next) {
     const animal = new AnimalAdapter({ id: req.params.id });
-    console.log('getById');
     const factory = new GetByIdAnimalFactory();
     const result = await factory.execute(animal);
     res.json(result);
   }
+
+  /*async deleteFilesById(req, res, next) {
+    const animal = new AnimalAdapter({ id: req.params.id });
+
+    const factory = new DeleteFilesByAnimalIdFactory();
+    const result = await factory.execute(animal, req.loggedUserInfo);
+    res.json(result);
+  }*/
 }

@@ -1,24 +1,26 @@
 import AbstractStrategy from '../../../app/abstract/AbstractStrategy';
 import { AnimalAdapter, Pagination } from '../../../app/domains/adapters';
 
-/**
- * Strategy to find and validate Animal associations fields
- *
- * @extends AbstractStrategy
- */
-export default class CreateAnimalStrategy extends AbstractStrategy {
+export default class FindAllToTableViewStrategy extends AbstractStrategy {
   constructor(animalRepository) {
     super();
     this.animalRepository = animalRepository;
   }
 
-  /**
-   * @param {Pagination} data - Pagination filter object
-   */
   async execute(data, dto) {
     let result = [];
 
-    const animals = await this.animalRepository.findAllToTableView(data);
+    const { ...paginationData } = data;
+
+    const animals = await this.animalRepository.findAllToTableView({
+      ...paginationData,
+      search: paginationData.conditions.search,
+      typeFilter: paginationData.conditions.typeFilter,
+      sexFilter: paginationData.conditions.sexFilter,
+      sizeFilter: paginationData.conditions.sizeFilter,
+      ageFilter: paginationData.conditions.ageFilter,
+      statusFilter: paginationData.conditions.statusFilter,
+    });
 
     if (animals.length) {
       result = animals.map((animal) => new AnimalAdapter(animal));

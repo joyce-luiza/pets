@@ -1,5 +1,5 @@
-import { AnimalFile } from "../../database/models";
-import AbstractRepository from "../abstract/AbstractRepository";
+import { AnimalFile } from '../../database/models';
+import AbstractRepository from '../abstract/AbstractRepository';
 
 class AnimalFileRepository extends AbstractRepository {
   constructor() {

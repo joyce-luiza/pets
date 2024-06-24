@@ -29,7 +29,6 @@ export default class AbstractFacade {
   handleError(res, error) {
     const { status, message, stack } = error;
     res.status(status ? status : 500).json(message);
-    // console.log(stack);
   }
 
   async create(req, res, next) {

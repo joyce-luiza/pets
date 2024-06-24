@@ -1,7 +1,7 @@
-import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
-import { Animal } from "../../../app/domains";
-import { AnimalAdapter } from "../../../app/domains/adapters";
-import { USER_TYPE } from "../../../constants";
+import AbstractStrategy from '../../../app/abstract/AbstractStrategy';
+import { Animal } from '../../../app/domains';
+import { AnimalAdapter } from '../../../app/domains/adapters';
+import { USER_TYPE } from '../../../constants';
 
 /**
  * Strategy to validate required Animal fields
@@ -32,41 +32,41 @@ export default class ValidateAnimalRequiredFieldsStrategy extends AbstractStrate
     }
 
     if (!loggedUserInfo.organizationId) {
-      generateError("Organização");
+      generateError('Organização');
     }
     if (!data.name) {
-      generateError("Nome");
+      generateError('Nome');
     }
     if (!data.description) {
-      generateError("Descrição");
+      generateError('Descrição');
     }
     if (!data.birthDate) {
-      generateError("Data de nascimento");
+      generateError('Data de nascimento');
     }
     if (!data.sex) {
-      generateError("Sexo");
+      generateError('Sexo');
     }
     if (!data.type) {
-      generateError("Tipo");
+      generateError('Tipo');
     }
     if (!data.size) {
-      generateError("Porte");
+      generateError('Porte');
     }
     if (!data.color) {
-      generateError("Tamanho");
+      generateError('Tamanho');
     }
     if (!data.medicalInformation) {
-      generateError("Informações médicas");
+      generateError('Informações médicas');
     }
     if (!data.status) {
-      generateError("Disponibilidade");
+      generateError('Disponibilidade');
     }
-    if (!data.files.length) {
+    /*if (!data.files.length) {
       this.throwError(
         `É obrigatório o anexo de ao menos uma foto do animal.`,
         400
       );
-    }
+    }*/
 
     return new Animal({
       ...dto,
