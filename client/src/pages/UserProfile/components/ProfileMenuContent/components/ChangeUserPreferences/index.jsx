@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import { Form, Checkbox, Row, Col, Button } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Col, Form, Row } from "antd";
 import { axiosRequest } from "../../../../../../utils/axiosRequest";
 import {
   ANIMAL_AGE_GROUPS,
@@ -9,19 +8,29 @@ import {
   ANIMAL_SIZES,
   ANIMAL_TYPES,
 } from "../../../../../../constants";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import showMessage from "../../../../../../utils/Message";
 
-export default function LifestyleStep2({
-  title,
-  description,
-  handler,
-  previousStep,
-  answers,
-  setStepLoading,
-  nextStep,
-}) {
+export default function ChangeUserPreferences({ user }) {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [formReady, setFormReady] = useState(false);
+
+  const [preferences, setPreferences] = useState({
+    animalTypes: null,
+    animalAgeGroups: null,
+    animalSizes: null,
+    animalSexes: null,
+    animalColors: null,
+  });
+
+  const [newPreferences, setNewPreferences] = useState({
+    animalTypes: null,
+    animalAgeGroups: null,
+    animalSizes: null,
+    animalSexes: null,
+    animalColors: null,
+  });
 
   const [formOptions, setFormOptions] = useState({
     animalTypes: [],
@@ -30,15 +39,22 @@ export default function LifestyleStep2({
     animalColors: [],
   });
 
-  const handleStepInfo = async () => {
+  const handleUpdatePreferences = async () => {
+    setLoading(true);
+    await form.validateFields();
     try {
-      setLoading(true);
-      await form.validateFields();
-      nextStep();
-      setLoading(false);
+      await axiosRequest({
+        authenticated: true,
+        method: "PUT",
+        path: "/adopter/preferences",
+        body: newPreferences,
+      });
+      showMessage("success", "Preferências atualizadas com sucesso");
     } catch (error) {
+      showMessage("error", error);
       setLoading(false);
     }
+    setLoading(false);
   };
 
   const [anySelected, setAnySelected] = useState({
@@ -54,10 +70,6 @@ export default function LifestyleStep2({
     { label: "Fêmea", value: "FEMALE" },
   ];
 
-  const handleUserPreferences = (value) => {
-    handler("preferences", value);
-  };
-
   const handleCheckBoxAnswer = (group, selectedOptions) => {
     const result = {};
 
@@ -65,14 +77,14 @@ export default function LifestyleStep2({
       result[selectedOption] = true;
     }
 
-    if (selectedOptions.includes(null) || selectedOptions.includes("")) {
+    if (selectedOptions.includes("")) {
       setAnySelected((prev) => ({ ...prev, [group]: true }));
-      handleUserPreferences({ [group]: null });
+      setNewPreferences((prev) => ({ ...prev, [group]: null }));
       return;
     }
 
     setAnySelected((prev) => ({ ...prev, [group]: false }));
-    handleUserPreferences({ [group]: result });
+    setNewPreferences((prev) => ({ ...prev, [group]: result }));
   };
 
   const getFormInfo = async () => {
@@ -106,45 +118,68 @@ export default function LifestyleStep2({
     setFormReady(true);
   };
 
-  const setPreferencesByPreviousAnswers = () => {
-    if (answers) {
+  const setExistingUserPreferences = () => {
+    if (preferences) {
       const formFieldValues = {};
 
-      Object.keys(answers).forEach((key) => {
-        const value = answers[key];
-        if (typeof value === "object" && value !== null) {
+      Object.keys(preferences).forEach((key) => {
+        const value = preferences[key];
+        if (
+          typeof value === "object" &&
+          value !== null &&
+          Object.keys(value).length
+        ) {
           formFieldValues[key] = Object.keys(value).filter(
             (subKey) => value[subKey]
           );
         } else {
           setAnySelected((prev) => ({ ...prev, [key]: true }));
-          formFieldValues[key] = [null];
+          formFieldValues[key] = [""];
         }
       });
 
       form.setFieldsValue(formFieldValues);
+      setNewPreferences(preferences);
     }
+  };
+
+  const getUserPreferences = async () => {
+    setLoading(true);
+    try {
+      const result = await axiosRequest({
+        authenticated: true,
+        method: "GET",
+        path: "/adopter/preferences",
+      });
+
+      setPreferences(result);
+    } catch (error) {
+      showMessage("error", error);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
     getFormInfo();
-    setPreferencesByPreviousAnswers();
-    setStepLoading(false);
+    getUserPreferences();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setStepLoading]);
+  }, []);
+
+  useEffect(() => {
+    if (formReady) {
+      setExistingUserPreferences();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preferences, formReady]);
 
   return (
     <div className={styles.container}>
-      <div className={styles.stepHeader}>
-        <div className={styles.stepTitle}>
-          <i className="ri-emotion-2-line ri-2x"></i> <span>{title}</span>
-        </div>
-        <span>{description}</span>
-      </div>
+      <h2 className={styles.title}>Preferências</h2>
 
       {formReady && (
         <>
-          <Form className={styles.stepInput} form={form}>
+          <Form form={form} onFinish={handleUpdatePreferences}>
             <Form.Item
               label="Qual tipo de animal você está procurando?"
               name="animalTypes"
@@ -199,7 +234,6 @@ export default function LifestyleStep2({
                 onChange={(value) =>
                   handleCheckBoxAnswer("animalAgeGroups", value)
                 }
-                data-cy="adopter-animal-age"
               >
                 <Row>
                   {formOptions.animalAgeGroups.map((age) => (
@@ -215,7 +249,7 @@ export default function LifestyleStep2({
                       </Checkbox>
                     </Col>
                   ))}
-                  <Col span={8} key={"ANY"}>
+                  <Col span={8} key={"NULL"}>
                     <Checkbox value={""} name="animalAgeGroups">
                       Sem preferência
                     </Checkbox>
@@ -239,7 +273,6 @@ export default function LifestyleStep2({
                 name="animalSizes"
                 style={{ width: "100%" }}
                 onChange={(value) => handleCheckBoxAnswer("animalSizes", value)}
-                data-cy="adopter-animal-sizes"
               >
                 <Row>
                   {formOptions.animalSizes.map((size) => (
@@ -255,7 +288,7 @@ export default function LifestyleStep2({
                       </Checkbox>
                     </Col>
                   ))}
-                  <Col span={8} key={"ANY"}>
+                  <Col span={8} key={"NULL"}>
                     <Checkbox value={""} name="animalSizes">
                       Sem preferência
                     </Checkbox>
@@ -279,7 +312,6 @@ export default function LifestyleStep2({
                 name="animalSexes"
                 style={{ width: "100%" }}
                 onChange={(value) => handleCheckBoxAnswer("animalSexes", value)}
-                data-cy="adopter-animal-sex"
               >
                 <Row>
                   {sexOptions.map((sex) => (
@@ -295,7 +327,7 @@ export default function LifestyleStep2({
                       </Checkbox>
                     </Col>
                   ))}
-                  <Col span={8} key={"ANY"}>
+                  <Col span={8} key={"NULL"}>
                     <Checkbox value={""} name="animalSexes">
                       Sem preferência
                     </Checkbox>
@@ -321,7 +353,6 @@ export default function LifestyleStep2({
                 onChange={(value) =>
                   handleCheckBoxAnswer("animalColors", value)
                 }
-                data-cy="adopter-animal-colors"
               >
                 <Row>
                   {formOptions.animalColors.map((color) => (
@@ -337,7 +368,7 @@ export default function LifestyleStep2({
                       </Checkbox>
                     </Col>
                   ))}
-                  <Col span={8} key={"ANY"}>
+                  <Col span={8} key={"NULL"}>
                     <Checkbox value={""} name="animalColors">
                       Sem preferência
                     </Checkbox>
@@ -345,31 +376,16 @@ export default function LifestyleStep2({
                 </Row>
               </Checkbox.Group>
             </Form.Item>
-          </Form>
-
-          <div className={styles.formActions}>
             <Button
               size="large"
-              className={styles.nextBtn}
+              className={styles.formBtn}
               type="primary"
               htmlType="submit"
               loading={loading}
-              onClick={handleStepInfo}
-              data-cy="next-step-button"
             >
-              Continuar
+              Alterar preferências
             </Button>
-            <Button
-              size="large"
-              className={styles.backBtn}
-              type="link"
-              htmlType="submit"
-              icon={<ArrowLeftOutlined />}
-              onClick={previousStep}
-            >
-              Voltar
-            </Button>
-          </div>
+          </Form>
         </>
       )}
     </div>

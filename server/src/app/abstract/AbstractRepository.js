@@ -49,12 +49,25 @@ export default class AbstractRepository {
   }
 
   /**
-   *
-   * @param {string} prop
-   * @param {*} value
+   * Encontra um registro com base em uma propriedade e seu valor correspondente.
+   * @param {string} prop - Nome da propriedade pela qual o registro deve ser encontrado.
+   * @param {*} value - Valor da propriedade pelo qual o registro deve ser encontrado.
+   * @returns {Promise<Object|null>} - Retorna uma Promise que resolve para o registro encontrado ou null se não encontrado.
    */
   async findByProp(prop, value) {
     return await this.model.findOne({ where: { [`${prop}`]: value } });
+  }
+
+  /**
+   * Encontra e destrói registros com base em uma propriedade e valor específicos.
+   * @param {string} prop - Nome da propriedade pela qual os registros devem ser filtrados.
+   * @param {*} value - Valor da propriedade pelo qual os registros devem ser filtrados.
+   * @returns {Promise<number>} - Retorna o número de registros destruídos.
+   */
+  async destroyByProp(prop, value) {
+    return await this.model.destroy({
+      where: { [prop]: value },
+    });
   }
 
   /**
@@ -264,5 +277,30 @@ export default class AbstractRepository {
       whereCondition: whereCondition ? `WHERE ${whereCondition}` : "",
       replacements,
     };
+  }
+
+  /**
+   * Executa uma query SQL genérica no Sequelize.
+   *
+   * @typedef {'SELECT' | 'UPDATE' | 'INSERT' | 'DELETE' | 'UPSERT' | 'BULKUPDATE' | 'BULKDELETE' | 'VERSION' | 'SHOWTABLES' | 'SHOWINDEXES' | 'DESCRIBE' | 'RAW' | 'FOREIGNKEYS' | 'SELECTCOUNT' | 'SELECTQUERY' | 'SELECTHISTORY'} QueryType
+   *
+   * @param {Object} params
+   * @param {QueryType} params.type - O tipo de query SQL (e.g., 'SELECT', 'UPDATE').
+   * @param {Object} params.replacements - Um objeto contendo os valores para substituir os parâmetros na query.
+   * @param {string} params.query - A query SQL a ser executada.
+   * @returns {Promise<Object[]>} - Uma promessa que resolve com o resultado da query.
+   * @throws {Error} - Lança um erro se a execução da query falhar.
+   */
+  async executeQuery({ type, replacements, query }) {
+    try {
+      const results = await this.sequelize.query(query, {
+        replacements,
+        type: Sequelize.QueryTypes[type],
+      });
+      return results;
+    } catch (error) {
+      console.error(`Error executing query: ${type}`, error.message);
+      throw error;
+    }
   }
 }
