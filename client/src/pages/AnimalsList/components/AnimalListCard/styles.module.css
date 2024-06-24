@@ -1,0 +1,91 @@
+.container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 422px;
+}
+
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  height: 274px;
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel img {
+  width: 100%;
+  height: 274px;
+  object-fit: cover;
+  text-align: center;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.arrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.arrow i {
+  font-size: 24px;
+}
+
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 12px 24px;
+  height: 148px;
+}
+
+.detailsContainer .title {
+  font-size: 1.25rem;
+  text-align: left;
+}
+
+.details {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.topicGroup {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.topic {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  height: 24px;
+}
+
+.topicIcon {
+  color: var(--color1);
+}
+
+.topic span {
+  font-size: 14px;
+}

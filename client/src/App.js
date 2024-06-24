@@ -13,7 +13,7 @@ import {
     OrganizationAccount,
     InvitedAccount,
 } from "./pages/CreateAccount/";
-import ManagerProfile from "./pages/ManagerProfile/index.jsx";
+import AnimalsList from "./pages/AnimalsList/index.jsx";
 // import PetDetails from "./pages/PetDetails/index.jsx";
 
 export default function AppRoutes() {
@@ -71,6 +71,10 @@ export default function AppRoutes() {
                                 <Route
                                     path="invited/:token"
                                     element={<InvitedAccount />}
+                                />
+                                <Route
+                                    path="animals"
+                                    element={<AnimalsList />}
                                 />
 
                                 <Route element={<ProtectedRoute />}>

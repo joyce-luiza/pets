@@ -71,6 +71,15 @@ export default class AbstractRepository {
         return await this.model.findOne({ where: { [`${prop}`]: value } });
     }
 
+    /**
+     *
+     * @param {string} prop
+     * @param {*} value
+     */
+    async findAllByProp(prop, value) {
+        return await this.model.findAll({ where: { [`${prop}`]: value } });
+    }
+
     async findAll() {
         return await this.model.findAll();
     }
@@ -178,5 +187,104 @@ export default class AbstractRepository {
 
             return data;
         }
+    }
+
+    /**
+     * Formats a SQL WHERE condition based on the provided conditions and columns.
+     *
+     * @param {Object} conditions - An object containing the conditions for the WHERE clause. Each key represents a column,
+     *                              and its value is an object with `value` and `operation`.
+     * @param {Object} columns - An object mapping the condition keys to their corresponding column names in the database.
+     * @param {string} [combineWith='AND'] - The logical operator to combine multiple conditions ('AND' or 'OR').
+     *
+     * @returns {Object} An object containing the formatted WHERE condition and the replacements.
+     * @returns {string} return.whereCondition - The formatted WHERE condition string.
+     * @returns {Object} return.replacements - An object containing the replacements for the prepared statement.
+     *
+     * @throws {Error} If an unsupported operation is provided.
+     *
+     * @example
+     * const conditions = {
+     *   name: {
+     *     value: 'Bolt',
+     *     operation: 'LIKE',
+     *   },
+     *   xyzColumn: {
+     *     value: 13,
+     *     operation: '>',
+     *   }
+     * };
+     *
+     * const columnsToFilter = {
+     *   name: 'a.name',
+     *   type: 'at.title',
+     *   sex: 'a.sex',
+     *   state: 'at.state',
+     * };
+     *
+     * const result = formatWhereCondition(conditions, columnsToFilter, 'AND');
+     * console.log(result);
+     * // Output: { whereCondition: "WHERE a.name LIKE :name AND xyzColumn > :xyzColumn", replacements: { name: '%Bolt%', xyzColumn: 13 } }
+     */
+    formatWhereCondition(conditions, columns, combineWith = "AND") {
+        let whereCondition = "";
+        const replacements = {};
+        const columnsKeys = Object.keys(columns);
+        const conditionKeys = Object.keys(conditions);
+
+        if (conditionKeys.length) {
+            const conditionArray = [];
+
+            for (const key of conditionKeys) {
+                if (columnsKeys.includes(key)) {
+                    const columnName = columns[key];
+                    const condition = conditions[key];
+                    const value = condition.value;
+                    const operation = condition.operation.toUpperCase();
+                    const paramName = `${key}`; // Using key as parameter name
+
+                    if (value) {
+                        switch (operation) {
+                            case "LIKE":
+                                conditionArray.push(
+                                    `${columnName} LIKE :${paramName}`
+                                );
+                                replacements[paramName] = `%${value}%`;
+                                break;
+                            case "=":
+                            case ">":
+                            case "<":
+                            case ">=":
+                            case "<=":
+                            case "<>":
+                                conditionArray.push(
+                                    `${columnName} ${operation} :${paramName}`
+                                );
+                                replacements[paramName] = value;
+                                break;
+                            case "IN":
+                                conditionArray.push(
+                                    `${columnName} IN (:${paramName})`
+                                );
+                                replacements[paramName] = value.split(",");
+                                break;
+                            default:
+                                throw new Error(
+                                    `Unsupported operation: ${operation}`
+                                );
+                        }
+                    }
+                }
+            }
+
+            if (conditionArray.length) {
+                whereCondition = conditionArray.join(` ${combineWith} `);
+            }
+        }
+
+        return {
+            whereCondition: whereCondition ? `WHERE ${whereCondition}` : "",
+            replacements,
+        };
     }
 }
