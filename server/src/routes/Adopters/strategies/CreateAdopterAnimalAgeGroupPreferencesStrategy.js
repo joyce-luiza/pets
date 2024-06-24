@@ -38,7 +38,10 @@ export default class CreateAdopterAnimalAgeGroupPreferencesStrategy extends Abst
       );
     }
 
-    if (preferences.animalAgeGroups === null) {
+    if (
+      preferences.animalAgeGroups === null ||
+      !Object.keys(preferences.animalAgeGroups).length
+    ) {
       return;
     }
 

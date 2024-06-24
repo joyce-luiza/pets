@@ -1,43 +1,45 @@
 import AbstractFactory from "../../../app/abstract/AbstractFactory";
 import {
-  AddressRepository,
   AdopterAnimalAgeGroupPreferenceRepository,
   AdopterAnimalColorPreferenceRepository,
   AdopterAnimalSizePreferenceRepository,
   AdopterAnimalTypePreferenceRepository,
   AdopterPreferenceRepository,
-  AdopterRepository,
   AnimalAgeGroupRepository,
   AnimalColorRepository,
   AnimalSizeRepository,
   AnimalTypeRepository,
   LifestyleRepository,
   AdopterAnimalSexPreferenceRepository,
+  AdopterRepository,
 } from "../../../app/repositories";
 import {
-  ValidateAddressRequiredFields,
   ValidateAdopterPreferencesRequiredFields,
-  ValidateAdopterLifestyleRequiredFields,
-  FindAdopterByIdStrategy,
-  CreateAdopterAddressStrategy,
-  CreateAdopterPreferencesStrategy,
   CreateAdopterLifestyleStrategy,
   CreateAdopterAnimalTypePreferencesStrategy,
   CreateAdopterAnimalSizePreferencesStrategy,
   CreateAdopterAnimalColorPreferencesStrategy,
   CreateAdopterAnimalAgeGroupPreferencesStrategy,
   CreateAdopterAnimalSexPreferencesStrategy,
+  GetAdopterPreferenceForComplementStrategy,
+  RemoveAllPreviousAdopterPreferencesStrategy,
+  GetAdopterPreferencesStrategy,
 } from "../strategies";
 
-class CreateAdopterLifestyleAndPreferencesFactory extends AbstractFactory {
+class UpdateAdopterPreferencesFactory extends AbstractFactory {
   constructor() {
     super([
-      new ValidateAddressRequiredFields(),
       new ValidateAdopterPreferencesRequiredFields(),
-      new ValidateAdopterLifestyleRequiredFields(),
-      new FindAdopterByIdStrategy(AdopterRepository),
-      new CreateAdopterAddressStrategy(AddressRepository),
-      new CreateAdopterPreferencesStrategy(AdopterPreferenceRepository),
+      new GetAdopterPreferenceForComplementStrategy(
+        AdopterPreferenceRepository
+      ),
+      new RemoveAllPreviousAdopterPreferencesStrategy(
+        AdopterAnimalTypePreferenceRepository,
+        AdopterAnimalSizePreferenceRepository,
+        AdopterAnimalColorPreferenceRepository,
+        AdopterAnimalSexPreferenceRepository,
+        AdopterAnimalAgeGroupPreferenceRepository
+      ),
       new CreateAdopterAnimalTypePreferencesStrategy(
         AdopterAnimalTypePreferenceRepository,
         AnimalTypeRepository
@@ -57,9 +59,9 @@ class CreateAdopterLifestyleAndPreferencesFactory extends AbstractFactory {
         AdopterAnimalAgeGroupPreferenceRepository,
         AnimalAgeGroupRepository
       ),
-      new CreateAdopterLifestyleStrategy(LifestyleRepository),
+      new GetAdopterPreferencesStrategy(AdopterRepository),
     ]);
   }
 }
 
-export default CreateAdopterLifestyleAndPreferencesFactory;
+export default UpdateAdopterPreferencesFactory;

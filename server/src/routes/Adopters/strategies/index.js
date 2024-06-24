@@ -14,6 +14,7 @@ import CreateAdopterAnimalSizePreferencesStrategy from "./CreateAdopterAnimalSiz
 import CreateAdopterAnimalColorPreferencesStrategy from "./CreateAdopterAnimalColorPreferencesStrategy";
 import CreateAdopterAnimalAgeGroupPreferencesStrategy from "./CreateAdopterAnimalAgeGroupPreferencesStrategy";
 import CreateAdopterLifestyleStrategy from "./CreateAdopterLifestyleStrategy";
+import CreateAdopterAnimalSexPreferencesStrategy from "./CreateAdopterAnimalSexPreferencesStrategy";
 import CreateOrUpdateAdopterAddressStrategy from "./CreateOrUpdateAdopterAddressStrategy";
 
 // Others
@@ -26,6 +27,10 @@ import DeleteLogicallyByAdopterIdStrategy from "./DeleteLogicallyByAdopterIdStra
 import UpdateAdopterStrategy from "./UpdateAdopterStrategy";
 import FindAdopterAndUpdateProfileImageStrategy from "./FindAdopterAndUpdateProfileImageStrategy";
 import FindLoggedAdopterAddressStrategy from "./FindLoggedAdopterAddressStrategy";
+import GetAdopterPreferencesStrategy from "./GetAdopterPreferencesStrategy";
+import GetAdopterPreferencesStrategy from "./GetAdopterPreferencesStrategy";
+import GetAdopterPreferenceForComplementStrategy from "./GetAdopterPreferenceForComplementStrategy";
+import RemoveAllPreviousAdopterPreferencesStrategy from "./RemoveAllPreviousAdopterPreferencesStrategy";
 
 export {
   ValidateAdopterRequiredFieldsStrategy,
@@ -51,4 +56,8 @@ export {
   FindLoggedAdopterAddressStrategy,
   ValidateRequiredFieldsToUpdateAddress,
   CreateOrUpdateAdopterAddressStrategy,
+  GetAdopterPreferencesStrategy,
+  CreateAdopterAnimalSexPreferencesStrategy,
+  GetAdopterPreferenceForComplementStrategy,
+  RemoveAllPreviousAdopterPreferencesStrategy,
 };

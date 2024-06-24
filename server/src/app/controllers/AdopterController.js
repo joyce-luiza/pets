@@ -8,6 +8,8 @@ import {
   GetByEmailAdopterFactory,
   GetAdopterAddressAdopterFactory,
   UpdateAdopterAddressAdopterFactory,
+  GetAdopterPreferencesFactory,
+  UpdateAdopterPreferencesFactory,
 } from "../../routes/Adopters/factories";
 import { Address, Adopter, AdopterComplement, File } from "../domains";
 
@@ -22,6 +24,8 @@ export default class AdopterController {
     this.updateProfileImage = this.updateProfileImage.bind(this);
     this.getAdopterAddress = this.getAdopterAddress.bind(this);
     this.updateAdopterAddress = this.updateAdopterAddress.bind(this);
+    this.getAdopterPreferences = this.getAdopterPreferences.bind(this);
+    this.updateAdopterPreferences = this.updateAdopterPreferences.bind(this);
   }
 
   async create(req, res, next) {
@@ -92,9 +96,25 @@ export default class AdopterController {
     const result = await factory.execute(null, req.loggedUserInfo);
     res.json(result);
   }
+
   async updateAdopterAddress(req, res, next) {
     const domain = new Address(req.body);
     const factory = new UpdateAdopterAddressAdopterFactory();
+    const result = await factory.execute(domain, req.loggedUserInfo);
+    res.json(result);
+  }
+
+  async getAdopterPreferences(req, res, next) {
+    const factory = new GetAdopterPreferencesFactory();
+    const result = await factory.execute(null, req.loggedUserInfo);
+    res.json(result);
+  }
+
+  async updateAdopterPreferences(req, res, next) {
+    const domain = new AdopterComplement({
+      preferences: req.body,
+    });
+    const factory = new UpdateAdopterPreferencesFactory();
     const result = await factory.execute(domain, req.loggedUserInfo);
     res.json(result);
   }

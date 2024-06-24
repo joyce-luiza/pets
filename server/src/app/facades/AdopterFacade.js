@@ -3,6 +3,8 @@ import {
   GetAdopterAddressCommand,
   GetByEmailCommand,
   UpdateAdopterAddressCommand,
+  GetAdopterPreferencesCommand,
+  UpdateAdopterPreferencesCommand,
 } from "../../routes/Adopters/commands";
 import AbstractFacade from "../abstract/AbstractFacade";
 import { UpdateProfileImageCommand } from "../commands";
@@ -15,6 +17,8 @@ export default class AdopterFacade extends AbstractFacade {
     this.getByEmail = this.getByEmail.bind(this);
     this.getAdopterAddress = this.getAdopterAddress.bind(this);
     this.updateAdopterAddress = this.updateAdopterAddress.bind(this);
+    this.getAdopterPreferences = this.getAdopterPreferences.bind(this);
+    this.updateAdopterPreferences = this.updateAdopterPreferences.bind(this);
   }
 
   async createComplement(req, res, next) {
@@ -52,9 +56,28 @@ export default class AdopterFacade extends AbstractFacade {
       this.handleError(res, error);
     }
   }
+
   async updateAdopterAddress(req, res, next) {
     try {
       const command = new UpdateAdopterAddressCommand(this.controller);
+      await command.execute(req, res, next);
+    } catch (error) {
+      this.handleError(res, error);
+    }
+  }
+
+  async getAdopterPreferences(req, res, next) {
+    try {
+      const command = new GetAdopterPreferencesCommand(this.controller);
+      await command.execute(req, res, next);
+    } catch (error) {
+      this.handleError(res, error);
+    }
+  }
+
+  async updateAdopterPreferences(req, res, next) {
+    try {
+      const command = new UpdateAdopterPreferencesCommand(this.controller);
       await command.execute(req, res, next);
     } catch (error) {
       this.handleError(res, error);
