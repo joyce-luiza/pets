@@ -1,5 +1,6 @@
 import AbstractStrategy from "../../../app/abstract/AbstractStrategy";
-import { Adoption } from "../../../app/domains";
+import { Adoption, Organization, Adopter } from "../../../app/domains";
+import { AnimalAdapter } from "../../../app/domains/adapters";
 import { AdoptionResult } from "../../../app/domains/result";
 
 /**
@@ -8,9 +9,16 @@ import { AdoptionResult } from "../../../app/domains/result";
  * @extends AbstractStrategy
  */
 export default class GetAdoptionByIdStrategy extends AbstractStrategy {
-    constructor(adoptionRepository, resultRepository) {
+    constructor(
+        adoptionRepository,
+        animalRepository,
+        adopterRepository,
+        resultRepository
+    ) {
         super();
         this.adoptionRepository = adoptionRepository;
+        this.animalRepository = animalRepository;
+        this.adopterRepository = adopterRepository;
         this.resultRepository = resultRepository;
     }
 
@@ -18,18 +26,32 @@ export default class GetAdoptionByIdStrategy extends AbstractStrategy {
      * @param {String} id - The data object containing adoption id.
      */
     async execute({ id }) {
+        // Get adoption
         const adoption = await this.adoptionRepository.findActiveAdoptionById(
             id
         );
 
+        // Get adopter
+        const adopter = await this.adopterRepository.findActiveAdopterById(
+            adoption.adopterId
+        );
+
+        // Get animal with files
+        const animal = await this.animalRepository.getWithFilesById({
+            id: adoption.animalId,
+        });
+
+        // Get result title
         const resultId = adoption.resultId;
 
         const { title } = await this.resultRepository.findById(resultId);
 
         const adoptionData = new Adoption(adoption);
 
-        const formattedAdoption = { ...adoptionData, result: title };
-
-        return new AdoptionResult(formattedAdoption);
+        return {
+            adoption: new AdoptionResult({ ...adoptionData, result: title }),
+            adopter: new Adopter(adopter),
+            animal: new AnimalAdapter(animal),
+        };
     }
 }

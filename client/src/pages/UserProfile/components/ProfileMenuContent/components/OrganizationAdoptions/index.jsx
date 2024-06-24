@@ -208,7 +208,7 @@ export default function OrganizationAdoptions() {
                     </>
                 ) : (
                     <AdoptionDetails
-                        adoption={selectedAdoption}
+                        adoptionData={selectedAdoption}
                         onBack={() => setSelectedAdoption(null)}
                     />
                 )}

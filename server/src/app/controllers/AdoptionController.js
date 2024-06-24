@@ -6,7 +6,8 @@ import {
     RejectOtherAdoptionsFactory,
     UpdateAdoptionFactory,
 } from "../../routes/Adoptions/factories";
-import { Adopter, Adoption, Pagination } from "../domains";
+import VerifyAdoptionInProgressFactory from "../../routes/Adoptions/factories/VerifyAdoptionInProgressFactory";
+import { Adopter, Adoption, Animal, Pagination } from "../domains";
 
 export default class AdoptionController {
     constructor() {
@@ -55,6 +56,13 @@ export default class AdoptionController {
         };
         const factory = new UpdateAdoptionFactory();
         const result = await factory.execute(adoption);
+        res.json(result);
+    }
+
+    async verifyAdoptionInProgress(req, res, next) {
+        const animal = new Animal({ id: req.params.id });
+        const factory = new VerifyAdoptionInProgressFactory();
+        const result = await factory.execute(animal, req.loggedUserInfo);
         res.json(result);
     }
 }

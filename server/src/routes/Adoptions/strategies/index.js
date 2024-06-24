@@ -7,6 +7,7 @@ import RejectOtherAdoptionsStrategy from "./RejectOtherAdoptionsStrategy";
 import SendApprovedAdoptionEmailStrategy from "./SendApprovedAdoptionEmailStrategy";
 import SendRejectAdoptionEmailStrategy from "./SendRejectAdoptionEmailStrategy";
 import GetAdoptionByAdopterIdStrategy from "./GetAdoptionByAdopterIdStrategy";
+import VerifyAdoptionInProgressStrategy from "./VerifyAdoptionInProgressStrategy";
 export {
     CreateAdoptionStrategy,
     FindAllToTableViewStrategy,
@@ -17,4 +18,5 @@ export {
     SendRejectAdoptionEmailStrategy,
     SendApprovedAdoptionEmailStrategy,
     GetAdoptionByAdopterIdStrategy,
+    VerifyAdoptionInProgressStrategy,
 };

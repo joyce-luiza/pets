@@ -1,0 +1,15 @@
+.animalImage {
+    width: 150px;
+    object-fit: cover;
+    border-radius: 0.5em;
+}
+
+.animalInfo {
+    color: var(--gray04);
+}
+
+.divider {
+    width: 0.0625rem;
+    height: 2rem;
+    background: #bdbdbd;
+}

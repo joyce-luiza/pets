@@ -3,21 +3,19 @@ import {
     AdoptionRepository,
     AnimalRepository,
     AdopterRepository,
-    ResultRepository,
 } from "../../../app/repositories";
-import { GetAdoptionByIdStrategy } from "../strategies";
+import { VerifyAdoptionInProgressStrategy } from "../strategies";
 
-class GetAdoptionByIdFactory extends AbstractFactory {
+class VerifyAdoptionInProgressFactory extends AbstractFactory {
     constructor() {
         super([
-            new GetAdoptionByIdStrategy(
+            new VerifyAdoptionInProgressStrategy(
                 AdoptionRepository,
                 AnimalRepository,
-                AdopterRepository,
-                ResultRepository
+                AdopterRepository
             ),
         ]);
     }
 }
 
-export default GetAdoptionByIdFactory;
+export default VerifyAdoptionInProgressFactory;

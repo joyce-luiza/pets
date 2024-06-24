@@ -1,2 +1,3 @@
 import GetByAdopterIdCommand from "./GetByAdopterIdCommand";
-export { GetByAdopterIdCommand };
+import VerifyAdoptionInProgressCommand from "./VerifyAdoptionInProgressCommand";
+export { GetByAdopterIdCommand, VerifyAdoptionInProgressCommand };

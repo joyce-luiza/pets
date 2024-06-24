@@ -12,5 +12,10 @@ adoptionRoutes.get("/table", authMiddleware, facade.findAllToTableView);
 adoptionRoutes.get("/:id", authMiddleware, facade.getById);
 adoptionRoutes.put("/", authMiddleware, facade.update);
 adoptionRoutes.get("/adopter/:id", facade.getByAdopterId);
+adoptionRoutes.get(
+    "/verify/:id",
+    authMiddleware,
+    facade.verifyAdoptionInProgress
+);
 
 export default adoptionRoutes;
