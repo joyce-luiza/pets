@@ -2,9 +2,13 @@
     width: 100%;
 }
 
+.adoptions {
+    height: 100%;
+}
+
 .adoptionsContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3em;
+    gap: 2em;
     margin-top: 3em;
 }

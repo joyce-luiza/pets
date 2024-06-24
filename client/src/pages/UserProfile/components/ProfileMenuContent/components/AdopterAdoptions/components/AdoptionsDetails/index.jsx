@@ -1,40 +1,21 @@
 import React from "react";
-import { Button, Card, Col, Row, Typography, Carousel, Flex } from "antd";
+import { Button, Card, Row, Typography, Carousel, Flex } from "antd";
 import ResultTag from "../../../../../../../../components/ResultTag";
 import {
     RESULTS,
-    ANIMAL_AGE_GROUPS,
     ANIMAL_COLORS,
     ANIMAL_SEX,
     ANIMAL_SIZES,
     ANIMAL_TYPES,
 } from "../../../../../../../../constants";
 import moment from "moment";
+import { getLifetime } from "../../../../../../../../utils/getLifetime";
 import styles from "./styles.module.css";
 
-const { Title, Text, Paragraph } = Typography;
+const { Title, Text } = Typography;
 
 const AdoptionDetails = ({ adoption, onBack }) => {
     const { animal, address, organization } = adoption;
-
-    const getLifetime = (date) => {
-        const inputDate = moment(date);
-        const currentDate = moment();
-        const years = currentDate.diff(inputDate, "years");
-        const months = currentDate.diff(inputDate, "months");
-        const days = currentDate.diff(inputDate, "days");
-
-        if (years >= 1) {
-            return `${years} ${years > 1 ? "anos" : "ano"}`;
-        } else if (months >= 1) {
-            const exactMonths = months % 12;
-            return `${exactMonths} ${exactMonths > 1 ? "meses" : "mês"}`;
-        } else {
-            return `${days} ${days > 1 ? "dias" : "dia"}`;
-        }
-    };
-
-    const age = getLifetime(animal.birthDate);
 
     return (
         <div className={styles.detailsContainer}>
@@ -83,10 +64,12 @@ const AdoptionDetails = ({ adoption, onBack }) => {
                             <Text>{adoption.notes}</Text>
                         </Flex>
 
-                        <Flex vertical gap={8}>
-                            <label>Resposta da organização</label>
-                            <Text>{adoption.organizationReply}</Text>
-                        </Flex>
+                        {adoption.organizationReply && (
+                            <Flex vertical gap={8}>
+                                <label>Resposta da organização</label>
+                                <Text>{adoption.organizationReply}</Text>
+                            </Flex>
+                        )}
                     </Flex>
                 </Card>
             </Row>
@@ -98,10 +81,7 @@ const AdoptionDetails = ({ adoption, onBack }) => {
                 >
                     <Flex gap={40}>
                         {animal.files.length > 0 && (
-                            <Carousel
-                                autoplay
-                                className={styles.carouselContainer}
-                            >
+                            <Carousel className={styles.carouselContainer}>
                                 {animal.files.map((file) => (
                                     <div key={file.id}>
                                         <img
@@ -137,7 +117,9 @@ const AdoptionDetails = ({ adoption, onBack }) => {
                                     </Flex>
                                     <Flex vertical gap={8}>
                                         <label>Idade</label>
-                                        <Text>{age}</Text>
+                                        <Text>
+                                            {getLifetime(animal.birthDate)}
+                                        </Text>
                                     </Flex>
                                 </Flex>
 
