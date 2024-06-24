@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { Typography, Flex, Button, Input, Table, Tooltip } from "antd";
+import { Typography, Flex, Button, Input, Table, Tooltip, Empty } from "antd";
 import Column from "antd/es/table/Column";
 import { axiosRequest } from "../../../../../../utils/axiosRequest";
 import showMessage from "../../../../../../utils/Message";
@@ -20,6 +20,12 @@ export default function OrganizationMembers({ user }) {
     const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
     const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    let locale = {
+        emptyText: (
+            <Empty description="Não há outros membros por enquanto."></Empty>
+        ),
+    };
 
     const showInviteModal = () => {
         setIsInviteModalOpen(true);
@@ -155,6 +161,7 @@ export default function OrganizationMembers({ user }) {
                         pagination={{ total: 47 }}
                         rowClassName={styles.tableRow}
                         headerClassName={styles.headerRow}
+                        locale={locale}
                     >
                         {columns.length &&
                             columns.map(({ title, key, dataIndex, width }) => {
