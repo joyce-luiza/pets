@@ -22,15 +22,11 @@ export default function AdopterSidebar({ setContent, content }) {
       </li>
       <li key={"Lifestyle"}>
         <i className="ri-open-arm-line ri-xl"></i>
-        <p>Lifestyle</p>
+        <p>Estilo de vida</p>
       </li>
       <li key={"ChangePassword"}>
         <i className="ri-lock-password-line ri-xl"></i>
         <p>Alterar senha</p>
-      </li>
-      <li key={"Logout"}>
-        <i className="ri-logout-box-line ri-xl"></i>
-        <p>Sair</p>
       </li>
     </ProfileSidebar>
   );
