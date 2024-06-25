@@ -30,8 +30,6 @@ animalRoutes.put(
   facade.update
 );
 animalRoutes.delete('/:id', authMiddleware, facade.deleteLogicallyById);
-
-//não esquecer o authMiddleware
 animalRoutes.get('/details/:id', facade.GetAnimalDetailsById);
 
 export default animalRoutes;

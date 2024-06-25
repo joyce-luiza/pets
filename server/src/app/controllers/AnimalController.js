@@ -6,6 +6,7 @@ import {
   UpdateAnimalFactory,
   DeleteLogicallyByAnimalIdFactory,
   GetByIdAnimalFactory,
+  GetAnimalDetailsByIdFactory,
 } from '../../routes/Animals/factories';
 import { Pagination, Animal } from '../domains';
 import { AnimalAdapter } from '../domains/adapters';

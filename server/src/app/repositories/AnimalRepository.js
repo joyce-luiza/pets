@@ -123,7 +123,7 @@ class AnimalRepository extends AbstractRepository {
       replacements.search = `${search}%`;
     }
     if (organizationId) {
-      animalQuery += `WHERE a.organization_id = :organizationId `;
+      animalQuery += `AND a.organization_id = :organizationId `;
       replacements.organizationId = `${organizationId}`;
     }
     if (typeFilter && typeFilter.length > 0) {
