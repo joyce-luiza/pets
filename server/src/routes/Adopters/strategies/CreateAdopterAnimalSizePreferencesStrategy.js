@@ -33,7 +33,10 @@ export default class CreateAdopterAnimalSizePreferencesStrategy extends Abstract
       this.throwError("Não foi possível recuperar os tamanhos de animais.");
     }
 
-    if (preferences.animalSizes === null) {
+    if (
+      preferences.animalSizes === null ||
+      !Object.keys(preferences.animalSizes).length
+    ) {
       return;
     }
 

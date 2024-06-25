@@ -1,38 +1,32 @@
 {
-    "organization": {
-        "name": "ONG Acolhendo Bichinhos",
-        "cnpj": "00.000.000/0000-01",
-        "description": "A ONG Acolhendo Bichinhos foi criada em 2020 com o objetivo de acolher animais em situação de vulnerabilidade e designar um lar para cada um deles.",
-        "email": "contato@acolhendobichinhos.com",
-        "phoneNumber": "(10) 98765-4321"
-    },
-    "organizationMember": {
-        "firstName": "Bruno",
-        "lastName": "Lourenço",
-        "email": "brunolourenco@email.com",
-        "phoneNumber": "(11) 98765-4321",
-        "birthDate": "01-05-2000",
-        "password": "Senha!1234"
-    },
-    "address": {
-        "street": "Rua Vinte e Cinco de Janeiro",
-        "city": "Poá",
-        "state": "SP",
-        "cep": "08560-140",
-        "residenceType": "N/A",
-        "number": "100"
-    },
-    "installations": {
-        "dogQty": "100",
-        "operatingDays": [
-            "MONDAY",
-            "TUESDAY",
-            "WEDNESDAY",
-            "THURSDAY",
-            "FRIDAY"
-        ],
-        "openingTime": "09:00",
-        "closingTime": "18:00"
-    },
-    "invites": ["joyceluizabrito@gmail.com", "jean.rabello.prog@gmail.com"]
+  "organization": {
+    "name": "ONG Acolhendo Bichinhos",
+    "cnpj": "00.000.000/0000-01",
+    "description": "A ONG Acolhendo Bichinhos foi criada em 2020 com o objetivo de acolher animais em situação de vulnerabilidade e designar um lar para cada um deles.",
+    "email": "contato@acolhendobichinhos.com",
+    "phoneNumber": "(10) 98765-4321"
+  },
+  "organizationMember": {
+    "firstName": "Bruno",
+    "lastName": "Lourenço",
+    "email": "brunolourenco@email.com",
+    "phoneNumber": "(11) 98765-4321",
+    "birthDate": "01-05-2000",
+    "password": "Senha!1234"
+  },
+  "address": {
+    "street": "Rua Vinte e Cinco de Janeiro",
+    "city": "Poá",
+    "state": "SP",
+    "cep": "08560140",
+    "residenceType": "N/A",
+    "number": "100"
+  },
+  "installations": {
+    "dogQty": "100",
+    "operatingDays": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"],
+    "openingTime": "09:00",
+    "closingTime": "18:00"
+  },
+  "invites": ["joyceluizabrito@gmail.com", "jean.rabello.prog@gmail.com"]
 }

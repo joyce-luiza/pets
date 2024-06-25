@@ -18,6 +18,7 @@ import StatusesRepository from "./StatusesRepository";
 import StatusesRepository from "./StatusesRepository";
 import AnimalRepository from "./AnimalRepository";
 import AnimalFileRepository from "./AnimalFileRepository";
+import AdopterAnimalSexPreferenceRepository from "./AdopterAnimalSexPreferenceRepository";
 
 export {
   AdopterRepository,
@@ -39,4 +40,5 @@ export {
   StatusesRepository,
   AnimalRepository,
   AnimalFileRepository,
+  AdopterAnimalSexPreferenceRepository,
 };

@@ -12,14 +12,19 @@ const facade = new AnimalFacade(controller);
 animalRoutes.post(
   '/',
   authMiddleware,
+
+  authMiddleware,
   multerUpload.array('files'),
+
   facade.create
 );
 animalRoutes.get(
   '/table',
   multerUpload.array('files'),
+  authMiddleware,
   facade.findAllToTableView
 );
+animalRoutes.get('/card/list', facade.findAllCardListView);
 animalRoutes.get('/:id', multerUpload.array('files'), facade.getById);
 animalRoutes.put(
   '/',

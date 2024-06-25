@@ -31,8 +31,9 @@ export default function ProfileSidebar({
 
   const customRequest = async ({ file, onSuccess, onError }) => {
     try {
+      let imageUrl = "";
       if (isAdopter) {
-        await axiosRequest({
+        imageUrl = await axiosRequest({
           method: "PUT",
           authenticated: true,
           body: {
@@ -41,8 +42,9 @@ export default function ProfileSidebar({
           type: "multipart",
           path: "/adopter/image",
         });
+        console.log(imageUrl);
       } else {
-        await axiosRequest({
+        imageUrl = await axiosRequest({
           method: "PUT",
           authenticated: true,
           body: {
@@ -51,6 +53,12 @@ export default function ProfileSidebar({
           type: "multipart",
           path: "/member/image",
         });
+      }
+      let user = JSON.parse(localStorage.getItem("user"));
+
+      if (user) {
+        user.imageUrl = imageUrl;
+        localStorage.setItem("user", JSON.stringify(user));
       }
       onSuccess();
     } catch (error) {

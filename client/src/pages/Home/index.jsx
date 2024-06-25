@@ -1,38 +1,38 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import { Button, Form, Select, Typography } from 'antd';
-import { axiosRequest } from '../../utils/axiosRequest';
 import PetCard from '../../components/PetCard';
 import styles from './styles.module.css';
 import testimonialImage1 from './images/testimonial1.png';
 import ctaImage from './images/cta.png';
 import Footer from '../../layout/Footer';
+import {
+  ANIMAL_AGE_GROUPS,
+  ANIMAL_TYPES,
+  BRAZILIAN_STATES,
+} from '../../constants';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;
 
 export default function Home() {
-  const [loading, setLoading] = useState(false);
-  const [cities, setCities] = useState(false);
+  const states = Object.keys(BRAZILIAN_STATES).map((key, index) => ({
+    id: index,
+    value: key,
+    label: BRAZILIAN_STATES[key],
+  }));
 
-  useEffect(() => {
-    const getCities = async () => {
-      setLoading(true);
-      const result = await axiosRequest({
-        basePath: false,
-        path: `https://servicodados.ibge.gov.br/api/v1/localidades/estados/35/municipios`,
-      });
-      setCities(
-        result.map((city) => {
-          return {
-            id: city.id,
-            value: city.nome,
-            label: `${city.nome} - SP`,
-          };
-        })
-      );
-      setLoading(false);
-    };
-    getCities();
-  }, []);
+  const [filter, setFilter] = useState({});
+  const navigate = useNavigate();
+
+  const searchAnimals = () => {
+    const queryParams = Object.keys(filter).length
+      ? `?${Object.keys(filter)
+          .map((key) => `${key}=${filter[key]}`)
+          .join('&')}`
+      : '';
+
+    navigate(`/animals/${queryParams}`);
+  };
 
   return (
     <>
@@ -40,19 +40,12 @@ export default function Home() {
         <Title level={1} style={{ margin: 0 }}>
           Encontre seu novo melhor amigo
         </Title>
-        <p>
+        <span>
           Sua nova melhor amizade está apenas a um clique de distância. [Nome do
           site] está cheio de animais adoráveis esperando por um lar amoroso.
-        </p>
+        </span>
         <div>
-          <Form
-            className={styles.searchBox}
-            layout="vertical"
-            initialValues={{
-              email: '',
-              password: '',
-            }}
-          >
+          <Form className={styles.searchBox} layout="vertical">
             <>
               <Form.Item
                 name="type"
@@ -62,24 +55,13 @@ export default function Home() {
                 <Select
                   size="large"
                   placeholder="Selecione o tipo de pet"
-                  options={[
-                    {
-                      value: 'Cachorro',
-                      label: <span>Cachorro</span>,
-                    },
-                    {
-                      value: 'Gato',
-                      label: <span>Gato</span>,
-                    },
-                    {
-                      value: 'Coelho',
-                      label: <span>Coelho</span>,
-                    },
-                    {
-                      value: 'Pássaro',
-                      label: <span>Pássaro</span>,
-                    },
-                  ]}
+                  options={Object.keys(ANIMAL_TYPES).map((key) => ({
+                    value: key,
+                    label: <span>{ANIMAL_TYPES[key]}</span>,
+                  }))}
+                  onSelect={(types) =>
+                    setFilter((prev) => ({ ...prev, types }))
+                  }
                 />
               </Form.Item>
 
@@ -91,24 +73,13 @@ export default function Home() {
                 <Select
                   size="large"
                   placeholder="Selecione a faixa etária do pet"
-                  options={[
-                    {
-                      value: 'Filhote (1 a 12 meses)',
-                      label: <span>Filhote (1 a 12 meses)</span>,
-                    },
-                    {
-                      value: 'Adulto (1 a 7 anos)',
-                      label: <span>Adulto (1 a 7 anos)</span>,
-                    },
-                    {
-                      value: 'Sênior (7 anos ou mais)',
-                      label: <span>Sênior (7 anos ou mais)</span>,
-                    },
-                    {
-                      value: 'Não tenho preferência',
-                      label: <span>Não tenho preferência</span>,
-                    },
-                  ]}
+                  options={Object.keys(ANIMAL_AGE_GROUPS).map((key) => ({
+                    value: key,
+                    label: <span>{ANIMAL_AGE_GROUPS[key]}</span>,
+                  }))}
+                  onSelect={(ageGroups) =>
+                    setFilter((prev) => ({ ...prev, ageGroups }))
+                  }
                 />
               </Form.Item>
               <Form.Item
@@ -129,24 +100,20 @@ export default function Home() {
                       .toLowerCase()
                       .localeCompare((optionB?.label ?? '').toLowerCase())
                   }
-                  options={cities}
+                  options={states}
+                  onSelect={(states) =>
+                    setFilter((prev) => ({ ...prev, states }))
+                  }
                 />
               </Form.Item>
-              <Form.Item>
-                <Button
-                  block
-                  size="large"
-                  type="primary"
-                  loading={loading}
-                  htmlType="submit"
-                >
-                  Procurar
-                </Button>
-              </Form.Item>
             </>
+            <Button block size="large" type="primary" onClick={searchAnimals}>
+              Procurar
+            </Button>
           </Form>
         </div>
       </section>
+
       <section id={styles.recomendations}>
         <div className="sectionTitle">
           <span>Recomendações</span>
@@ -164,6 +131,7 @@ export default function Home() {
           </Button>
         </div>
       </section>
+
       <section id={styles.testimonials}>
         <div className="sectionTitle">
           <span>Depoimentos</span>
@@ -172,7 +140,7 @@ export default function Home() {
         <div className={styles.testimonials}>
           <div className={styles.testimonial}>
             <div>
-              <i class="ri-double-quotes-l ri-2x"></i>
+              <i className="ri-double-quotes-l ri-2x"></i>
               <p>
                 Adotar meu fiel companheiro pela plataforma de adoção de animais
                 foi uma das melhores decisões que já tomei. O processo foi
@@ -200,7 +168,7 @@ export default function Home() {
               }}
             ></div>
             <div>
-              <i class="ri-double-quotes-l ri-2x"></i>
+              <i className="ri-double-quotes-l ri-2x"></i>
               <p>
                 Adotar meu fiel companheiro pela plataforma de adoção de animais
                 foi uma das melhores decisões que já tomei. O processo foi
@@ -214,6 +182,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <section id={styles.process}>
         <div className="sectionTitle">
           <span>Processo</span>
@@ -221,7 +190,7 @@ export default function Home() {
         </div>
         <div className={styles.adoptionProcess}>
           <div className={styles.adoptionStep}>
-            <i class="ri-pass-valid-line ri-2x"></i>
+            <i className="ri-pass-valid-line ri-2x"></i>
             <Title level={4}>Cadastro e pesquisa</Title>
             <Paragraph>
               Os adotantes criam uma conta na plataforma e usam a função de
@@ -229,7 +198,7 @@ export default function Home() {
             </Paragraph>
           </div>
           <div className={styles.adoptionStep}>
-            <i class="ri-calendar-check-line ri-2x"></i>
+            <i className="ri-calendar-check-line ri-2x"></i>
             <Title level={4}>Agendamento e Visita</Title>
             <Paragraph>
               Depois de encontrar um animal que desejam adotar, os adotantes
@@ -238,7 +207,7 @@ export default function Home() {
             </Paragraph>
           </div>
           <div className={styles.adoptionStep}>
-            <i class="ri-calendar-check-line ri-2x"></i>
+            <i className="ri-calendar-check-line ri-2x"></i>
             <Title level={4}>Processo de Adoção</Title>
             <Paragraph>
               Se os adotantes decidem adotar, a organização guia o processo,
@@ -247,7 +216,7 @@ export default function Home() {
             </Paragraph>
           </div>
           <div className={styles.adoptionStep}>
-            <i class="ri-home-heart-line ri-2x"></i>
+            <i className="ri-home-heart-line ri-2x"></i>
             <Title level={4}>Acolhimento do Pet</Title>
             <Paragraph>
               Após a conclusão bem-sucedida do processo de adoção, o animal é
@@ -256,6 +225,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <section id={styles.callToAction}>
         <div>
           <div id={styles.callToActionTitle} className="sectionTitle">

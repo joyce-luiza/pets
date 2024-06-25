@@ -16,6 +16,7 @@ import Address from "./address";
 import Lifestyle from "./lifestyle";
 import Animal from "./animal";
 import AnimalFile from "./animalFile";
+import AdopterAnimalSexPreference from "./adopterAnimalSexPreference";
 
 export {
   Status,
@@ -36,4 +37,5 @@ export {
   OrganizationInvite,
   Animal,
   AnimalFile,
+  AdopterAnimalSexPreference,
 };

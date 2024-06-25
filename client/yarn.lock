@@ -2734,11 +2734,6 @@ ajv@^8.0.0, ajv@^8.6.0, ajv@^8.9.0:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-animate.css@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
-  integrity sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==
-
 ansi-escapes@^4.2.1, ansi-escapes@^4.3.1:
   version "4.3.2"
   resolved "https://registry.npmjs.org/ansi-escapes/-/ansi-escapes-4.3.2.tgz"
@@ -2787,7 +2782,7 @@ ansi-styles@^6.1.0:
 
 antd-img-crop@^4.22.0:
   version "4.22.0"
-  resolved "https://registry.npmjs.org/antd-img-crop/-/antd-img-crop-4.22.0.tgz"
+  resolved "https://registry.yarnpkg.com/antd-img-crop/-/antd-img-crop-4.22.0.tgz#4d58bd202b2d987c603bb3d57abcb5e0881642f1"
   integrity sha512-mfGujUUH+rf9L4ENx7yFJPkvtnEjvexWmR1/kycHzVUnMlC1UBtFMKcXgYvtNl/JTAW6jRVRc1asjzGr9idIZA==
   dependencies:
     compare-versions "6.1.0"

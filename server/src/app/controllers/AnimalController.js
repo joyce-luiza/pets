@@ -1,5 +1,6 @@
 import {
   CreateAnimalFactory,
+  FindAllCardListViewFactory,
   FindAllToTableViewFactory,
   UpdateAnimalFactory,
   DeleteLogicallyByAnimalIdFactory,
@@ -15,6 +16,7 @@ export default class AnimalController {
     this.update = this.update.bind(this);
     this.deleteLogicallyById = this.deleteLogicallyById.bind(this);
     this.getById = this.getById.bind(this);
+    this.findAllCardListView = this.findAllCardListView.bind(this);
   }
 
   async create(req, res, next) {
@@ -62,4 +64,17 @@ export default class AnimalController {
     const result = await factory.execute(animal, req.loggedUserInfo);
     res.json(result);
   }*/
+
+  async findAllCardListView(req, res, next) {
+    const { page, size, ...rest } = req.query;
+
+    const domain = new Pagination({
+      page,
+      size,
+      conditions: rest,
+    });
+    const factory = new FindAllCardListViewFactory();
+    const result = await factory.execute(domain, req.loggedUserInfo);
+    res.json(result);
+  }
 }

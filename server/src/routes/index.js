@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import authMiddleware from '../middlewares/auth';
+
 import adopterRoutes from './Adopters/routes';
 import authenticationRoutes from './Authentication/routes';
 import animalTypesRoutes from './AnimalTypes/routes';

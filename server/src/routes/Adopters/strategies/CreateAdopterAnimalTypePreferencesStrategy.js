@@ -33,7 +33,10 @@ export default class CreateAdopterAnimalTypePreferencesStrategy extends Abstract
       this.throwError("Não foi possível recuperar os tipos de animais.");
     }
 
-    if (preferences.animalTypes === null) {
+    if (
+      preferences.animalTypes === null ||
+      !Object.keys(preferences.animalTypes).length
+    ) {
       return;
     }
 

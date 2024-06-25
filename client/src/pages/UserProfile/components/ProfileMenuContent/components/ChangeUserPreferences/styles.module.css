@@ -1,0 +1,18 @@
+.container {
+  max-width: 60rem;
+  min-width: 45rem;
+  display: flex;
+  flex-direction: column;
+
+  gap: 2.5rem;
+}
+
+.title {
+  text-align: start;
+  font-size: 2.5rem;
+}
+
+.formBtn {
+  margin-top: 1rem;
+  width: 100%;
+}

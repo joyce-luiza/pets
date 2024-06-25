@@ -49,12 +49,34 @@ export default class AbstractRepository {
   }
 
   /**
+   * Encontra um registro com base em uma propriedade e seu valor correspondente.
+   * @param {string} prop - Nome da propriedade pela qual o registro deve ser encontrado.
+   * @param {*} value - Valor da propriedade pelo qual o registro deve ser encontrado.
+   * @returns {Promise<Object|null>} - Retorna uma Promise que resolve para o registro encontrado ou null se não encontrado.
+   */
+  async findByProp(prop, value) {
+    return await this.model.findOne({ where: { [`${prop}`]: value } });
+  }
+
+  /**
+   * Encontra e destrói registros com base em uma propriedade e valor específicos.
+   * @param {string} prop - Nome da propriedade pela qual os registros devem ser filtrados.
+   * @param {*} value - Valor da propriedade pelo qual os registros devem ser filtrados.
+   * @returns {Promise<number>} - Retorna o número de registros destruídos.
+   */
+  async destroyByProp(prop, value) {
+    return await this.model.destroy({
+      where: { [prop]: value },
+    });
+  }
+
+  /**
    *
    * @param {string} prop
    * @param {*} value
    */
-  async findByProp(prop, value) {
-    return await this.model.findOne({ where: { [`${prop}`]: value } });
+  async findAllByProp(prop, value) {
+    return await this.model.findAll({ where: { [`${prop}`]: value } });
   }
 
   async findAll() {
@@ -163,6 +185,122 @@ export default class AbstractRepository {
       });
 
       return data;
+    }
+  }
+
+  /**
+   * Formats a SQL WHERE condition based on the provided conditions and columns.
+   *
+   * @param {Object} conditions - An object containing the conditions for the WHERE clause. Each key represents a column,
+   *                              and its value is an object with `value` and `operation`.
+   * @param {Object} columns - An object mapping the condition keys to their corresponding column names in the database.
+   * @param {string} [combineWith='AND'] - The logical operator to combine multiple conditions ('AND' or 'OR').
+   *
+   * @returns {Object} An object containing the formatted WHERE condition and the replacements.
+   * @returns {string} return.whereCondition - The formatted WHERE condition string.
+   * @returns {Object} return.replacements - An object containing the replacements for the prepared statement.
+   *
+   * @throws {Error} If an unsupported operation is provided.
+   *
+   * @example
+   * const conditions = {
+   *   name: {
+   *     value: 'Bolt',
+   *     operation: 'LIKE',
+   *   },
+   *   xyzColumn: {
+   *     value: 13,
+   *     operation: '>',
+   *   }
+   * };
+   *
+   * const columnsToFilter = {
+   *   name: 'a.name',
+   *   type: 'at.title',
+   *   sex: 'a.sex',
+   *   state: 'at.state',
+   * };
+   *
+   * const result = formatWhereCondition(conditions, columnsToFilter, 'AND');
+   * console.log(result);
+   * // Output: { whereCondition: "WHERE a.name LIKE :name AND xyzColumn > :xyzColumn", replacements: { name: '%Bolt%', xyzColumn: 13 } }
+   */
+  formatWhereCondition(conditions, columns, combineWith = 'AND') {
+    let whereCondition = '';
+    const replacements = {};
+    const columnsKeys = Object.keys(columns);
+    const conditionKeys = Object.keys(conditions);
+
+    if (conditionKeys.length) {
+      const conditionArray = [];
+
+      for (const key of conditionKeys) {
+        if (columnsKeys.includes(key)) {
+          const columnName = columns[key];
+          const condition = conditions[key];
+          const value = condition.value;
+          const operation = condition.operation.toUpperCase();
+          const paramName = `${key}`; // Using key as parameter name
+
+          if (value) {
+            switch (operation) {
+              case 'LIKE':
+                conditionArray.push(`${columnName} LIKE :${paramName}`);
+                replacements[paramName] = `%${value}%`;
+                break;
+              case '=':
+              case '>':
+              case '<':
+              case '>=':
+              case '<=':
+              case '<>':
+                conditionArray.push(`${columnName} ${operation} :${paramName}`);
+                replacements[paramName] = value;
+                break;
+              case 'IN':
+                conditionArray.push(`${columnName} IN (:${paramName})`);
+                replacements[paramName] = value.split(',');
+                break;
+              default:
+                throw new Error(`Unsupported operation: ${operation}`);
+            }
+          }
+        }
+      }
+
+      if (conditionArray.length) {
+        whereCondition = conditionArray.join(` ${combineWith} `);
+      }
+    }
+
+    return {
+      whereCondition: whereCondition ? `WHERE ${whereCondition}` : '',
+      replacements,
+    };
+  }
+
+  /**
+   * Executa uma query SQL genérica no Sequelize.
+   *
+   * @typedef {'SELECT' | 'UPDATE' | 'INSERT' | 'DELETE' | 'UPSERT' | 'BULKUPDATE' | 'BULKDELETE' | 'VERSION' | 'SHOWTABLES' | 'SHOWINDEXES' | 'DESCRIBE' | 'RAW' | 'FOREIGNKEYS' | 'SELECTCOUNT' | 'SELECTQUERY' | 'SELECTHISTORY'} QueryType
+   *
+   * @param {Object} params
+   * @param {QueryType} params.type - O tipo de query SQL (e.g., 'SELECT', 'UPDATE').
+   * @param {Object} params.replacements - Um objeto contendo os valores para substituir os parâmetros na query.
+   * @param {string} params.query - A query SQL a ser executada.
+   * @returns {Promise<Object[]>} - Uma promessa que resolve com o resultado da query.
+   * @throws {Error} - Lança um erro se a execução da query falhar.
+   */
+  async executeQuery({ type, replacements, query }) {
+    try {
+      const results = await this.sequelize.query(query, {
+        replacements,
+        type: Sequelize.QueryTypes[type],
+      });
+      return results;
+    } catch (error) {
+      console.error(`Error executing query: ${type}`, error.message);
+      throw error;
     }
   }
 }

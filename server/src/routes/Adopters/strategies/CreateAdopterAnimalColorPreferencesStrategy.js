@@ -33,7 +33,10 @@ export default class CreateAdopterAnimalColorPreferencesStrategy extends Abstrac
       this.throwError("Não foi possível recuperar as cores de animais.");
     }
 
-    if (preferences.animalColors === null) {
+    if (
+      preferences.animalColors === null ||
+      !Object.keys(preferences.animalColors).length
+    ) {
       return;
     }
 
