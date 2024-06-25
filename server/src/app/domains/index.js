@@ -14,22 +14,24 @@ import File from "./File";
 import Animal from "./Animal";
 import AnimalFile from "./AnimalFile";
 import Pagination from "./Pagination";
+import Adoption from "./Adoption";
 
 export {
-  Adopter,
-  CustomError,
-  Login,
-  LoggedUser,
-  AdopterPreference,
-  AdopterLifestyle,
-  AdopterComplement,
-  Address,
-  Organization,
-  OrganizationMember,
-  OrganizationComplement,
-  OrganizationInvite,
-  File,
-  Animal,
-  AnimalFile,
-  Pagination,
+    Adopter,
+    CustomError,
+    Login,
+    LoggedUser,
+    AdopterPreference,
+    AdopterLifestyle,
+    AdopterComplement,
+    Address,
+    Organization,
+    OrganizationMember,
+    OrganizationComplement,
+    OrganizationInvite,
+    File,
+    Animal,
+    AnimalFile,
+    Pagination,
+    Adoption,
 };

@@ -5,4 +5,9 @@ module.exports = Object.freeze({
         SUSPENDED: "SUS",
     },
     MINIMUM_AGE: 18,
+    RESULTS: {
+        APPROVED: "APPROVED",
+        REJECTED: "REJECTED",
+        PENDING: "PENDING",
+    },
 });

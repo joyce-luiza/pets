@@ -1,0 +1,51 @@
+.detailsContainer {
+    width: 85vw;
+    margin: 4em auto;
+}
+.animalImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.carouselContainer {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.carouselImage {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.animalLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    color: var(--color01);
+    font-weight: 500;
+}
+
+.animalInfo {
+    color: var(--gray04);
+}
+
+.divider {
+    width: 0.0625rem;
+    height: 2rem;
+    background: #bdbdbd;
+}
+
+.adoptionNotification {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+    background-color: #d7d1f5;
+    color: var(--color01);
+    font-weight: 500;
+    padding: 1em;
+    border-radius: 8px;
+}

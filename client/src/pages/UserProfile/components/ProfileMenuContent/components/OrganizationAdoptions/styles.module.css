@@ -1,0 +1,61 @@
+.container {
+    width: 100%;
+}
+
+.title {
+    text-align: start;
+    font-size: 2.5rem;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filterButton {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.searchInput {
+    width: 30%;
+}
+
+.tableData {
+    display: flex;
+    flex-direction: column;
+}
+
+.tableRow {
+    cursor: pointer;
+}
+
+.tableRow > td {
+    font-size: 0.875rem;
+}
+
+.tableRowActions {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+/* styles.module.css */
+.tableColumnTitle {
+    font-size: 1rem;
+    color: #4435ab;
+}
+
+.buttonColor {
+    color: #4435ab;
+}

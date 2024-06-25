@@ -1,0 +1,19 @@
+.tag {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #fff;
+}
+
+.approved {
+    background-color: #27ae60;
+}
+
+.pending {
+    background-color: #f2c94c;
+    color: #000;
+}
+
+.rejected {
+    background-color: #eb5757;
+}

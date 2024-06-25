@@ -2,14 +2,14 @@ import { Animal } from "../../database/models";
 import AbstractRepository from "../abstract/AbstractRepository";
 
 class AnimalRepository extends AbstractRepository {
-  constructor() {
-    super(Animal);
-    this.getWithFilesById = this.getWithFilesById.bind(this);
-  }
+    constructor() {
+        super(Animal);
+        this.getWithFilesById = this.getWithFilesById.bind(this);
+    }
 
-  async getWithFilesById({ id }) {
-    const replacements = { id };
-    const animalQuery = `
+    async getWithFilesById({ id }) {
+        const replacements = { id };
+        const animalQuery = `
       SELECT
         a.id,
         a.name,
@@ -20,26 +20,32 @@ class AnimalRepository extends AbstractRepository {
         at.title AS "type",
         asz.title AS "size",
         aag.title AS "ageGroup",
-        ac.title AS "color"
+        ac.title AS "color",
+        s.description AS "status",
+        o.id AS "organizationId"
       FROM
         "Animals" a
       INNER JOIN "AnimalTypes" at ON at.id = a.type_id
       INNER JOIN "AnimalSizes" asz ON asz.id = a.size_id
       INNER JOIN "AnimalColors" ac ON ac.id = a.color_id
       INNER JOIN "AnimalAgeGroups" aag ON aag.id = a.age_group_id
+      INNER JOIN "Statuses" s ON s.id = a.status_id
+      INNER JOIN "Organizations" o ON a.organization_id = a.organization_id
+
+
       WHERE
         a.id = :id
     `;
 
-    const [animal] = await this.query(animalQuery, "SELECT", {
-      replacements,
-    });
+        const [animal] = await this.query(animalQuery, "SELECT", {
+            replacements,
+        });
 
-    if (!animal) {
-      return false;
-    }
+        if (!animal) {
+            return false;
+        }
 
-    const animalFilesQuery = `
+        const animalFilesQuery = `
       SELECT 
         af.id,
         af.file_url AS "fileUrl",
@@ -52,18 +58,18 @@ class AnimalRepository extends AbstractRepository {
         af.animal_id = :id
     `;
 
-    const animalFiles = await this.query(animalFilesQuery, "SELECT", {
-      replacements,
-    });
+        const animalFiles = await this.query(animalFilesQuery, "SELECT", {
+            replacements,
+        });
 
-    return {
-      ...animal,
-      files: animalFiles,
-    };
-  }
+        return {
+            ...animal,
+            files: animalFiles,
+        };
+    }
 
-  async findAllToTableView({ page, size, isPaginated }) {
-    const animalQuery = `
+    async findAllToTableView({ page, size, isPaginated }) {
+        const animalQuery = `
       SELECT
         a.id,
         a.name,
@@ -85,64 +91,62 @@ class AnimalRepository extends AbstractRepository {
       INNER JOIN "Statuses" s ON a.status_id = s.id
     `;
 
-    const animals = await this.paginateSqlQuery(
-      animalQuery,
-      page,
-      size,
-      isPaginated
-    );
-    return animals;
-  }
+        const animals = await this.paginateSqlQuery(
+            animalQuery,
+            page,
+            size,
+            isPaginated
+        );
+        return animals;
+    }
 
-  async findAllCardListView({ page, size, isPaginated, conditions }) {
-    const columnsToFilter = {
-      name: "a.name",
-      types: "at.title",
-      sizes: "asz.title",
-      sex: "a.sex",
-      ageGroups: "aag.title",
-      states: "ad.state",
-      colors: "ac.title",
-      status: "s.title",
-    };
+    async findAllCardListView({ page, size, isPaginated, conditions }) {
+        const columnsToFilter = {
+            name: "a.name",
+            types: "at.title",
+            sizes: "asz.title",
+            sex: "a.sex",
+            ageGroups: "aag.title",
+            states: "ad.state",
+            colors: "ac.title",
+            status: "s.title",
+        };
 
-    const conditionss = {
-      name: {
-        value: conditions?.name || "",
-        operation: "LIKE",
-      },
-      types: {
-        value: conditions?.types || "",
-        operation: "IN",
-      },
-      sizes: {
-        value: conditions?.sizes || "",
-        operation: "IN",
-      },
-      sex: {
-        value: conditions?.sex || "",
-        operation: "IN",
-      },
-      ageGroups: {
-        value: conditions?.ageGroups || "",
-        operation: "IN",
-      },
-      states: {
-        value: conditions?.states || "",
-        operation: "=",
-      },
-      colors: {
-        value: conditions?.colors || "",
-        operation: "IN",
-      },
-    };
+        const conditionss = {
+            name: {
+                value: conditions?.name || "",
+                operation: "LIKE",
+            },
+            types: {
+                value: conditions?.types || "",
+                operation: "IN",
+            },
+            sizes: {
+                value: conditions?.sizes || "",
+                operation: "IN",
+            },
+            sex: {
+                value: conditions?.sex || "",
+                operation: "IN",
+            },
+            ageGroups: {
+                value: conditions?.ageGroups || "",
+                operation: "IN",
+            },
+            states: {
+                value: conditions?.states || "",
+                operation: "=",
+            },
+            colors: {
+                value: conditions?.colors || "",
+                operation: "IN",
+            },
+        };
 
-    const { whereCondition, replacements } = await this.formatWhereCondition(
-      conditionss,
-      columnsToFilter
-    );
+        const { whereCondition, replacements } =
+            await this.formatWhereCondition(conditionss, columnsToFilter);
 
-    const animalQuery = `
+        const animalQuery = `
       SELECT
         a.id,
         a.name,
@@ -163,15 +167,15 @@ class AnimalRepository extends AbstractRepository {
       ${whereCondition}
     `;
 
-    const animals = await this.paginateSqlQuery(
-      animalQuery,
-      page,
-      size,
-      isPaginated,
-      replacements
-    );
-    return animals;
-  }
+        const animals = await this.paginateSqlQuery(
+            animalQuery,
+            page,
+            size,
+            isPaginated,
+            replacements
+        );
+        return animals;
+    }
 }
 
 export default new AnimalRepository();

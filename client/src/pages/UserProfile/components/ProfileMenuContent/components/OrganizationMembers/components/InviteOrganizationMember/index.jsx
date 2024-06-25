@@ -54,10 +54,23 @@ export default function InviteOrganizationMember({ open, setIsModalOpen }) {
         <Modal
             title="Convidar membros"
             open={open}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            cancelText={"Cancelar"}
-            okText={"Convidar"}
+            footer={[
+                <Button
+                    key="cancel"
+                    onClick={handleCancel}
+                    data-cy="modal-cancel-button"
+                >
+                    Cancelar
+                </Button>,
+                <Button
+                    key="submit"
+                    type="primary"
+                    data-cy="modal-submit-button"
+                    onClick={handleOk}
+                >
+                    Deletar
+                </Button>,
+            ]}
         >
             <Form
                 layout="vertical"
@@ -108,6 +121,7 @@ export default function InviteOrganizationMember({ open, setIsModalOpen }) {
                                                             width: "100%",
                                                         }}
                                                         size="large"
+                                                        data-cy={`organization-invite-${index}`}
                                                     />
                                                 </Form.Item>
                                             </Col>
@@ -137,6 +151,7 @@ export default function InviteOrganizationMember({ open, setIsModalOpen }) {
                                             add();
                                         }}
                                         style={{ width: "100%" }}
+                                        data-cy="add-email-button"
                                     >
                                         <PlusOutlined /> Adicionar email
                                     </Button>
