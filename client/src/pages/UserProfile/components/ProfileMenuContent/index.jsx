@@ -7,6 +7,7 @@ import UserData from "./components/UserData/index.jsx";
 import ChangeUserPassword from "./components/ChangeUserPassword/index.jsx";
 import ChangeAdopterAddress from "./components/ChangeAdopterAddress/index.jsx";
 import ChangeUserPreferences from "./components/ChangeUserPreferences/index.jsx";
+import ChangeAdopterLifestyle from "./components/ChangeAdopterLifestyle/index.jsx";
 
 export default function ProfileMenuContent({ content, setContent }) {
   const { user } = useAuth();
@@ -31,6 +32,7 @@ export default function ProfileMenuContent({ content, setContent }) {
           {content === "Adoptions" && <h1>Adoptions</h1>}
           {content === "Address" && <ChangeAdopterAddress />}
           {content === "Preferences" && <ChangeUserPreferences />}
+          {content === "Lifestyle" && <ChangeAdopterLifestyle />}
           {content === "Logout" && <h1>Logout</h1>}
         </>
       )}

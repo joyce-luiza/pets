@@ -4,6 +4,8 @@ import GetAdopterAddressCommand from "./GetAdopterAddressCommand";
 import UpdateAdopterAddressCommand from "./UpdateAdopterAddressCommand";
 import GetAdopterPreferencesCommand from "./GetAdopterPreferencesCommand";
 import UpdateAdopterPreferencesCommand from "./UpdateAdopterPreferencesCommand";
+import GetAdopterLifestyleCommand from "./GetAdopterLifestyleCommand";
+import UpdateAdopterLifestyleCommand from "./UpdateAdopterLifestyleCommand";
 
 export {
   CreateComplementCommand,
@@ -12,4 +14,6 @@ export {
   UpdateAdopterAddressCommand,
   GetAdopterPreferencesCommand,
   UpdateAdopterPreferencesCommand,
+  GetAdopterLifestyleCommand,
+  UpdateAdopterLifestyleCommand,
 };

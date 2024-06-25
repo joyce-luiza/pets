@@ -8,7 +8,6 @@ import {
   ANIMAL_SIZES,
   ANIMAL_TYPES,
 } from "../../../../../../constants";
-import { ArrowLeftOutlined } from "@ant-design/icons";
 import showMessage from "../../../../../../utils/Message";
 
 export default function ChangeUserPreferences({ user }) {
@@ -383,7 +382,7 @@ export default function ChangeUserPreferences({ user }) {
               htmlType="submit"
               loading={loading}
             >
-              Alterar preferências
+              Atualizar preferências
             </Button>
           </Form>
         </>

@@ -20,6 +20,10 @@ export default function AdopterSidebar({ setContent, content }) {
         <i className="ri-emotion-2-line ri-xl"></i>
         <p>Preferências</p>
       </li>
+      <li key={"Lifestyle"}>
+        <i className="ri-open-arm-line ri-xl"></i>
+        <p>Lifestyle</p>
+      </li>
       <li key={"ChangePassword"}>
         <i className="ri-lock-password-line ri-xl"></i>
         <p>Alterar senha</p>

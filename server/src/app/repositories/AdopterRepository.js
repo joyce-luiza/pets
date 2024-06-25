@@ -176,6 +176,27 @@ class AdopterRepository extends AbstractRepository {
   }
 
   // ===========================
+
+  async getLifestyleByAdopterId(adopterId) {
+    const query = `
+      SELECT
+          L.routine,
+          L.total_pets       AS "totalPets",
+          L.travel_frequency AS "travelFrequency"
+      FROM "Adopters" A
+          INNER JOIN "Lifestyles" L ON A.id = L.adopter_id
+      WHERE
+          L.adopter_id = :adopterId
+    `;
+
+    const result = await this.executeQuery({
+      query,
+      type: "SELECT",
+      replacements: { adopterId },
+    });
+
+    return result;
+  }
 }
 
 export default new AdopterRepository();
