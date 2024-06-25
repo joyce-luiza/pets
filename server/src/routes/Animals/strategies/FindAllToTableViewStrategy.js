@@ -20,6 +20,7 @@ export default class FindAllToTableViewStrategy extends AbstractStrategy {
       sizeFilter: paginationData.conditions.sizeFilter,
       ageFilter: paginationData.conditions.ageFilter,
       statusFilter: paginationData.conditions.statusFilter,
+      organizationId: paginationData.conditions.organizationId,
     });
 
     if (animals.length) {

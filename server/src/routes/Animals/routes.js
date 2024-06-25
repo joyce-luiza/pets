@@ -12,10 +12,7 @@ const facade = new AnimalFacade(controller);
 animalRoutes.post(
   '/',
   authMiddleware,
-
-  authMiddleware,
   multerUpload.array('files'),
-
   facade.create
 );
 animalRoutes.get(
@@ -35,5 +32,6 @@ animalRoutes.put(
 animalRoutes.delete('/:id', authMiddleware, facade.deleteLogicallyById);
 
 //não esquecer o authMiddleware
+animalRoutes.get('/details/:id', facade.GetAnimalDetailsById);
 
 export default animalRoutes;

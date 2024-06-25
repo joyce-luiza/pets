@@ -1,3 +1,4 @@
+import { Animal } from '../../database/models';
 import {
   CreateAnimalFactory,
   FindAllCardListViewFactory,
@@ -75,6 +76,13 @@ export default class AnimalController {
     });
     const factory = new FindAllCardListViewFactory();
     const result = await factory.execute(domain, req.loggedUserInfo);
+    res.json(result);
+  }
+
+  async getAnimalDetailsById(req, res, next) {
+    const animal = new Animal({ id: req.params.id });
+    const factory = new GetAnimalDetailsByIdFactory();
+    const result = await factory.execute(animal);
     res.json(result);
   }
 }

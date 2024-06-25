@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 import dbConfig from '../../config/database';
-import Status from '../../database/models/status';
-import { STATUS } from '../constants';
+import { Status, Result } from '../../database/models';
+import { STATUS, RESULTS } from '../constants';
 import sanitize from '../utils/sanitize';
 
 export default class AbstractRepository {
@@ -33,6 +33,18 @@ export default class AbstractRepository {
 
   async getSuspendedStatusId() {
     return (await Status.findOne({ where: { code: STATUS.SUSPENDED } })).id;
+  }
+
+  async getApprovedResultId() {
+    return (await Result.findOne({ where: { title: RESULTS.APPROVED } })).id;
+  }
+
+  async getPedingResultId() {
+    return (await Result.findOne({ where: { title: RESULTS.PENDING } })).id;
+  }
+
+  async getRejectedResultId() {
+    return (await Result.findOne({ where: { title: RESULTS.REJECTED } })).id;
   }
 
   async create(data) {

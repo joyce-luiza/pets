@@ -32,14 +32,18 @@ class AnimalRepository extends AbstractRepository {
         asz.title AS "size",
         aag.title AS "ageGroup",
         ac.title AS "color",
-        s.description as status
+        s.description AS "status",
+        o.id AS "organizationId"
       FROM
         "Animals" a
       INNER JOIN "AnimalTypes" at ON at.id = a.type_id
       INNER JOIN "AnimalSizes" asz ON asz.id = a.size_id
       INNER JOIN "AnimalColors" ac ON ac.id = a.color_id
       INNER JOIN "AnimalAgeGroups" aag ON aag.id = a.age_group_id
-      INNER JOIN "Statuses" s ON a.status_id = s.id
+      INNER JOIN "Statuses" s ON s.id = a.status_id
+      INNER JOIN "Organizations" o ON a.organization_id = a.organization_id
+
+
       WHERE
         a.id = :id
     `;
@@ -85,6 +89,7 @@ class AnimalRepository extends AbstractRepository {
     sizeFilter,
     ageFilter,
     statusFilter,
+    organizationId,
   }) {
     let animalQuery = `
       SELECT
@@ -107,6 +112,7 @@ class AnimalRepository extends AbstractRepository {
       INNER JOIN "AnimalColors" ac ON ac.id = a.color_id
       INNER JOIN "AnimalAgeGroups" aag ON aag.id = a.age_group_id
       INNER JOIN "Statuses" s ON a.status_id = s.id
+
     `;
 
     const replacements = {};
@@ -116,7 +122,10 @@ class AnimalRepository extends AbstractRepository {
       animalQuery += `WHERE a.name ILIKE :search `;
       replacements.search = `${search}%`;
     }
-
+    if (organizationId) {
+      animalQuery += `WHERE a.organization_id = :organizationId `;
+      replacements.organizationId = `${organizationId}`;
+    }
     if (typeFilter && typeFilter.length > 0) {
       animalQuery += ` AND at.title IN (:typeFilter)`;
       replacements.typeFilter = typeFilter;
@@ -151,44 +160,44 @@ class AnimalRepository extends AbstractRepository {
 
   async findAllCardListView({ page, size, isPaginated, conditions }) {
     const columnsToFilter = {
-      name: "a.name",
-      types: "at.title",
-      sizes: "asz.title",
-      sex: "a.sex",
-      ageGroups: "aag.title",
-      states: "ad.state",
-      colors: "ac.title",
-      status: "s.title",
+      name: 'a.name',
+      types: 'at.title',
+      sizes: 'asz.title',
+      sex: 'a.sex',
+      ageGroups: 'aag.title',
+      states: 'ad.state',
+      colors: 'ac.title',
+      status: 's.title',
     };
 
     const conditionss = {
       name: {
-        value: conditions?.name || "",
-        operation: "LIKE",
+        value: conditions?.name || '',
+        operation: 'LIKE',
       },
       types: {
-        value: conditions?.types || "",
-        operation: "IN",
+        value: conditions?.types || '',
+        operation: 'IN',
       },
       sizes: {
-        value: conditions?.sizes || "",
-        operation: "IN",
+        value: conditions?.sizes || '',
+        operation: 'IN',
       },
       sex: {
-        value: conditions?.sex || "",
-        operation: "IN",
+        value: conditions?.sex || '',
+        operation: 'IN',
       },
       ageGroups: {
-        value: conditions?.ageGroups || "",
-        operation: "IN",
+        value: conditions?.ageGroups || '',
+        operation: 'IN',
       },
       states: {
-        value: conditions?.states || "",
-        operation: "=",
+        value: conditions?.states || '',
+        operation: '=',
       },
       colors: {
-        value: conditions?.colors || "",
-        operation: "IN",
+        value: conditions?.colors || '',
+        operation: 'IN',
       },
     };
 

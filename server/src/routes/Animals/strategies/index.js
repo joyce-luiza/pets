@@ -9,6 +9,7 @@ import FormatToAnimalDomainStrategy from './FormatToAnimalDomainStrategy';
 import DeleteLogicallyByAnimalIdStrategy from './DeleteLogicallyByAnimalIdStrategy';
 import FindAnimalWithFilesByIdStrategy from './FindAnimalWithFilesByIdStrategy';
 import DeleteFilesByAnimalIdStrategy from './DeleteFilesByAnimalIdStrategy';
+import GetAnimalDetailsByIdStrategy from './GetAnimalDetailsByIdStrategy';
 
 export {
   ValidateAnimalRequiredFieldsStrategy,
@@ -22,4 +23,5 @@ export {
   DeleteLogicallyByAnimalIdStrategy,
   FindAnimalWithFilesByIdStrategy,
   DeleteFilesByAnimalIdStrategy,
+  GetAnimalDetailsByIdStrategy,
 };
