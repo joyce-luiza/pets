@@ -24,7 +24,7 @@ export default function AdminSidebar({ setContent, content }) {
         <i className="ri-calendar-event-line ri-xl"></i>
         <p>Visitas</p>
       </li>
-      <li key={"Team"}>
+      <li key={"Team"} data-cy="profile-sidebar-team">
         <i className="ri-group-line ri-xl"></i>
         <p>Equipe</p>
       </li>

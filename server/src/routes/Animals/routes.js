@@ -10,12 +10,13 @@ const controller = new AnimalController();
 const facade = new AnimalFacade(controller);
 
 animalRoutes.post(
-  "/",
-  authMiddleware,
-  multerUpload.array("files"),
-  facade.create
+    "/",
+    authMiddleware,
+    multerUpload.array("files"),
+    facade.create
 );
 animalRoutes.get("/table", authMiddleware, facade.findAllToTableView);
 animalRoutes.get("/card/list", facade.findAllCardListView);
+animalRoutes.get("/details/:id", facade.GetAnimalDetailsById);
 
 export default animalRoutes;
