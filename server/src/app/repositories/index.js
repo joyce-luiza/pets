@@ -21,6 +21,7 @@ import AnimalFileRepository from "./AnimalFileRepository";
 import AdopterAnimalSexPreferenceRepository from "./AdopterAnimalSexPreferenceRepository";
 import AdoptionRepository from "./AdoptionRepository";
 import ResultRepository from "./ResultRepository";
+import VisitAppointmentRepository from "./VisitAppointmentRepository";
 
 export {
     AdopterRepository,
@@ -45,4 +46,5 @@ export {
     AdopterAnimalSexPreferenceRepository,
     AdoptionRepository,
     ResultRepository,
+    VisitAppointmentRepository,
 };

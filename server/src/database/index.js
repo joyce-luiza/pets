@@ -29,6 +29,7 @@ import {
     AdopterAnimalSexPreference,
     Adoption,
     Result,
+    VisitAppointment,
 } from "./models";
 
 const models = [
@@ -53,6 +54,7 @@ const models = [
     AdopterAnimalSexPreference,
     Adoption,
     Result,
+    VisitAppointment,
 ];
 
 class Database {

@@ -9,17 +9,19 @@ import GetAdopterAddressAdopterFactory from "./GetAdopterAddressAdopterFactory";
 import UpdateAdopterAddressAdopterFactory from "./UpdateAdopterAddressAdopterFactory";
 import GetAdopterPreferencesFactory from "./GetAdopterPreferencesFactory";
 import UpdateAdopterPreferencesFactory from "./UpdateAdopterPreferencesFactory";
+import GetAdopterAllInformationFactory from "./GetAdopterAllInformationFactory";
 
 export {
-  CreateAdopterFactory,
-  GetByIdAdopterFactory,
-  CreateAdopterLifestyleAndPreferencesFactory,
-  DeleteLogicallyByAdopterIdFactory,
-  UpdateAdopterFactory,
-  UpdateProfileImageAdopterFactory,
-  GetByEmailAdopterFactory,
-  GetAdopterAddressAdopterFactory,
-  UpdateAdopterAddressAdopterFactory,
-  GetAdopterPreferencesFactory,
-  UpdateAdopterPreferencesFactory,
+    CreateAdopterFactory,
+    GetByIdAdopterFactory,
+    CreateAdopterLifestyleAndPreferencesFactory,
+    DeleteLogicallyByAdopterIdFactory,
+    UpdateAdopterFactory,
+    UpdateProfileImageAdopterFactory,
+    GetByEmailAdopterFactory,
+    GetAdopterAddressAdopterFactory,
+    UpdateAdopterAddressAdopterFactory,
+    GetAdopterPreferencesFactory,
+    UpdateAdopterPreferencesFactory,
+    GetAdopterAllInformationFactory,
 };
