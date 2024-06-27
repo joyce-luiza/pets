@@ -6,7 +6,7 @@ import { AnimalAdapter, Pagination } from "../../../app/domains/adapters";
  *
  * @extends AbstractStrategy
  */
-export default class CreateAnimalStrategy extends AbstractStrategy {
+export default class FindAllToTableViewStrategy extends AbstractStrategy {
   constructor(animalRepository) {
     super();
     this.animalRepository = animalRepository;
@@ -15,10 +15,13 @@ export default class CreateAnimalStrategy extends AbstractStrategy {
   /**
    * @param {Pagination} data - Pagination filter object
    */
-  async execute(data, dto) {
+  async execute(data, dto, loggedUserInfo) {
     let result = [];
 
-    const animals = await this.animalRepository.findAllToTableView(data);
+    const animals = await this.animalRepository.findAllToTableView({
+      ...data,
+      organizationId: loggedUserInfo.organizationId,
+    });
 
     if (animals.length) {
       result = animals.map((animal) => new AnimalAdapter(animal));
