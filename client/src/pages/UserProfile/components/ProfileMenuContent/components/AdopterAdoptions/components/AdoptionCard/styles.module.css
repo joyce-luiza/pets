@@ -12,7 +12,7 @@
 }
 
 .animalImage {
-    width: 200px;
+    width: 150px;
     object-fit: cover;
     border-radius: 0.5em;
 }

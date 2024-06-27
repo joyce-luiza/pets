@@ -71,25 +71,27 @@ const ApproveAdoption = ({
                             <Radio value={"REJECTED"}>Reprovado</Radio>
                         </Radio.Group>
                     </Form.Item>
+                    <Form.Item
+                        label="Justificativa/Instruções para o adotante"
+                        name="organizationReply"
+                        rules={[
+                            {
+                                required: true,
+                                message:
+                                    "Insira uma justificativa/instrução para o adotante",
+                            },
+                        ]}
+                    >
+                        <TextArea
+                            rows={4}
+                            onChange={(e) =>
+                                setOrganizationReply(e.target.value)
+                            }
+                            value={organizationReply}
+                            placeholder="Use este espaço para descrever quais são os próximos passos da adoção ou o motivo pelo qual a adoção não pôde ser aprovada."
+                        />
+                    </Form.Item>
                 </Form>
-                <Form.Item
-                    label="Justificativa/Instruções para o adotante"
-                    name="organizationReply"
-                    rules={[
-                        {
-                            required: true,
-                            message:
-                                "Insira uma justificativa/instrução para o adotante",
-                        },
-                    ]}
-                >
-                    <TextArea
-                        rows={4}
-                        onChange={(e) => setOrganizationReply(e.target.value)}
-                        value={organizationReply}
-                        placeholder="Use este espaço para descrever quais são os próximos passos da adoção ou o motivo pelo qual a adoção não pôde ser aprovada."
-                    />
-                </Form.Item>
             </div>
         </Modal>
     );

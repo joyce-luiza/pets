@@ -9,6 +9,8 @@ import ChangeAdopterAddress from "./components/ChangeAdopterAddress/index.jsx";
 import ChangeUserPreferences from "./components/ChangeUserPreferences/index.jsx";
 import OrganizationAdoptions from "./components/OrganizationAdoptions/index.jsx";
 import AdopterAdoptions from "./components/AdopterAdoptions/index.jsx";
+import OrganizationVisits from "./components/OrganizationVisits/index.jsx";
+import AdopterVisits from "./components/AdopterVisits/index.jsx";
 
 export default function ProfileMenuContent({ content, setContent }) {
     const { user } = useAuth();
@@ -26,7 +28,7 @@ export default function ProfileMenuContent({ content, setContent }) {
                     {content === "Animals" && (
                         <OrganizationAnimals setContent={setContent} />
                     )}
-                    {content === "Visits" && <h1>Visits</h1>}
+                    {content === "Visits" && <OrganizationVisits user={user} />}
                     {content === "Team" && <OrganizationMembers user={user} />}
                     {content === "MyData" && <UserData user={user} />}
                     {content === "Logout" && <h1>Logout</h1>}
@@ -37,6 +39,8 @@ export default function ProfileMenuContent({ content, setContent }) {
                     {content === "Adoptions" && (
                         <AdopterAdoptions user={user} />
                     )}
+                    {content === "Visits" && <AdopterVisits user={user} />}
+
                     {content === "Address" && <ChangeAdopterAddress />}
                     {content === "Preferences" && <ChangeUserPreferences />}
                     {content === "Logout" && <h1>Logout</h1>}

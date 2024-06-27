@@ -62,10 +62,17 @@ export default function AdoptAnimal({ open, setIsModalOpen, animalId }) {
                 autoriza que seus dados de contato (email e telefone) fiquem
                 visíveis para a organização.
             </Text>
-            <Form layout="vertical" style={{ width: "100%", marginTop: 24 }}>
+            <Form
+                layout="vertical"
+                style={{ width: "100%", marginTop: 24, marginBottom: 40 }}
+            >
                 <Form.Item name="notes" label="Motivo do interesse">
                     <Input.TextArea
                         placeholder="Você pode usar este espaço para explicar o por quê você gostaria de adotar o pet"
+                        maxLength={250}
+                        showCount
+                        style={{ height: "100px", resize: "none" }}
+                        size="large"
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
                     ></Input.TextArea>

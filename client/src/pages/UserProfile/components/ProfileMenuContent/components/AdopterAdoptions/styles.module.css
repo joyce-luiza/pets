@@ -12,3 +12,10 @@
     gap: 2em;
     margin-top: 3em;
 }
+
+@media (max-width: 1600px) {
+    .adoptionsContainer {
+        grid-template-columns: 1fr;
+        margin-right: 2em;
+    }
+}

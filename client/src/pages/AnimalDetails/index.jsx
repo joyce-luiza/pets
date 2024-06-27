@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Col, Row, Flex, Carousel, Typography } from "antd";
+import RequestVisit from "../UserProfile/components/ProfileMenuContent/components/OrganizationAdoptions/AdoptionDetails/components/RequestVisit";
 import { axiosRequest } from "../../utils/axiosRequest";
 import showMessage from "../../utils/Message";
 import styles from "./styles.module.css";
-import {
-    RESULTS,
-    ANIMAL_AGE_GROUPS,
-    ANIMAL_COLORS,
-    ANIMAL_SEX,
-    ANIMAL_SIZES,
-    ANIMAL_TYPES,
-} from "../../constants";
+import { ANIMAL_SEX, ANIMAL_SIZES, ANIMAL_TYPES } from "../../constants";
 import moment from "moment";
 import { useAuth } from "../../contexts/AuthContext";
 import AdoptAnimal from "./components/AdoptAnimal";
@@ -27,6 +21,7 @@ export default function AnimalDetails() {
     const [address, setAddress] = useState(null);
     const [age, setAge] = useState("");
     const [isAdoptModalOpen, setIsAdoptModalOpen] = useState(false);
+    const [isVisitModalOpen, setIsVisitModalOpen] = useState(false);
 
     const showAdoptModal = () => {
         setIsAdoptModalOpen(true);
@@ -183,52 +178,79 @@ export default function AnimalDetails() {
                                     </Flex>
                                 </Flex>
 
-                                <Flex gap={40}>
-                                    {!adoptionInProgress ? (
-                                        <>
-                                            <Button
-                                                size="large"
-                                                type="primary"
+                                {!user.id ? (
+                                    <div
+                                        className={styles.adoptionNotification}
+                                    >
+                                        <p>
+                                            É necessário criar uma conta para
+                                            seguir com o processo de adoção.
+                                        </p>
+                                    </div>
+                                ) : user.type !== "ORGANIZATION" ? (
+                                    <Flex gap={40}>
+                                        {!adoptionInProgress ? (
+                                            <>
+                                                <Button
+                                                    size="large"
+                                                    type="primary"
+                                                    style={{ width: "100%" }}
+                                                    onClick={showAdoptModal}
+                                                >
+                                                    Quero adotar
+                                                </Button>
+                                                <Button
+                                                    size="large"
+                                                    type="default"
+                                                    style={{ width: "100%" }}
+                                                    onClick={() => {
+                                                        setIsVisitModalOpen(
+                                                            true
+                                                        );
+                                                        console.log(
+                                                            animal.organizationId
+                                                        );
+                                                    }}
+                                                >
+                                                    Agendar visita
+                                                </Button>
+                                            </>
+                                        ) : (
+                                            <Flex
+                                                vertical
+                                                gap={24}
                                                 style={{ width: "100%" }}
-                                                onClick={showAdoptModal}
                                             >
-                                                Quero adotar
-                                            </Button>
-                                            <Button
-                                                size="large"
-                                                type="default"
-                                                style={{ width: "100%" }}
-                                            >
-                                                Agendar visita
-                                            </Button>
-                                        </>
-                                    ) : (
-                                        <Flex
-                                            vertical
-                                            gap={24}
-                                            style={{ width: "100%" }}
-                                        >
-                                            <div
-                                                className={
-                                                    styles.adoptionNotification
-                                                }
-                                            >
-                                                <i class="ri-checkbox-circle-line ri-xl"></i>
-                                                <p>
-                                                    A organização foi notificada
-                                                    sobre seu interesse no pet!
-                                                </p>
-                                            </div>
-                                            <Button
-                                                size="large"
-                                                type="default"
-                                                style={{ width: "100%" }}
-                                            >
-                                                Agendar visita
-                                            </Button>
-                                        </Flex>
-                                    )}
-                                </Flex>
+                                                <div
+                                                    className={
+                                                        styles.adoptionNotification
+                                                    }
+                                                >
+                                                    <i class="ri-checkbox-circle-line ri-xl"></i>
+                                                    <p>
+                                                        A organização foi
+                                                        notificada sobre seu
+                                                        interesse no pet!
+                                                    </p>
+                                                </div>
+                                                <Button
+                                                    size="large"
+                                                    type="default"
+                                                    style={{ width: "100%" }}
+                                                    onClick={() => {
+                                                        setIsVisitModalOpen(
+                                                            true
+                                                        );
+                                                    }}
+                                                >
+                                                    Agendar visita
+                                                </Button>
+                                            </Flex>
+                                        )}
+                                    </Flex>
+                                ) : (
+                                    ""
+                                )}
                             </Flex>
                         </Col>
                     </Row>
@@ -236,6 +258,12 @@ export default function AnimalDetails() {
                         open={isAdoptModalOpen}
                         setIsModalOpen={setIsAdoptModalOpen}
                         animalId={animal.id}
+                    />
+                    <RequestVisit
+                        adopterId={null}
+                        organizationId={animal.organizationId}
+                        open={isVisitModalOpen}
+                        setIsModalOpen={setIsVisitModalOpen}
                     />
                 </div>
             )}

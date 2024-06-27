@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import moment from "moment";
-import { Typography, Flex, Button, Image } from "antd";
+import { Typography, Flex, Button, List } from "antd";
 import { axiosRequest } from "../../../../../../../utils/axiosRequest";
 import showMessage from "../../../../../../../utils/Message";
 import "remixicon/fonts/remixicon.css";
@@ -8,48 +8,177 @@ import styles from "./styles.module.css";
 import ApproveAdoption from "./components/ApproveAdoption";
 import {
     RESULTS,
+    ANIMAL_COLORS,
+    ANIMAL_AGE_GROUPS,
     ANIMAL_SEX,
     ANIMAL_SIZES,
     ANIMAL_TYPES,
+    RESIDENCE_TYPE,
 } from "../../../../../../../constants";
 import { getLifetime } from "../../../../../../../utils/getLifetime";
 import ResultTag from "../../../../../../../components/ResultTag";
+import RequestVisit from "./components/RequestVisit";
 
 const { Title, Paragraph, Text } = Typography;
 
 export default function AdoptionDetails({ adoptionData, onBack }) {
-    const [adoption, setAdoption] = useState();
-    const [adopter, setAdopter] = useState();
-    const [animal, setAnimal] = useState();
+    const [adoption, setAdoption] = useState({});
+    const [adopter, setAdopter] = useState({});
+    const [animal, setAnimal] = useState({});
     const [animalImage, setAnimalImage] = useState();
+    const [lifestyle, setLifestyle] = useState({});
+    const [address, setAddress] = useState({});
+
+    const [routine, setRoutine] = useState("");
+    const [travelFrequency, setTravelFrequency] = useState("");
+    const [totalPets, setTotalPets] = useState("");
+
+    const [preferencesList, setPreferencesList] = useState([]);
 
     const [isApproveModalOpen, setIsApproveModalOpen] = useState(false);
+    const [isVisitModalOpen, setIsVisitModalOpen] = useState(false);
 
     const [loading, setLoading] = useState(true);
 
     const getData = async () => {
         try {
-            const { adoption, adopter, animal } = await axiosRequest({
+            const { adoption, animal } = await axiosRequest({
                 method: "get",
                 path: `/adoption/${adoptionData.id}`,
                 authenticated: true,
             });
+            const { adopter, address, lifestyle, preferences } =
+                await axiosRequest({
+                    method: "get",
+                    path: `/adopter/all/${adoption.adopterId}`,
+                    authenticated: true,
+                });
             setAdoption(adoption);
             setAdopter(adopter);
+            setLifestyle(lifestyle);
+            setAddress(address);
             setAnimal(animal);
             setAnimalImage(
                 animal.files.length > 0
                     ? animal.files[0].fileUrl
                     : "default_image_url"
             );
+            setPreferencesList([
+                {
+                    title: "Tipo de Animal",
+                    value: getPreferenceString(
+                        preferences.animalTypes,
+                        ANIMAL_TYPES
+                    ),
+                },
+                {
+                    title: "Idade do Animal",
+                    value: getPreferenceString(
+                        preferences.animalAgeGroups,
+                        ANIMAL_AGE_GROUPS
+                    ),
+                },
+                {
+                    title: "Tamanho do Animal",
+                    value: getPreferenceString(
+                        preferences.animalSizes,
+                        ANIMAL_SIZES
+                    ),
+                },
+                {
+                    title: "Cor do Animal",
+                    value: getPreferenceString(
+                        preferences.animalColors,
+                        ANIMAL_COLORS
+                    ),
+                },
+                {
+                    title: "Sexo do Animal",
+                    value: getPreferenceString(
+                        preferences.animalSexes,
+                        ANIMAL_SEX
+                    ),
+                },
+            ]);
+
             setLoading(false);
         } catch (error) {
             showMessage("error", error);
         }
     };
 
+    const getPreferenceString = (preference, constant) => {
+        if (preference === null || Object.keys(preference).length === 0) {
+            return "Sem preferência";
+        }
+        return Object.keys(preference)
+            .filter((key) => preference[key])
+            .map((key) => constant[key])
+            .join(", ");
+    };
+
+    const getRoutine = (routine) => {
+        switch (routine) {
+            case "FULL_TIME":
+                setRoutine("Trabalho em período integral, raramente em casa.");
+                break;
+            case "FLEXIBLE":
+                setRoutine(
+                    "Horário flexível, posso passar tempo em casa durante o dia"
+                );
+                break;
+            case "AVAILABLE":
+                setRoutine(
+                    "Trabalho em casa, disponível para interação com o pet o dia todo."
+                );
+                break;
+            default:
+                setRoutine("Não informado");
+        }
+    };
+    const getTravelFrequency = (travelFrequency) => {
+        switch (travelFrequency) {
+            case "REGULAR":
+                setTravelFrequency("Regularmente, por longos períodos.");
+                break;
+            case "OCCASIONALLY":
+                setTravelFrequency("Ocasionalmente, por curtos períodos.");
+                break;
+            case "RARELLY":
+                setTravelFrequency("Raramente viajo.");
+                break;
+            default:
+                setTravelFrequency("Não informado");
+        }
+    };
+
+    const getTotalPets = (total) => {
+        switch (total) {
+            case 0:
+                setTotalPets("Sim, possuo 1 pet");
+                break;
+            case 1:
+                setTotalPets("Sim, possuo 2 pets");
+                break;
+            case 2:
+                setTotalPets("Sim, possuo 3 pets");
+                break;
+            case 3:
+                setTotalPets("Sim, possuo 4 pets");
+                break;
+            case 4:
+                setTotalPets("Sim, possuo 4 pets");
+                break;
+            default:
+                setTotalPets("Não informado");
+        }
+    };
+
     useEffect(() => {
         getData();
+        getRoutine(lifestyle.routine);
+        getTravelFrequency(lifestyle.travelFrequency);
+        getTotalPets(lifestyle.totalPets);
     }, []);
 
     return (
@@ -86,6 +215,9 @@ export default function AdoptionDetails({ adoptionData, onBack }) {
                                         type="default"
                                         size="large"
                                         data-cy="update-organization-button"
+                                        onClick={() =>
+                                            setIsVisitModalOpen(true)
+                                        }
                                     >
                                         Solicitar visita
                                     </Button>
@@ -170,7 +302,7 @@ export default function AdoptionDetails({ adoptionData, onBack }) {
                                                 vertical
                                                 align="center"
                                             >
-                                                <Text>Tipo</Text>
+                                                <label>Tipo</label>
                                                 <Text
                                                     className={
                                                         styles.animalInfo
@@ -187,7 +319,7 @@ export default function AdoptionDetails({ adoptionData, onBack }) {
                                                 vertical
                                                 align="center"
                                             >
-                                                <Text>Idade</Text>
+                                                <label>Idade</label>
                                                 <Text
                                                     className={
                                                         styles.animalInfo
@@ -206,7 +338,7 @@ export default function AdoptionDetails({ adoptionData, onBack }) {
                                                 vertical
                                                 align="center"
                                             >
-                                                <Text>Sexo</Text>
+                                                <label>Sexo</label>
                                                 <Text
                                                     className={
                                                         styles.animalInfo
@@ -223,7 +355,7 @@ export default function AdoptionDetails({ adoptionData, onBack }) {
                                                 vertical
                                                 align="center"
                                             >
-                                                <Text>Porte</Text>
+                                                <label>Porte</label>
                                                 <Text
                                                     className={
                                                         styles.animalInfo
@@ -249,11 +381,12 @@ export default function AdoptionDetails({ adoptionData, onBack }) {
                                     Adotante
                                 </Title>
                                 <Flex gap={32}>
-                                    <Image
-                                        style={{ borderRadius: ".5em" }}
-                                        width={150}
-                                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                    ></Image>
+                                    <img
+                                        src={adopter.imageUrl}
+                                        alt={adopter.firstName}
+                                        className={styles.animalImage}
+                                    />
+
                                     <Flex gap={4} vertical justify="center">
                                         <Title level={4}>
                                             {adopter.firstName}{" "}
@@ -304,48 +437,16 @@ export default function AdoptionDetails({ adoptionData, onBack }) {
                                                 Preferências
                                             </Title>
                                         </Flex>
-                                        <Flex gap={48}>
-                                            <Flex gap={12} vertical>
-                                                <label>Tipo de animal</label>
-                                                <Paragraph
-                                                    style={{ margin: 0 }}
-                                                >
-                                                    tipo de animal
-                                                </Paragraph>
-                                            </Flex>
-                                            <Flex gap={12} vertical>
-                                                <label>Faixa etária</label>
-                                                <Paragraph
-                                                    style={{ margin: 0 }}
-                                                >
-                                                    faixa etária
-                                                </Paragraph>
-                                            </Flex>
-                                            <Flex gap={12} vertical>
-                                                <label>Tamanho</label>
-                                                <Paragraph
-                                                    style={{ margin: 0 }}
-                                                >
-                                                    tamanho
-                                                </Paragraph>
-                                            </Flex>
-                                            <Flex gap={12} vertical>
-                                                <label>Sexo</label>
-                                                <Paragraph
-                                                    style={{ margin: 0 }}
-                                                >
-                                                    sexo
-                                                </Paragraph>
-                                            </Flex>
-                                            <Flex gap={12} vertical>
-                                                <label>Cor</label>
-                                                <Paragraph
-                                                    style={{ margin: 0 }}
-                                                >
-                                                    cor
-                                                </Paragraph>
-                                            </Flex>
-                                        </Flex>
+                                        <List
+                                            dataSource={preferencesList}
+                                            style={{ width: "600px" }}
+                                            renderItem={(item) => (
+                                                <List.Item>
+                                                    <label>{item.title}:</label>{" "}
+                                                    {item.value}
+                                                </List.Item>
+                                            )}
+                                        />
                                     </Flex>
                                     <Flex gap={24} vertical>
                                         <Flex gap={8} align="center">
@@ -357,37 +458,23 @@ export default function AdoptionDetails({ adoptionData, onBack }) {
                                                 Estilo de vida
                                             </Title>
                                         </Flex>
-                                        <Flex gap={48}>
-                                            <Flex gap={12} vertical>
-                                                <label>
-                                                    Possui outros pets?
-                                                </label>
-                                                <Paragraph
-                                                    style={{ margin: 0 }}
-                                                >
-                                                    sim
-                                                </Paragraph>
-                                            </Flex>
-                                            <Flex gap={12} vertical>
-                                                <label>
-                                                    Rotina de trabalho
-                                                </label>
-                                                <Paragraph
-                                                    style={{ margin: 0 }}
-                                                >
-                                                    flexível
-                                                </Paragraph>
-                                            </Flex>
-                                            <Flex gap={12} vertical>
-                                                <label>
-                                                    Frequência de viagens
-                                                </label>
-                                                <Paragraph
-                                                    style={{ margin: 0 }}
-                                                >
-                                                    raro
-                                                </Paragraph>
-                                            </Flex>
+                                        <Flex gap={12} vertical>
+                                            <label>Possui outros pets?</label>
+                                            <Paragraph style={{ margin: 0 }}>
+                                                {totalPets}
+                                            </Paragraph>
+                                        </Flex>
+                                        <Flex gap={12} vertical>
+                                            <label>Rotina de trabalho</label>
+                                            <Paragraph style={{ margin: 0 }}>
+                                                {routine}
+                                            </Paragraph>
+                                        </Flex>
+                                        <Flex gap={12} vertical>
+                                            <label>Frequência de viagens</label>
+                                            <Paragraph style={{ margin: 0 }}>
+                                                {travelFrequency}
+                                            </Paragraph>
                                         </Flex>
                                     </Flex>
                                     <Flex gap={24} vertical>
@@ -409,7 +496,12 @@ export default function AdoptionDetails({ adoptionData, onBack }) {
                                                 <Paragraph
                                                     style={{ margin: 0 }}
                                                 >
-                                                    apartamento
+                                                    {
+                                                        RESIDENCE_TYPE[
+                                                            address
+                                                                .residenceType
+                                                        ]
+                                                    }
                                                 </Paragraph>
                                             </Flex>
                                             <Flex gap={12} vertical>
@@ -417,7 +509,8 @@ export default function AdoptionDetails({ adoptionData, onBack }) {
                                                 <Paragraph
                                                     style={{ margin: 0 }}
                                                 >
-                                                    Mogi das Cruzes - SP
+                                                    {address.city} -{" "}
+                                                    {address.state}
                                                 </Paragraph>
                                             </Flex>
                                         </Flex>
@@ -431,6 +524,12 @@ export default function AdoptionDetails({ adoptionData, onBack }) {
                             setIsModalOpen={setIsApproveModalOpen}
                             updateAdoptionDetails={getData}
                         ></ApproveAdoption>
+                        <RequestVisit
+                            adopterId={adopter.id}
+                            organizationId={null}
+                            open={isVisitModalOpen}
+                            setIsModalOpen={setIsVisitModalOpen}
+                        />
                     </>
                 )
             ) : (
