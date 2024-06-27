@@ -30,7 +30,7 @@ class AnimalRepository extends AbstractRepository {
       INNER JOIN "AnimalColors" ac ON ac.id = a.color_id
       INNER JOIN "AnimalAgeGroups" aag ON aag.id = a.age_group_id
       INNER JOIN "Statuses" s ON s.id = a.status_id
-      INNER JOIN "Organizations" o ON a.organization_id = a.organization_id
+      INNER JOIN "Organizations" o ON a.organization_id = o.id
 
 
       WHERE
