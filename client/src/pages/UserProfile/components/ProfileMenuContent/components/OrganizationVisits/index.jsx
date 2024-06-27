@@ -62,20 +62,22 @@ export default function OrganizationVisits({ user }) {
                                     <i className="ri-search-eye-line"></i>
                                 </Button>
                             </Tooltip>
-                            {visit.requesterId !== user.organizationId && (
-                                <Tooltip title="Editar">
-                                    <Button
-                                        size="middle"
-                                        type="link"
-                                        onClick={() => {
-                                            setSelectedVisit(visit);
-                                            setIsEditModalOpen(true);
-                                        }}
-                                    >
-                                        <i className="ri-edit-line"></i>
-                                    </Button>
-                                </Tooltip>
-                            )}
+                            {RESULTS[visit.result] === RESULTS["PENDING"]
+                                ? visit.requesterId !== user.organizationId && (
+                                      <Tooltip title="Editar">
+                                          <Button
+                                              size="middle"
+                                              type="link"
+                                              onClick={() => {
+                                                  setSelectedVisit(visit);
+                                                  setIsEditModalOpen(true);
+                                              }}
+                                          >
+                                              <i className="ri-edit-line"></i>
+                                          </Button>
+                                      </Tooltip>
+                                  )
+                                : ""}
                         </div>
                     ),
                 }));
@@ -141,7 +143,7 @@ export default function OrganizationVisits({ user }) {
 
     useEffect(() => {
         handleGetTableData();
-    }, [tableFilter, selectedVisit]);
+    }, [tableFilter, selectedVisit, isEditModalOpen]);
 
     return (
         <div className={styles.container}>

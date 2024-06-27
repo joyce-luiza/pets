@@ -21,7 +21,7 @@ export default function ConfirmVisit({ visit, open, setIsModalOpen }) {
                 },
                 authenticated: true,
             });
-            showMessage("success", "Visita avaliada com sucesso!");
+            showMessage("success", "Resposta enviada com sucesso!");
             setIsModalOpen(false);
         } catch (error) {
             showMessage("error", error.message || error);
@@ -62,12 +62,12 @@ export default function ConfirmVisit({ visit, open, setIsModalOpen }) {
                     </Flex>
                     <Form form={form} onFinish={handleOk} layout="vertical">
                         <Form.Item
-                            label="Avaliação"
+                            label="Resposta"
                             name="result"
                             rules={[
                                 {
                                     required: true,
-                                    message: "Selecione uma avaliação",
+                                    message: "Selecione uma resposta",
                                 },
                             ]}
                         >
@@ -75,8 +75,8 @@ export default function ConfirmVisit({ visit, open, setIsModalOpen }) {
                                 onChange={(e) => setResult(e.target.value)}
                                 value={result}
                             >
-                                <Radio value={"APPROVED"}>Aprovar</Radio>
-                                <Radio value={"REJECTED"}>Rejeitar</Radio>
+                                <Radio value={"APPROVED"}>Aceitar</Radio>
+                                <Radio value={"REJECTED"}>Recusar</Radio>
                             </Radio.Group>
                         </Form.Item>
                     </Form>

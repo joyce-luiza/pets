@@ -42,31 +42,11 @@ export default function Header() {
                             <li className={styles.menuItem}>
                                 <Button
                                     type="link"
-                                    href="/"
+                                    href="/animals"
                                     size="large"
                                     className={styles.linkButton}
                                 >
-                                    Organizações de contato
-                                </Button>
-                            </li>
-                            <li className={styles.menuItem}>
-                                <Button
-                                    type="link"
-                                    href="/"
-                                    size="large"
-                                    className={styles.linkButton}
-                                >
-                                    Adoção
-                                </Button>
-                            </li>
-                            <li className={styles.menuItem}>
-                                <Button
-                                    type="link"
-                                    href="/"
-                                    size="large"
-                                    className={styles.linkButton}
-                                >
-                                    Contato
+                                    Animais
                                 </Button>
                             </li>
                         </ul>
