@@ -69,6 +69,8 @@ class AnimalRepository extends AbstractRepository {
   }
 
   async findAllToTableView({ page, size, isPaginated, organizationId }) {
+    const activeStatus = await this.getActiveStatusId();
+
     const animalQuery = `
       SELECT
         a.id,
@@ -91,6 +93,7 @@ class AnimalRepository extends AbstractRepository {
         INNER JOIN "Statuses" s ON a.status_id = s.id
       WHERE
         a.organization_id = :organizationId
+        AND s.id = :activeStatus
     `;
 
     const animals = await this.paginateSqlQuery(
@@ -98,7 +101,7 @@ class AnimalRepository extends AbstractRepository {
       page,
       size,
       isPaginated,
-      { organizationId }
+      { organizationId, activeStatus }
     );
     return animals;
   }
