@@ -131,13 +131,11 @@ export default function CreateAnimal({ setCreateAnimal }) {
                                 }
                             >
                                 {Object.keys(ANIMAL_TYPES).map((key) => {
-                                    if (key !== "ANY") {
-                                        return (
-                                            <Radio value={key}>
-                                                {ANIMAL_TYPES[key]}
-                                            </Radio>
-                                        );
-                                    } else return <></>;
+                                    return (
+                                        <Radio value={key}>
+                                            {ANIMAL_TYPES[key]}
+                                        </Radio>
+                                    );
                                 })}
                             </Radio.Group>
                         </Form.Item>
