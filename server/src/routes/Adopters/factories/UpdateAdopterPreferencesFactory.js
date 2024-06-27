@@ -15,7 +15,6 @@ import {
 } from "../../../app/repositories";
 import {
   ValidateAdopterPreferencesRequiredFields,
-  CreateAdopterLifestyleStrategy,
   CreateAdopterAnimalTypePreferencesStrategy,
   CreateAdopterAnimalSizePreferencesStrategy,
   CreateAdopterAnimalColorPreferencesStrategy,

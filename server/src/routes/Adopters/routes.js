@@ -18,6 +18,8 @@ adopterRoutes.put(
   authMiddleware,
   facade.updateAdopterPreferences
 );
+adopterRoutes.get("/lifestyle", authMiddleware, facade.getAdopterLifestyle);
+adopterRoutes.put("/lifestyle", authMiddleware, facade.updateAdopterLifestyle);
 adopterRoutes.get("/:id", facade.getById);
 adopterRoutes.get("/email/:email", facade.getByEmail);
 adopterRoutes.post("/complement", authMiddleware, facade.createComplement);

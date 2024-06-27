@@ -28,9 +28,10 @@ import UpdateAdopterStrategy from "./UpdateAdopterStrategy";
 import FindAdopterAndUpdateProfileImageStrategy from "./FindAdopterAndUpdateProfileImageStrategy";
 import FindLoggedAdopterAddressStrategy from "./FindLoggedAdopterAddressStrategy";
 import GetAdopterPreferencesStrategy from "./GetAdopterPreferencesStrategy";
-import GetAdopterPreferencesStrategy from "./GetAdopterPreferencesStrategy";
 import GetAdopterPreferenceForComplementStrategy from "./GetAdopterPreferenceForComplementStrategy";
 import RemoveAllPreviousAdopterPreferencesStrategy from "./RemoveAllPreviousAdopterPreferencesStrategy";
+import GetAdopterLifestyleStrategy from "./GetAdopterLifestyleStrategy";
+import CreateOrUpdateAdopterLifestyleStrategy from "./CreateOrUpdateAdopterLifestyleStrategy";
 
 export {
   ValidateAdopterRequiredFieldsStrategy,
@@ -60,4 +61,6 @@ export {
   CreateAdopterAnimalSexPreferencesStrategy,
   GetAdopterPreferenceForComplementStrategy,
   RemoveAllPreviousAdopterPreferencesStrategy,
+  GetAdopterLifestyleStrategy,
+  CreateOrUpdateAdopterLifestyleStrategy,
 };

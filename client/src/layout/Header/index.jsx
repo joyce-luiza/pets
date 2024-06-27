@@ -41,31 +41,11 @@ export default function Header() {
               <li className={styles.menuItem}>
                 <Button
                   type="link"
-                  href="/"
+                  href="/animals"
                   size="large"
                   className={styles.linkButton}
                 >
-                  Organizações de contato
-                </Button>
-              </li>
-              <li className={styles.menuItem}>
-                <Button
-                  type="link"
-                  href="/"
-                  size="large"
-                  className={styles.linkButton}
-                >
-                  Adoção
-                </Button>
-              </li>
-              <li className={styles.menuItem}>
-                <Button
-                  type="link"
-                  href="/"
-                  size="large"
-                  className={styles.linkButton}
-                >
-                  Contato
+                  Animais
                 </Button>
               </li>
             </ul>
@@ -92,8 +72,12 @@ export default function Header() {
               {`Olá, ${user.firstName} `}
             </Button>
 
-            <Button type="link" onClick={logout}>
-              Logout
+            <Button
+              type="link"
+              onClick={logout}
+              icon={<i className="ri-logout-box-line ri-xl"></i>}
+            >
+              Sair
             </Button>
           </>
         ) : (
