@@ -9,16 +9,10 @@ import { AdoptionResult } from "../../../app/domains/result";
  * @extends AbstractStrategy
  */
 export default class GetAdoptionByIdStrategy extends AbstractStrategy {
-    constructor(
-        adoptionRepository,
-        animalRepository,
-        adopterRepository,
-        resultRepository
-    ) {
+    constructor(adoptionRepository, animalRepository, resultRepository) {
         super();
         this.adoptionRepository = adoptionRepository;
         this.animalRepository = animalRepository;
-        this.adopterRepository = adopterRepository;
         this.resultRepository = resultRepository;
     }
 
@@ -29,11 +23,6 @@ export default class GetAdoptionByIdStrategy extends AbstractStrategy {
         // Get adoption
         const adoption = await this.adoptionRepository.findActiveAdoptionById(
             id
-        );
-
-        // Get adopter
-        const adopter = await this.adopterRepository.findActiveAdopterById(
-            adoption.adopterId
         );
 
         // Get animal with files
@@ -50,7 +39,6 @@ export default class GetAdoptionByIdStrategy extends AbstractStrategy {
 
         return {
             adoption: new AdoptionResult({ ...adoptionData, result: title }),
-            adopter: new Adopter(adopter),
             animal: new AnimalAdapter(animal),
         };
     }

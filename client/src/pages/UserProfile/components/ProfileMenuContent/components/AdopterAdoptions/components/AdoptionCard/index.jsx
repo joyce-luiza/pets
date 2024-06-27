@@ -22,6 +22,7 @@ const AdoptionCard = ({ adoption, onViewDetails }) => {
                 vertical
                 justify="space-between"
                 style={{ width: "100%", textAlign: "left" }}
+                gap={8}
             >
                 <Flex justify="space-between" align="center">
                     <Title level={3} style={{ margin: 0 }}>

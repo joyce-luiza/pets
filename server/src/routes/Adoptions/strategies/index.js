@@ -8,6 +8,8 @@ import SendApprovedAdoptionEmailStrategy from "./SendApprovedAdoptionEmailStrate
 import SendRejectAdoptionEmailStrategy from "./SendRejectAdoptionEmailStrategy";
 import GetAdoptionByAdopterIdStrategy from "./GetAdoptionByAdopterIdStrategy";
 import VerifyAdoptionInProgressStrategy from "./VerifyAdoptionInProgressStrategy";
+import SendNewAdoptionEmailStrategy from "./SendNewAdoptionEmailStrategy";
+import GetAdoptionAdopterStrategy from "./GetAdoptionAdopterStrategy";
 export {
     CreateAdoptionStrategy,
     FindAllToTableViewStrategy,
@@ -19,4 +21,6 @@ export {
     SendApprovedAdoptionEmailStrategy,
     GetAdoptionByAdopterIdStrategy,
     VerifyAdoptionInProgressStrategy,
+    SendNewAdoptionEmailStrategy,
+    GetAdoptionAdopterStrategy,
 };

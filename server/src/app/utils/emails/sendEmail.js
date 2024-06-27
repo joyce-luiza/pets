@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config();
+
 import transporter from "../../../config/email";
 
 export default function sendEmail(mailOptions) {

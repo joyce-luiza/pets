@@ -21,6 +21,7 @@ export default class CreateOrganizationStrategy extends AbstractStrategy {
      */
     async execute(data) {
         const org = await this.organizationRepository.createOrganization(data);
+
         if (!org) {
             this.throwError("Erro ao criar a organização");
         }

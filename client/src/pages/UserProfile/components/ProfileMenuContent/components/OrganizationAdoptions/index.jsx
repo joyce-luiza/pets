@@ -89,13 +89,6 @@ export default function OrganizationAdoptions() {
             key: "fullName",
             width: 200,
         },
-
-        {
-            title: "Email do adotante",
-            dataIndex: "adopterEmail",
-            key: "adopterEmail",
-            width: 200,
-        },
         {
             title: "Status",
             dataIndex: "result",

@@ -19,6 +19,7 @@ import AnimalFile from "./animalFile";
 import AdopterAnimalSexPreference from "./adopterAnimalSexPreference";
 import Adoption from "./adoption";
 import Result from "./result";
+import VisitAppointment from "./visitAppointment";
 
 export {
     Status,
@@ -42,4 +43,5 @@ export {
     AdopterAnimalSexPreference,
     Adoption,
     Result,
+    VisitAppointment,
 };

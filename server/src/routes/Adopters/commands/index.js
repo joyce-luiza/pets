@@ -6,14 +6,16 @@ import GetAdopterPreferencesCommand from "./GetAdopterPreferencesCommand";
 import UpdateAdopterPreferencesCommand from "./UpdateAdopterPreferencesCommand";
 import GetAdopterLifestyleCommand from "./GetAdopterLifestyleCommand";
 import UpdateAdopterLifestyleCommand from "./UpdateAdopterLifestyleCommand";
+import GetAdopterAllInformationCommand from "./GetAdopterAllInformationCommand";
 
 export {
-  CreateComplementCommand,
-  GetByEmailCommand,
-  GetAdopterAddressCommand,
-  UpdateAdopterAddressCommand,
-  GetAdopterPreferencesCommand,
-  UpdateAdopterPreferencesCommand,
-  GetAdopterLifestyleCommand,
-  UpdateAdopterLifestyleCommand,
+    CreateComplementCommand,
+    GetByEmailCommand,
+    GetAdopterAddressCommand,
+    UpdateAdopterAddressCommand,
+    GetAdopterPreferencesCommand,
+    UpdateAdopterPreferencesCommand,
+    GetAdopterLifestyleCommand,
+    UpdateAdopterLifestyleCommand,
+    GetAdopterAllInformationCommand,
 };

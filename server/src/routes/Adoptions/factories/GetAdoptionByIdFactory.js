@@ -2,7 +2,6 @@ import AbstractFactory from "../../../app/abstract/AbstractFactory";
 import {
     AdoptionRepository,
     AnimalRepository,
-    AdopterRepository,
     ResultRepository,
 } from "../../../app/repositories";
 import { GetAdoptionByIdStrategy } from "../strategies";
@@ -13,7 +12,6 @@ class GetAdoptionByIdFactory extends AbstractFactory {
             new GetAdoptionByIdStrategy(
                 AdoptionRepository,
                 AnimalRepository,
-                AdopterRepository,
                 ResultRepository
             ),
         ]);

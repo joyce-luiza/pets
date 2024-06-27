@@ -54,6 +54,7 @@ export default function InviteOrganizationMember({ open, setIsModalOpen }) {
         <Modal
             title="Convidar membros"
             open={open}
+            onCancel={handleCancel}
             footer={[
                 <Button
                     key="cancel"
@@ -68,7 +69,7 @@ export default function InviteOrganizationMember({ open, setIsModalOpen }) {
                     data-cy="modal-submit-button"
                     onClick={handleOk}
                 >
-                    Deletar
+                    Convidar
                 </Button>,
             ]}
         >
