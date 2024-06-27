@@ -1,22 +1,25 @@
-import { Button, Typography, Space, Flex, Carousel } from 'antd';
+import React, { useState, useEffect, useRef } from 'react';
+import { Button, Typography, Space, Carousel } from 'antd';
 import styles from './styles.module.css';
 import {
   ANIMAL_COLORS,
   ANIMAL_SIZES,
   ANIMAL_TYPES,
 } from '../../../../../../../../constants';
-import { useState, useEffect } from 'react';
 import { axiosRequest } from '../../../../../../../../utils/axiosRequest';
 import showMessage from '../../../../../../../../utils/Message';
-import dayjs from 'dayjs';
 
 const { Title, Paragraph } = Typography;
 
 export default function ViewAnimal({ setViewAnimal, animalData, getLifetime }) {
   const [animal, setAnimal] = useState();
   const [loading, setLoading] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselRef = useRef();
 
-  const onChange = (currentSlide) => {};
+  const onChange = (currentSlide) => {
+    setCurrentIndex(currentSlide);
+  };
 
   const getAnimalData = async () => {
     try {
@@ -34,35 +37,25 @@ export default function ViewAnimal({ setViewAnimal, animalData, getLifetime }) {
     }
   };
 
-  const contentStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '300px', // Define the height for the carousel
-    width: '200px',
-    background: '#364d79',
-  };
-
-  const imageStyle = {
-    width: '100%',
-    height: '450px',
-    objectFit: 'cover', // Ensure the image covers the defined height and width
-  };
-
   useEffect(() => {
     getAnimalData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animalData]);
+
+  const handlePrev = () => {
+    carouselRef.current.prev();
+  };
+
+  const handleNext = () => {
+    carouselRef.current.next();
+  };
 
   return (
     <div className={styles.container}>
       {!loading ? (
         animal && (
           <>
-            <Flex
-              justify="space-between"
-              align="center"
-              className={styles.header}
-            >
+            <div className={styles.header}>
               <Button
                 className={styles.backBtn}
                 size="medium"
@@ -72,55 +65,75 @@ export default function ViewAnimal({ setViewAnimal, animalData, getLifetime }) {
                 <i className="ri-arrow-left-line ri-xl"></i>
                 <span>Voltar</span>
               </Button>
-            </Flex>
+            </div>
 
-            <Flex vertical gap={40}>
+            <div className={styles.content}>
               <Title level={2} style={{ textAlign: 'left', marginTop: 40 }}>
                 {animal.name}
               </Title>
-              <Carousel afterChange={onChange} style={{ width: '40vw' }}>
-                {animal.files &&
-                  animal.files.map((file, index) => (
-                    <div key={index} style={contentStyle}>
-                      <img
-                        src={file.fileUrl}
-                        alt={`animal file ${index}`}
-                        style={imageStyle}
-                      />
+              <div className={styles.carouselContainer}>
+                {animal.files && animal.files.length > 1 && (
+                  <>
+                    <div
+                      className={`${styles.carouselArrow} ${styles.left}`}
+                      onClick={handlePrev}
+                    >
+                      <i className="ri-arrow-left-s-line"></i>
                     </div>
-                  ))}
-              </Carousel>
+                    <div
+                      className={`${styles.carouselArrow} ${styles.right}`}
+                      onClick={handleNext}
+                    >
+                      <i className="ri-arrow-right-s-line"></i>
+                    </div>
+                  </>
+                )}
+                <Carousel
+                  afterChange={onChange}
+                  style={{ width: '40vw' }}
+                  ref={carouselRef}
+                >
+                  {animal.files &&
+                    animal.files.map((file, index) => (
+                      <div key={index} className={styles.contentStyle}>
+                        <img
+                          src={file.fileUrl}
+                          alt={`animal file ${index}`}
+                          className={styles.imageStyle}
+                        />
+                      </div>
+                    ))}
+                </Carousel>
+              </div>
               <Space direction="horizontal" size={24}>
-                <Flex vertical>
+                <div>
                   <Paragraph strong>Tipo:</Paragraph>
                   <Paragraph>{ANIMAL_TYPES[animal.type]}</Paragraph>
-                </Flex>
-
-                <Flex vertical>
+                </div>
+                <div>
                   <Paragraph strong>Idade:</Paragraph>
                   <Paragraph>{getLifetime(animal.birthDate)}</Paragraph>
-                </Flex>
-                <Flex vertical>
+                </div>
+                <div>
                   <Paragraph strong>Sexo:</Paragraph>
                   <Paragraph>
                     {animal.sex === 'FEMALE' ? 'Fêmea' : 'Macho'}
                   </Paragraph>
-                </Flex>
-
-                <Flex vertical>
+                </div>
+                <div>
                   <Paragraph strong>Porte:</Paragraph>
                   <Paragraph>{ANIMAL_SIZES[animal.size]}</Paragraph>
-                </Flex>
+                </div>
               </Space>
-              <Flex vertical>
+              <div>
                 <Title level={4}>Descrição</Title>
                 <Paragraph>{animal.description}</Paragraph>
-              </Flex>
-              <Flex vertical>
+              </div>
+              <div>
                 <Title level={4}>Informações médicas</Title>
                 <Paragraph>{animal.medicalInformation}</Paragraph>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           </>
         )
       ) : (

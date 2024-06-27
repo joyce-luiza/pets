@@ -1,4 +1,13 @@
-import { Button, DatePicker, Form, Input, Radio, Tooltip, Upload } from 'antd';
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Radio,
+  Tooltip,
+  Upload,
+  message,
+} from 'antd';
 import styles from './styles.module.css';
 import {
   ANIMAL_COLORS,
@@ -10,20 +19,17 @@ import TextArea from 'antd/es/input/TextArea';
 import ImgCrop from 'antd-img-crop';
 import { axiosRequest } from '../../../../../../../../utils/axiosRequest';
 import showMessage from '../../../../../../../../utils/Message';
-import moment from 'moment';
 import dayjs from 'dayjs';
 
 export default function UpdateAnimal({ setUpdateAnimal, animalData }) {
   const [form] = Form.useForm();
-
   const [fileList, setFileList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [animal, setAnimal] = useState(null);
   const [animalFiles, setAnimalFiles] = useState([]);
 
   const handleDateChange = (date, dateString) => {
-    const formattedDate = moment(dateString, 'DD/MM/YYYY').format('YYYY-MM-DD');
-    form.setFieldsValue({ birthDate: formattedDate });
+    form.setFieldsValue({ birthDate: dayjs(dateString, 'DD/MM/YYYY') });
   };
 
   const onChange = ({ fileList: newFileList }) => {
@@ -44,6 +50,21 @@ export default function UpdateAnimal({ setUpdateAnimal, animalData }) {
     image.src = src;
     const imgWindow = window.open(src);
     imgWindow?.document.write(image.outerHTML);
+  };
+
+  const onRemove = async (file) => {
+    if (file.id) {
+      try {
+        await axiosRequest({
+          method: 'DELETE',
+          authenticated: true,
+          path: `/animals/files/${file.id}`,
+        });
+        message.success('Imagem apagada com sucesso');
+      } catch (error) {
+        message.error('Erro ao apagar imagem');
+      }
+    }
   };
 
   const customRequest = async ({ file, onSuccess, onError }) => {
@@ -82,7 +103,7 @@ export default function UpdateAnimal({ setUpdateAnimal, animalData }) {
         id: animal.id,
       };
 
-      formData.append('data', JSON.stringify(data)); // Stringify the form values
+      formData.append('data', JSON.stringify(data));
       fileList.forEach((file) => {
         formData.append('files', file.originFileObj);
       });
@@ -112,13 +133,14 @@ export default function UpdateAnimal({ setUpdateAnimal, animalData }) {
     return files.map((file, index) => ({
       id: file.id,
       name: `Animal ${index + 1}`,
-      status: 'active', // Assuming status is always 'active', update this logic if necessary
+      status: 'active',
       url: file.fileUrl,
     }));
   }
 
   useEffect(() => {
     getAnimalData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animalData.id]);
 
   useEffect(() => {
@@ -129,7 +151,6 @@ export default function UpdateAnimal({ setUpdateAnimal, animalData }) {
         birthDate: dayjs(birthDate),
       };
       form.setFieldsValue(data);
-
       const files = createAnimalObjects(animalFiles);
       setFileList(files);
     }
@@ -161,9 +182,7 @@ export default function UpdateAnimal({ setUpdateAnimal, animalData }) {
             >
               <Radio.Group>
                 {Object.keys(ANIMAL_TYPES).map((key) => {
-                  if (key !== 'ANY') {
-                    return <Radio value={key}>{ANIMAL_TYPES[key]}</Radio>;
-                  } else return null;
+                  return <Radio value={key}>{ANIMAL_TYPES[key]}</Radio>;
                 })}
               </Radio.Group>
             </Form.Item>
@@ -319,6 +338,7 @@ export default function UpdateAnimal({ setUpdateAnimal, animalData }) {
                   fileList={fileList}
                   onChange={onChange}
                   onPreview={onPreview}
+                  onRemove={onRemove}
                   customRequest={customRequest}
                   loading={loading}
                 >

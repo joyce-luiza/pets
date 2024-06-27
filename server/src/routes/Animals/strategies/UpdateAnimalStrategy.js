@@ -6,6 +6,7 @@ import {
 import { Animal, AnimalFile } from '../../../app/domains';
 import sanitize from '../../../app/utils/sanitize';
 import { uploadFile } from '../../../app/utils/uploadFile';
+import dayjs from 'dayjs'; // Importe dayjs para formatação de data
 
 /**
  * Strategy to update an Animal
@@ -21,11 +22,17 @@ export default class UpdateAnimalStrategy extends AbstractStrategy {
 
   /**
    * @param {Animal} data - Animal domain object
+   * @param {Object} dto - Data transfer object with update information
    */
   async execute(data, dto) {
-    const updated = await this.animalRepository.update(dto, {
-      id: data.id,
-    });
+    const formattedBirthDate = dto.birthDate
+      ? dayjs(dto.birthDate).format('YYYY-MM-DD')
+      : null;
+
+    const updated = await this.animalRepository.update(
+      { ...dto, birthDate: formattedBirthDate },
+      { id: data.id }
+    );
 
     if (!updated) {
       this.throwError('Erro ao atualizar as informações do animal.');
