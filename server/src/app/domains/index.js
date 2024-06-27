@@ -15,6 +15,7 @@ import Animal from "./Animal";
 import AnimalFile from "./AnimalFile";
 import Pagination from "./Pagination";
 import Adoption from "./Adoption";
+import VisitAppointment from "./VisitAppointment";
 
 export {
     Adopter,
@@ -34,4 +35,5 @@ export {
     AnimalFile,
     Pagination,
     Adoption,
+    VisitAppointment,
 };

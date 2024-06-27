@@ -40,7 +40,7 @@ export default class AbstractRepository {
             .id;
     }
 
-    async getPedingResultId() {
+    async getPendingResultId() {
         return (await Result.findOne({ where: { title: RESULTS.PENDING } })).id;
     }
 
