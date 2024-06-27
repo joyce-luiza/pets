@@ -7,6 +7,7 @@ import UserData from "./components/UserData/index.jsx";
 import ChangeUserPassword from "./components/ChangeUserPassword/index.jsx";
 import ChangeAdopterAddress from "./components/ChangeAdopterAddress/index.jsx";
 import ChangeUserPreferences from "./components/ChangeUserPreferences/index.jsx";
+import ChangeAdopterLifestyle from "./components/ChangeAdopterLifestyle/index.jsx";
 import OrganizationAdoptions from "./components/OrganizationAdoptions/index.jsx";
 import AdopterAdoptions from "./components/AdopterAdoptions/index.jsx";
 import OrganizationVisits from "./components/OrganizationVisits/index.jsx";
@@ -31,7 +32,6 @@ export default function ProfileMenuContent({ content, setContent }) {
                     {content === "Visits" && <OrganizationVisits user={user} />}
                     {content === "Team" && <OrganizationMembers user={user} />}
                     {content === "MyData" && <UserData user={user} />}
-                    {content === "Logout" && <h1>Logout</h1>}
                 </>
             ) : (
                 <>
@@ -43,7 +43,7 @@ export default function ProfileMenuContent({ content, setContent }) {
 
                     {content === "Address" && <ChangeAdopterAddress />}
                     {content === "Preferences" && <ChangeUserPreferences />}
-                    {content === "Logout" && <h1>Logout</h1>}
+                    {content === "Lifestyle" && <ChangeAdopterLifestyle />}
                 </>
             )}
             {content === "ChangePassword" && <ChangeUserPassword user={user} />}

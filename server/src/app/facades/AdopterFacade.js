@@ -5,6 +5,8 @@ import {
     UpdateAdopterAddressCommand,
     GetAdopterPreferencesCommand,
     UpdateAdopterPreferencesCommand,
+    GetAdopterLifestyleCommand,
+    UpdateAdopterLifestyleCommand,
     GetAdopterAllInformationCommand,
 } from "../../routes/Adopters/commands";
 import AbstractFacade from "../abstract/AbstractFacade";
@@ -21,6 +23,8 @@ export default class AdopterFacade extends AbstractFacade {
         this.getAdopterPreferences = this.getAdopterPreferences.bind(this);
         this.updateAdopterPreferences =
             this.updateAdopterPreferences.bind(this);
+        this.getAdopterLifestyle = this.getAdopterLifestyle.bind(this);
+        this.updateAdopterLifestyle = this.updateAdopterLifestyle.bind(this);
         this.getAdopterAllInformation =
             this.getAdopterAllInformation.bind(this);
     }
@@ -95,6 +99,24 @@ export default class AdopterFacade extends AbstractFacade {
             const command = new GetAdopterAllInformationCommand(
                 this.controller
             );
+            await command.execute(req, res, next);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    async getAdopterLifestyle(req, res, next) {
+        try {
+            const command = new GetAdopterLifestyleCommand(this.controller);
+            await command.execute(req, res, next);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    async updateAdopterLifestyle(req, res, next) {
+        try {
+            const command = new UpdateAdopterLifestyleCommand(this.controller);
             await command.execute(req, res, next);
         } catch (error) {
             this.handleError(res, error);

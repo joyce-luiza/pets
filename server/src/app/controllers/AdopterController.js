@@ -10,6 +10,8 @@ import {
     UpdateAdopterAddressAdopterFactory,
     GetAdopterPreferencesFactory,
     UpdateAdopterPreferencesFactory,
+    GetAdopterLifestyleFactory,
+    UpdateAdopterLifestyleFactory,
     GetAdopterAllInformationFactory,
 } from "../../routes/Adopters/factories";
 import { Address, Adopter, AdopterComplement, File } from "../domains";
@@ -28,6 +30,8 @@ export default class AdopterController {
         this.getAdopterPreferences = this.getAdopterPreferences.bind(this);
         this.updateAdopterPreferences =
             this.updateAdopterPreferences.bind(this);
+        this.getAdopterLifestyle = this.getAdopterLifestyle.bind(this);
+        this.updateAdopterLifestyle = this.updateAdopterLifestyle.bind(this);
         this.getAdopterAllInformation =
             this.getAdopterAllInformation.bind(this);
     }
@@ -126,6 +130,21 @@ export default class AdopterController {
             preferences: req.body,
         });
         const factory = new UpdateAdopterPreferencesFactory();
+        const result = await factory.execute(domain, req.loggedUserInfo);
+        res.json(result);
+    }
+
+    async getAdopterLifestyle(req, res, next) {
+        const factory = new GetAdopterLifestyleFactory();
+        const result = await factory.execute(null, req.loggedUserInfo);
+        res.json(result);
+    }
+
+    async updateAdopterLifestyle(req, res, next) {
+        const domain = new AdopterComplement({
+            lifestyle: req.body,
+        });
+        const factory = new UpdateAdopterLifestyleFactory();
         const result = await factory.execute(domain, req.loggedUserInfo);
         res.json(result);
     }

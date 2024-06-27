@@ -9,6 +9,8 @@ import GetAdopterAddressAdopterFactory from "./GetAdopterAddressAdopterFactory";
 import UpdateAdopterAddressAdopterFactory from "./UpdateAdopterAddressAdopterFactory";
 import GetAdopterPreferencesFactory from "./GetAdopterPreferencesFactory";
 import UpdateAdopterPreferencesFactory from "./UpdateAdopterPreferencesFactory";
+import GetAdopterLifestyleFactory from "./GetAdopterLifestyleFactory";
+import UpdateAdopterLifestyleFactory from "./UpdateAdopterLifestyleFactory";
 import GetAdopterAllInformationFactory from "./GetAdopterAllInformationFactory";
 
 export {
@@ -23,5 +25,7 @@ export {
     UpdateAdopterAddressAdopterFactory,
     GetAdopterPreferencesFactory,
     UpdateAdopterPreferencesFactory,
+    GetAdopterLifestyleFactory,
+    UpdateAdopterLifestyleFactory,
     GetAdopterAllInformationFactory,
 };

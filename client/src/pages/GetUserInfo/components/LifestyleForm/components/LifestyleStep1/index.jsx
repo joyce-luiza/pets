@@ -4,6 +4,7 @@ import { Button, Form, Input, Select } from "antd";
 import { BRAZILIAN_STATES, RESIDENCE_TYPE } from "../../../../../../constants";
 import { axiosRequest } from "../../../../../../utils/axiosRequest";
 import MaskedInput from "../../../../../../components/MaskedInput";
+import { removeNonNumeric } from "../../../../../../utils/removeNonNumeric";
 
 export default function LifestyleStep1({
   title,
@@ -172,7 +173,9 @@ export default function LifestyleStep1({
             placeholder="_____-___"
             size="large"
             value={userAddress.cep}
-            onChange={(e) => handleUserAddress({ cep: e.target.value })}
+            onChange={(e) =>
+              handleUserAddress({ cep: removeNonNumeric(e.target.value) })
+            }
             data-cy="adopter-cep"
           />
 

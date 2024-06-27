@@ -93,8 +93,12 @@ export default function Header() {
                             {`Olá, ${user.firstName} `}
                         </Button>
 
-                        <Button type="link" onClick={logout}>
-                            Logout
+                        <Button
+                            type="link"
+                            onClick={logout}
+                            icon={<i className="ri-logout-box-line ri-xl"></i>}
+                        >
+                            Sair
                         </Button>
                     </>
                 ) : (

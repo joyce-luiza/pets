@@ -236,7 +236,6 @@ export default class AbstractRepository {
      * };
      *
      * const result = formatWhereCondition(conditions, columnsToFilter, 'AND');
-     * console.log(result);
      * // Output: { whereCondition: "WHERE a.name LIKE :name AND xyzColumn > :xyzColumn", replacements: { name: '%Bolt%', xyzColumn: 13 } }
      */
     formatWhereCondition(conditions, columns, combineWith = "AND") {
