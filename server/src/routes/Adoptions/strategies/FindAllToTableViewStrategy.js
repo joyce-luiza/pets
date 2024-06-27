@@ -16,12 +16,13 @@ export default class FindAllToTableViewStrategy extends AbstractStrategy {
     /**
      * @param {Pagination} data - Pagination filter object
      */
-    async execute(data, dto) {
+    async execute(data, dto, loggedUserInfo) {
         let result = [];
 
-        const adoptions = await this.adoptionRepository.findAllToTableView(
-            data
-        );
+        const adoptions = await this.adoptionRepository.findAllToTableView({
+            ...data,
+            conditions: { organizationId: loggedUserInfo.organizationId },
+        });
 
         if (adoptions.length) {
             result = adoptions.map((adoption) => new AdoptionAdapter(adoption));
