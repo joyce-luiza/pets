@@ -10,6 +10,7 @@ import GetAdoptionByAdopterIdStrategy from "./GetAdoptionByAdopterIdStrategy";
 import VerifyAdoptionInProgressStrategy from "./VerifyAdoptionInProgressStrategy";
 import SendNewAdoptionEmailStrategy from "./SendNewAdoptionEmailStrategy";
 import GetAdoptionAdopterStrategy from "./GetAdoptionAdopterStrategy";
+import VerifyAdoptionAnimalStrategy from "./VerifyAdoptionAnimalStrategy";
 export {
     CreateAdoptionStrategy,
     FindAllToTableViewStrategy,
@@ -23,4 +24,5 @@ export {
     VerifyAdoptionInProgressStrategy,
     SendNewAdoptionEmailStrategy,
     GetAdoptionAdopterStrategy,
+    VerifyAdoptionAnimalStrategy,
 };
